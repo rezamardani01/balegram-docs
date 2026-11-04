@@ -414,7 +414,8 @@ html[dir="ltr"] .pager { --ax: 6px; }
   .sidebar { position: fixed; inset-block: var(--header-h) 0; inset-inline-start: 0; z-index: 70; width: min(86vw, 330px); height: auto; background: var(--bg-elev); transform: translateX(var(--hide, 105%)); transition: transform 0.4s cubic-bezier(.2,.8,.2,1); box-shadow: var(--shadow-lg); }
   html[dir="ltr"] .sidebar { --hide: -105%; }
   body.nav-open .sidebar { transform: none; }
-  body.nav-open::after { content: ""; position: fixed; inset: var(--header-h) 0 0; background: rgba(5, 10, 25, 0.5); z-index: 65; animation: fade 0.3s; }
+  body.nav-open::after { content: ""; position: fixed; inset: var(--header-h) 0 0; background: rgba(5, 10, 25, 0.38); z-index: 65; animation: fade 0.3s; }
+  body.nav-open .sidebar { display: block !important; }
   .search-btn { min-width: 0; } .search-btn span, .search-btn kbd { display: none; }
   .hero-in, .try { grid-template-columns: 1fr; }
   .stats { grid-template-columns: repeat(2, 1fr); margin-block-start: -20px; }

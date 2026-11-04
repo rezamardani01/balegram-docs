@@ -10,7 +10,7 @@ lead: In this lesson we install baleropy, get a token and run your first bot in 
 
 ## 1. Install
 
-Create a virtual environment per project:
+Create a virtual environment for each project to keep its dependencies separate:
 
 ```bash
 python -m venv .venv

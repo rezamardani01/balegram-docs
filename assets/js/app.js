@@ -7,7 +7,7 @@
   const UI = {
     fa: {
       search: "جستجو در مستندات...", searchBtn: "جستجو", menu: "منو", toc: "در این صفحه", prev: "قبلی", next: "بعدی",
-      notFound: "این صفحه پیدا نشد", notFoundText: "آدرس را بررسی کنید یا از منوی کناری صفحه‌ی مورد نظر را انتخاب کنید.", home: "بازگشت به خانه",
+      notFound: "این صفحه پیدا نشد", notFoundText: "آدرس را بررسی کنید یا صفحه را از منو انتخاب کنید.", home: "بازگشت به خانه",
       copy: "کپی", copied: "کپی شد ✓", noResult: "نتیجه‌ای پیدا نشد", untranslated: "این صفحه هنوز به فارسی ترجمه نشده و نسخه‌ی انگلیسی نمایش داده می‌شود.",
       theme: "تغییر تم", top: "رفتن به بالا", footer: "ساخته‌شده با ❤️ برای جامعه‌ی توسعه‌دهندگان بله · مستندات baleropy", docs: "مستندات",
       langName: "English", langFlag: "EN", hint: "برای جستجو", edit: "ویرایش در گیت‌هاب",
@@ -107,6 +107,7 @@
     if (!h.lang) { history.replaceState(null, "", `#/${lang}${h.path ? "/" + h.path : ""}`); }
     current = { path: h.path, s: h.s };
     document.body.classList.remove("nav-open");
+    $("#menu-btn").setAttribute("aria-expanded", "false");
     const layout = $("#layout"), main = $("#main");
 
     const old = $(".page", main);
@@ -265,7 +266,18 @@
       setLang(next); buildNav();
       go(current.path, next);
     };
-    $("#menu-btn").onclick = () => document.body.classList.toggle("nav-open");
+    $("#menu-btn").onclick = () => {
+      const sidebar = $("#sidebar");
+      sidebar.style.display = "";
+      const isOpen = document.body.classList.toggle("nav-open");
+      $("#menu-btn").setAttribute("aria-expanded", String(isOpen));
+    };
+    document.addEventListener("click", (e) => {
+      if (!document.body.classList.contains("nav-open")) return;
+      if (e.target.closest("#sidebar, #menu-btn")) return;
+      document.body.classList.remove("nav-open");
+      $("#menu-btn").setAttribute("aria-expanded", "false");
+    });
     $("#search-btn").onclick = openSearch;
     $("#search-modal").addEventListener("click", (e) => { if (e.target.id === "search-modal") closeSearch(); });
     $("#search-input").addEventListener("input", (e) => showResults(e.target.value));
