@@ -1,6 +1,6 @@
 ---
 title: Keyboards & colored buttons
-lead: Inline buttons under a message, reply keyboards and green, red and blue colored buttons; with simple builders.
+lead: Create inline and reply buttons with explicit nested rows and a simple Telethon-style API.
 ---
 
 ## Two kinds of keyboards
@@ -13,18 +13,17 @@ lead: Inline buttons under a message, reply keyboards and green, red and blue co
 ## An inline button
 
 ```python
-from baleropy import F
+from baleropy import Button, F
 from baleropy.filters import Command
 from baleropy.types import CallbackQuery, Message
-from baleropy.utils import InlineKeyboardBuilder
 
 
 @dp.message(Command("menu"))
 async def menu(message: Message):
-    kb = InlineKeyboardBuilder()
-    kb.button(text="👍 Like", callback_data="like")
-    kb.button(text="🌐 Website", url="https://ble.ir")
-    await message.answer("What do you think?", reply_markup=kb.as_markup())
+    buttons = [
+        [Button.inline("👍 Like", "like"), Button.url("🌐 Website", "https://ble.ir")],
+    ]
+    await message.answer("What do you think?", buttons=buttons)
 
 
 @dp.callback_query(F.data == "like")
@@ -32,45 +31,32 @@ async def like(query: CallbackQuery):
     await query.answer("Thanks ❤️")
 ```
 
-Each button has **only one** of: `callback_data`, `url`, `web_app` or `copy_text`.
+Use `Button.inline` for callback buttons and `Button.url` for links. Each inline button has one action:
+send `callback_data`, open a `url` or `web_app`, or copy `copy_text`.
 
-| `button()` parameter | What it does |
+| Factory | Use |
 |---|---|
-| `text` | the label on the button |
-| `callback_data` | a 1 to 64 byte string (or a [CallbackData](/guide/callback-data) object) |
-| `url` | open a link |
-| `web_app` | open a mini app (HTTPS address) |
-| `copy_text` | copy text to the user's clipboard (1 to 256 characters) |
-| `style` | the button color; see below |
+| `Button.inline(text, data)` | callback button; `data` can be a string or [CallbackData](/guide/callback-data) object |
+| `Button.url(text, url)` | link button |
+| `Button.web_app(text, url)` | mini-app button |
+| `Button.copy_text(text, value)` | copy text |
+| `Button.text(text, ...)` | reply-keyboard button |
+| `style=` | button color; see the colored-buttons section |
 
-## Layout: adjust, row, add
+## Arrange rows
 
-`button()` appends buttons one after another; `adjust` sets the layout:
+Pass nested lists to define rows; each inner list is one row. A flat list creates a single row:
 
 ```python
-kb = InlineKeyboardBuilder()
-for i in range(1, 8):
-    kb.button(text=str(i), callback_data=f"n:{i}")
-
-kb.adjust(3, 2)                  # first row 3 buttons, second 2, the rest 2 each
-kb.adjust(3, 2, repeat=True)     # repeat the pattern: 3,2,3,2,...
+buttons = [
+    [Button.inline("Yes", "yes"), Button.inline("No", "no")],  # row 1: 2 buttons
+    [Button.inline("Later", "later")],                        # row 2: 1 button
+]
+await message.answer("Choose:", buttons=buttons)
 ```
 
-```text
-adjust(3, 2):          [1][2][3]
-                       [4][5]
-                       [6][7]
-```
-
-| Method | What it does |
-|---|---|
-| `adjust(*sizes, repeat=False)` | re-flow all buttons |
-| `row(*buttons, width=8)` | a new row from ready-made buttons |
-| `add(*buttons)` | append to the last row |
-| `attach(other_builder)` | append the rows of another builder |
-| `copy()` | an independent copy |
-| `from_markup(markup)` | start from an existing keyboard (e.g. `message.reply_markup`) |
-| `as_markup()` | build the final keyboard for `reply_markup` |
+For dynamically generated buttons, `InlineKeyboardBuilder` and `ReplyKeyboardBuilder` remain available; use `adjust(1)` to put one button on each row. Builders continue to work with `reply_markup=builder.as_markup()`.
+Both approaches work with `message.answer()`, `message.reply()`, and `bot.send_message()`; do not pass `buttons` and `reply_markup` together.
 
 ::: note Limits
 At most 8 buttons per row and 100 in total. More raises `ValueError`.
@@ -88,6 +74,7 @@ Bale added colored buttons in its beta. You set the color with the `style` param
 | *(no style)* | the normal look |
 
 ```python
+from baleropy.utils import InlineKeyboardBuilder
 from baleropy.types import ButtonStyle
 
 kb = InlineKeyboardBuilder()
@@ -115,18 +102,18 @@ Green for confirmation and positive actions, red for deletion and dangerous acti
 ## Reply keyboards
 
 ```python
+from baleropy import Button
 from baleropy.types import ReplyKeyboardRemove
-from baleropy.utils import ReplyKeyboardBuilder
 
 
 @dp.message(Command("share"))
 async def share(message: Message):
-    kb = ReplyKeyboardBuilder()
-    kb.button(text="📞 Send my number", request_contact=True)
-    kb.button(text="📍 Send my location", request_location=True)
-    kb.button(text="❌ Close")
-    kb.adjust(2, 1)
-    await message.answer("Choose one:", reply_markup=kb.as_markup())
+    buttons = [
+        [Button.text("📞 Send my number", request_contact=True)],
+        [Button.text("📍 Send my location", request_location=True)],
+        [Button.text("❌ Close")],
+    ]
+    await message.answer("Choose one:", buttons=buttons)
 
 
 @dp.message(F.text == "❌ Close")
@@ -144,7 +131,7 @@ async def got_location(message: Message):
     await message.answer(f"📍 {message.location.latitude}, {message.location.longitude}")
 ```
 
-| `ReplyKeyboardBuilder.button()` parameter | What it does |
+| `Button.text()` option | What it does |
 |---|---|
 | `text` | the label (sent as the message when tapped) |
 | `request_contact=True` | ask for the user's contact |
@@ -208,6 +195,8 @@ async def noop(query: CallbackQuery):
 ## Summary
 
 - Inline under the message (callback), reply in place of the keyboard (text).
+- Use `Button.inline(...)` for inline buttons and `Button.text(...)` for reply keyboards.
+- Each inner list in `buttons=[...]` is one row.
 - `InlineKeyboardBuilder().button(...).adjust(...).as_markup()`.
 - `style="success" | "danger" | "primary"` for color.
 - Next: [CallbackData](/guide/callback-data).

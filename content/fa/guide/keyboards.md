@@ -1,6 +1,6 @@
 ---
 title: کیبورد و دکمه رنگی
-lead: دکمه‌های inline زیر پیام، کیبورد پاسخ (reply) و دکمه‌های رنگی سبز، قرمز و آبی؛ با سازنده‌های ساده.
+lead: ساخت دکمه‌های inline و reply با ردیف‌های تو‌در‌تو و API ساده‌ی شبیه Telethon.
 ---
 
 ## دو نوع کیبورد
@@ -13,18 +13,17 @@ lead: دکمه‌های inline زیر پیام، کیبورد پاسخ (reply) �
 ## دکمه‌ی inline
 
 ```python
-from baleropy import F
+from baleropy import Button, F
 from baleropy.filters import Command
 from baleropy.types import CallbackQuery, Message
-from baleropy.utils import InlineKeyboardBuilder
 
 
 @dp.message(Command("menu"))
 async def menu(message: Message):
-    kb = InlineKeyboardBuilder()
-    kb.button(text="👍 پسندیدم", callback_data="like")
-    kb.button(text="🌐 سایت", url="https://ble.ir")
-    await message.answer("نظرت چیه؟", reply_markup=kb.as_markup())
+    buttons = [
+        [Button.inline("👍 پسندیدم", "like"), Button.url("🌐 سایت", "https://ble.ir")],
+    ]
+    await message.answer("نظرت چیه؟", buttons=buttons)
 
 
 @dp.callback_query(F.data == "like")
@@ -32,45 +31,32 @@ async def like(query: CallbackQuery):
     await query.answer("ممنون ❤️")
 ```
 
-هر دکمه **فقط یکی** از این‌ها را دارد: `callback_data`، `url`، `web_app` یا `copy_text`.
+`Button.inline` برای callback و `Button.url` برای باز کردن لینک است. هر دکمه‌ی inline یک کار انجام می‌دهد:
+ارسال `callback_data`، باز کردن `url` یا `web_app`، یا کپی `copy_text`.
 
-| پارامتر `button()` | کار |
+| سازنده | کاربرد |
 |---|---|
-| `text` | متن روی دکمه |
-| `callback_data` | رشته‌ی ۱ تا ۶۴ بایت (یا شیء [CallbackData](/guide/callback-data)) |
-| `url` | باز کردن لینک |
-| `web_app` | باز کردن مینی‌اپ (آدرس HTTPS) |
-| `copy_text` | کپی متن داخل کلیپ‌بورد کاربر (۱ تا ۲۵۶ نویسه) |
-| `style` | رنگ دکمه؛ پایین‌تر |
+| `Button.inline(text, data)` | دکمه‌ی callback؛ `data` می‌تواند رشته یا شیء [CallbackData](/guide/callback-data) باشد |
+| `Button.url(text, url)` | دکمه‌ی لینک |
+| `Button.web_app(text, url)` | دکمه‌ی مینی‌اپ |
+| `Button.copy_text(text, value)` | کپی متن |
+| `Button.text(text, ...)` | دکمه‌ی کیبورد reply |
+| `style=` | رنگ دکمه؛ برای نمونه بخش دکمه‌های رنگی را ببینید |
 
-## چیدمان: adjust، row، add
+## چیدمان ردیف‌ها
 
-`button()` دکمه‌ها را پشت‌سرهم اضافه می‌کند؛ با `adjust` چیدمان را می‌دهید:
+چیدمان را با فهرست‌های تو‌در‌تو مشخص کنید؛ هر فهرست داخلی یک ردیف است. فهرست ساده هم یک ردیف می‌سازد:
 
 ```python
-kb = InlineKeyboardBuilder()
-for i in range(1, 8):
-    kb.button(text=str(i), callback_data=f"n:{i}")
-
-kb.adjust(3, 2)                  # ردیف اول ۳ دکمه، دوم ۲ دکمه، بقیه ۲تایی
-kb.adjust(3, 2, repeat=True)     # الگو را تکرار کن: ۳،۲،۳،۲،...
+buttons = [
+    [Button.inline("بله", "yes"), Button.inline("نه", "no")],  # ردیف اول: ۲ دکمه
+    [Button.inline("بعداً", "later")],                        # ردیف دوم: ۱ دکمه
+]
+await message.answer("انتخاب کن:", buttons=buttons)
 ```
 
-```text
-adjust(3, 2):          [1][2][3]
-                       [4][5]
-                       [6][7]
-```
-
-| متد | کار |
-|---|---|
-| `adjust(*sizes, repeat=False)` | چیدمان مجدد همه‌ی دکمه‌ها |
-| `row(*buttons, width=8)` | یک ردیف جدید از دکمه‌های آماده |
-| `add(*buttons)` | افزودن به ردیف آخر |
-| `attach(other_builder)` | چسباندن ردیف‌های یک سازنده‌ی دیگر |
-| `copy()` | یک کپی مستقل |
-| `from_markup(markup)` | شروع از کیبورد موجود (مثلاً `message.reply_markup`) |
-| `as_markup()` | ساخت کیبورد نهایی برای `reply_markup` |
+برای تولید پویای دکمه‌ها، `InlineKeyboardBuilder` و `ReplyKeyboardBuilder` هم در دسترس‌اند؛ با `adjust(1)` می‌توانید هر دکمه را در یک ردیف بگذارید. این سازنده‌ها همچنان با `reply_markup=builder.as_markup()` استفاده می‌شوند.
+هر دو روش در `message.answer()`، `message.reply()` و `bot.send_message()` قابل استفاده‌اند؛ `buttons` و `reply_markup` را هم‌زمان ندهید.
 
 ::: note محدودیت‌ها
 حداکثر ۸ دکمه در هر ردیف و ۱۰۰ دکمه در کل. بیشتر از آن `ValueError` می‌دهد.
@@ -88,6 +74,7 @@ adjust(3, 2):          [1][2][3]
 | *(بدون style)* | ظاهر معمولی |
 
 ```python
+from baleropy.utils import InlineKeyboardBuilder
 from baleropy.types import ButtonStyle
 
 kb = InlineKeyboardBuilder()
@@ -115,18 +102,18 @@ await message.answer("انتخاب کن:", reply_markup=kb.as_markup())
 ## کیبورد reply
 
 ```python
+from baleropy import Button
 from baleropy.types import ReplyKeyboardRemove
-from baleropy.utils import ReplyKeyboardBuilder
 
 
 @dp.message(Command("share"))
 async def share(message: Message):
-    kb = ReplyKeyboardBuilder()
-    kb.button(text="📞 ارسال شماره‌ام", request_contact=True)
-    kb.button(text="📍 ارسال موقعیتم", request_location=True)
-    kb.button(text="❌ بستن")
-    kb.adjust(2, 1)
-    await message.answer("یکی را انتخاب کن:", reply_markup=kb.as_markup())
+    buttons = [
+        [Button.text("📞 ارسال شماره‌ام", request_contact=True)],
+        [Button.text("📍 ارسال موقعیتم", request_location=True)],
+        [Button.text("❌ بستن")],
+    ]
+    await message.answer("یکی را انتخاب کن:", buttons=buttons)
 
 
 @dp.message(F.text == "❌ بستن")
@@ -144,7 +131,7 @@ async def got_location(message: Message):
     await message.answer(f"📍 {message.location.latitude}, {message.location.longitude}")
 ```
 
-| پارامتر `ReplyKeyboardBuilder.button()` | کار |
+| گزینه‌ی `Button.text()` | کار |
 |---|---|
 | `text` | متن دکمه (وقتی بزنی، همین متن فرستاده می‌شود) |
 | `request_contact=True` | درخواست شماره‌ی تماس کاربر |
@@ -208,6 +195,8 @@ async def noop(query: CallbackQuery):
 ## خلاصه
 
 - inline زیر پیام (callback)، reply جای کیبورد (متن).
+- `Button.inline(...)` برای دکمه inline و `Button.text(...)` برای کیبورد reply.
+- هر فهرست داخلی در `buttons=[...]` یک ردیف است.
 - `InlineKeyboardBuilder().button(...).adjust(...).as_markup()`.
 - `style="success" | "danger" | "primary"` برای رنگ.
 - بعدی: [CallbackData](/guide/callback-data).
