@@ -169,6 +169,12 @@
       return `<div class="cards">${cards.join("")}</div>`;
     }
     if (kind === "widget") return `<div data-widget="${title}"></div>`;
+    if (kind === "method") return `<section class="method-card reveal">${block(buf, ctx, toc)}</section>`;
+    if (kind === "head") {
+      const [api, ret] = title.split("|").map((s) => s.trim());
+      return `<div class="method-head"><span class="pill">${esc(api)}</span>${ret ? `<span class="ret">→ ${esc(ret)}</span>` : ""}</div>`;
+    }
+    if (kind === "sig") return `<div class="sig">${esc(buf.join("\n"))}</div>`;
     return block(buf, ctx, toc);
   }
 
