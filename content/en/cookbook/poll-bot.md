@@ -16,10 +16,9 @@ import asyncio
 from collections import Counter
 from dataclasses import dataclass, field
 
-from baleropy import Bot, Dispatcher
+from baleropy import Bot, Button, Dispatcher
 from baleropy.filters import CallbackData, Command, CommandObject
 from baleropy.types import CallbackQuery, Message
-from baleropy.utils import InlineKeyboardBuilder
 
 TOKEN = "YOUR_BOT_TOKEN"
 dp = Dispatcher()
@@ -42,12 +41,15 @@ class VoteCb(CallbackData, prefix="vote"):
 def keyboard(poll: Poll):
     counts = Counter(poll.votes.values())
     total = len(poll.votes) or 1
-    kb = InlineKeyboardBuilder()
+    buttons = []
     for i, option in enumerate(poll.options):
         percent = round(counts[i] * 100 / total)
-        kb.button(text=f"{option} — {counts[i]} ({percent}%)", callback_data=VoteCb(option=i), style="primary")
-    kb.adjust(1)
-    return kb.as_markup()
+        buttons.append([
+            Button.inline(
+                f"{option} — {counts[i]} ({percent}%)", VoteCb(option=i), style="primary"
+            )
+        ])
+    return buttons
 
 
 @dp.message(Command("poll"))
@@ -57,7 +59,7 @@ async def create(message: Message, command: CommandObject):
         await message.reply("Example:\n/poll Best season? | Spring | Summer | Autumn")
         return
     poll = Poll(title=parts[0], options=parts[1:9])           # at most 8 options
-    sent = await message.answer(f"📊 {poll.title}", reply_markup=keyboard(poll))
+    sent = await message.answer(f"📊 {poll.title}", buttons=keyboard(poll))
     POLLS[(message.chat.id, sent.message_id)] = poll
 
 
@@ -75,7 +77,7 @@ async def vote(query: CallbackQuery, callback_data: VoteCb):
         return
 
     poll.votes[query.from_user.id] = callback_data.option
-    await query.message.edit_reply_markup(keyboard(poll))     # only the buttons change
+    await query.message.edit_reply_markup(buttons=keyboard(poll))  # only the buttons change
     await query.answer("Vote saved ✅" if previous is None else "Vote changed 🔄")
 
 

@@ -18,10 +18,9 @@ Concepts: the [`IsMember`](/reference/filters-ref) filter, [middlewares](/guide/
 ```python title="members_only.py"
 import asyncio
 
-from baleropy import Bot, Dispatcher, F, Router
+from baleropy import Bot, Button, Dispatcher, F, Router
 from baleropy.filters import CommandStart, IsMember
 from baleropy.types import CallbackQuery, Message
-from baleropy.utils import InlineKeyboardBuilder
 
 TOKEN = "YOUR_BOT_TOKEN"
 CHANNELS = ["@my_channel"]                      # or a numeric id
@@ -31,10 +30,10 @@ public = Router(name="public")                  # the rest: "join first"
 
 
 def join_markup():
-    kb = InlineKeyboardBuilder()
-    kb.button(text="📢 Join the channel", url="https://ble.ir/my_channel", style="primary")
-    kb.button(text="✅ I joined, check", callback_data="check", style="success")
-    return kb.adjust(1).as_markup()
+    return [
+        [Button.url("📢 Join the channel", "https://ble.ir/my_channel", style="primary")],
+        [Button.inline("✅ I joined, check", "check", style="success")],
+    ]
 
 
 # ── members: the bot works ─────────────────────────────────────────────────────
@@ -51,7 +50,7 @@ async def main_feature(message: Message):
 # ── non-members: invite to join ────────────────────────────────────────────────
 @public.message()
 async def ask_to_join(message: Message):
-    await message.answer("Join our channel first to use the bot 👇", reply_markup=join_markup())
+    await message.answer("Join our channel first to use the bot 👇", buttons=join_markup())
 
 
 @public.callback_query(F.data == "check", IsMember(*CHANNELS))

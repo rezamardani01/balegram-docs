@@ -16,11 +16,10 @@ lead: یک مسابقه‌ی چندسؤالی با دکمه‌های رنگی، 
 ```python title="quiz_bot.py"
 import asyncio
 
-from baleropy import Bot, Dispatcher, F
+from baleropy import Bot, Button, Dispatcher, F
 from baleropy.filters import CallbackData, Command, StateFilter
 from baleropy.fsm import FSMContext, State, StatesGroup
 from baleropy.types import CallbackQuery, Message
-from baleropy.utils import InlineKeyboardBuilder
 
 TOKEN = "YOUR_BOT_TOKEN"
 
@@ -47,19 +46,19 @@ class AnswerCb(CallbackData, prefix="ans"):
 
 def question_view(index: int):
     text, options, _ = QUESTIONS[index]
-    kb = InlineKeyboardBuilder()
-    for i, option in enumerate(options):
-        kb.button(text=option, callback_data=AnswerCb(q=index, a=i), style="primary")
-    kb.adjust(1)
-    return f"❓ سؤال {index + 1} از {len(QUESTIONS)}\n\n{text}", kb.as_markup()
+    buttons = [
+        [Button.inline(option, AnswerCb(q=index, a=i), style="primary")]
+        for i, option in enumerate(options)
+    ]
+    return f"❓ سؤال {index + 1} از {len(QUESTIONS)}\n\n{text}", buttons
 
 
 @dp.message(Command("start", "quiz"))
 async def start_quiz(message: Message, state: FSMContext):
     await state.set_state(QuizState.active)
     await state.update_data(index=0, score=0)
-    text, markup = question_view(0)
-    await message.answer(text, reply_markup=markup)
+    text, buttons = question_view(0)
+    await message.answer(text, buttons=buttons)
 
 
 @dp.callback_query(AnswerCb.filter(), StateFilter(QuizState.active))
@@ -77,15 +76,15 @@ async def answer(query: CallbackQuery, callback_data: AnswerCb, state: FSMContex
 
     if next_index >= len(QUESTIONS):                         # پایان
         await state.clear()
-        again = InlineKeyboardBuilder().button(text="🔁 دوباره", callback_data="again", style="success")
+        buttons = [[Button.inline("🔁 دوباره", "again", style="success")]]
         await query.message.edit_text(
             f"{verdict}\n\n🏁 تمام شد! امتیاز شما: {score} از {len(QUESTIONS)}",
-            reply_markup=again.as_markup(),
+            buttons=buttons,
         )
     else:
         await state.update_data(index=next_index, score=score)
-        text, markup = question_view(next_index)
-        await query.message.edit_text(f"{verdict}\n\n{text}", reply_markup=markup)
+        text, buttons = question_view(next_index)
+        await query.message.edit_text(f"{verdict}\n\n{text}", buttons=buttons)
     await query.answer()
 
 
@@ -93,8 +92,8 @@ async def answer(query: CallbackQuery, callback_data: AnswerCb, state: FSMContex
 async def again(query: CallbackQuery, state: FSMContext):
     await state.set_state(QuizState.active)
     await state.update_data(index=0, score=0)
-    text, markup = question_view(0)
-    await query.message.edit_text(text, reply_markup=markup)
+    text, buttons = question_view(0)
+    await query.message.edit_text(text, buttons=buttons)
     await query.answer()
 
 

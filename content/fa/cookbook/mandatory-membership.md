@@ -18,10 +18,9 @@ lead: استفاده از ربات را مشروط به عضویت در کانا
 ```python title="members_only.py"
 import asyncio
 
-from baleropy import Bot, Dispatcher, F, Router
+from baleropy import Bot, Button, Dispatcher, F, Router
 from baleropy.filters import CommandStart, IsMember
 from baleropy.types import CallbackQuery, Message
-from baleropy.utils import InlineKeyboardBuilder
 
 TOKEN = "YOUR_BOT_TOKEN"
 CHANNELS = ["@my_channel"]                      # یا شناسه‌ی عددی
@@ -31,10 +30,10 @@ public = Router(name="public")                  # بقیه: «اول عضو شو
 
 
 def join_markup():
-    kb = InlineKeyboardBuilder()
-    kb.button(text="📢 عضویت در کانال", url="https://ble.ir/my_channel", style="primary")
-    kb.button(text="✅ عضو شدم، بررسی کن", callback_data="check", style="success")
-    return kb.adjust(1).as_markup()
+    return [
+        [Button.url("📢 عضویت در کانال", "https://ble.ir/my_channel", style="primary")],
+        [Button.inline("✅ عضو شدم، بررسی کن", "check", style="success")],
+    ]
 
 
 # ── اعضا: ربات کار می‌کند ─────────────────────────────────────────────────────
@@ -51,7 +50,7 @@ async def main_feature(message: Message):
 # ── غیرعضو: دعوت به عضویت ────────────────────────────────────────────────────
 @public.message()
 async def ask_to_join(message: Message):
-    await message.answer("برای استفاده از ربات ابتدا عضو کانال ما شوید 👇", reply_markup=join_markup())
+    await message.answer("برای استفاده از ربات ابتدا عضو کانال ما شوید 👇", buttons=join_markup())
 
 
 @public.callback_query(F.data == "check", IsMember(*CHANNELS))

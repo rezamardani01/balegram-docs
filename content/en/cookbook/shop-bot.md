@@ -25,11 +25,10 @@ The code works with the test token `WALLET-TEST-1111111111111111`; no real money
 import asyncio
 import uuid
 
-from baleropy import Bot, Dispatcher, F
+from baleropy import Bot, Button, Dispatcher, F
 from baleropy.filters import CallbackData, Command
 from baleropy.fsm import FSMContext
 from baleropy.types import CallbackQuery, LabeledPrice, Message, PreCheckoutQuery
-from baleropy.utils import InlineKeyboardBuilder
 
 TOKEN = "YOUR_BOT_TOKEN"
 PROVIDER_TOKEN = "WALLET-TEST-1111111111111111"
@@ -58,17 +57,17 @@ def money(rial: int) -> str:
 
 
 def catalog_markup(cart: dict[int, int]):
-    kb = InlineKeyboardBuilder()
+    buttons = []
     for pid, (name, price) in PRODUCTS.items():
         count = cart.get(pid, 0)
         label = f"{name} — {money(price)}" + (f"  ×{count}" if count else "")
-        kb.button(text=label, callback_data=ProductCb(id=pid))
-    kb.adjust(1)
+        buttons.append([Button.inline(label, ProductCb(id=pid))])
     if cart:
-        kb.button(text="🧾 Pay", callback_data=CartCb(action="pay"), style="success")
-        kb.button(text="🗑 Empty the cart", callback_data=CartCb(action="clear"), style="danger")
-        kb.adjust(1, 1, 1, 2)
-    return kb.as_markup()
+        buttons.append([
+            Button.inline("🧾 Pay", CartCb(action="pay"), style="success"),
+            Button.inline("🗑 Empty the cart", CartCb(action="clear"), style="danger"),
+        ])
+    return buttons
 
 
 def cart_total(cart: dict[int, int]) -> int:
@@ -78,7 +77,7 @@ def cart_total(cart: dict[int, int]) -> int:
 @dp.message(Command("shop"))
 async def shop(message: Message, state: FSMContext):
     await state.update_data(cart={})
-    await message.answer("🛍 Shop — choose a product:", reply_markup=catalog_markup({}))
+    await message.answer("🛍 Shop — choose a product:", buttons=catalog_markup({}))
 
 
 @dp.callback_query(ProductCb.filter())
@@ -88,7 +87,7 @@ async def add_to_cart(query: CallbackQuery, callback_data: ProductCb, state: FSM
     cart[callback_data.id] = cart.get(callback_data.id, 0) + 1
     await state.update_data(cart=cart)
     await query.message.edit_text(
-        f"🛒 Cart: {money(cart_total(cart))}", reply_markup=catalog_markup(cart)
+        f"🛒 Cart: {money(cart_total(cart))}", buttons=catalog_markup(cart)
     )
     await query.answer("Added ✅")
 
@@ -96,7 +95,7 @@ async def add_to_cart(query: CallbackQuery, callback_data: ProductCb, state: FSM
 @dp.callback_query(CartCb.filter(F.action == "clear"))
 async def clear_cart(query: CallbackQuery, state: FSMContext):
     await state.update_data(cart={})
-    await query.message.edit_text("The cart is empty.", reply_markup=catalog_markup({}))
+    await query.message.edit_text("The cart is empty.", buttons=catalog_markup({}))
     await query.answer()
 
 

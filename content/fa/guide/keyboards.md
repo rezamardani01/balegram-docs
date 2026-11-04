@@ -55,8 +55,7 @@ buttons = [
 await message.answer("انتخاب کن:", buttons=buttons)
 ```
 
-برای تولید پویای دکمه‌ها، `InlineKeyboardBuilder` و `ReplyKeyboardBuilder` هم در دسترس‌اند؛ با `adjust(1)` می‌توانید هر دکمه را در یک ردیف بگذارید. این سازنده‌ها همچنان با `reply_markup=builder.as_markup()` استفاده می‌شوند.
-هر دو روش در `message.answer()`، `message.reply()` و `bot.send_message()` قابل استفاده‌اند؛ `buttons` و `reply_markup` را هم‌زمان ندهید.
+برای هر دو نوع کیبورد، چیدمان را همین‌جا با ردیف‌های تو‌در‌تو تعیین می‌کنید؛ نیازی به `adjust()` یا سازنده‌ی جداگانه نیست. این روش در `message.answer()`، `message.reply()` و `bot.send_message()` کار می‌کند. سازنده‌های قدیمی هم همچنان پشتیبانی می‌شوند. `buttons` و `reply_markup` را هم‌زمان ندهید.
 
 ::: note محدودیت‌ها
 حداکثر ۸ دکمه در هر ردیف و ۱۰۰ دکمه در کل. بیشتر از آن `ValueError` می‌دهد.
@@ -74,16 +73,20 @@ await message.answer("انتخاب کن:", buttons=buttons)
 | *(بدون style)* | ظاهر معمولی |
 
 ```python
-from baleropy.utils import InlineKeyboardBuilder
+from baleropy import Button
 from baleropy.types import ButtonStyle
 
-kb = InlineKeyboardBuilder()
-kb.button(text="تایید ✅", callback_data="ok",   style=ButtonStyle.SUCCESS)
-kb.button(text="حذف 🗑",  callback_data="del",  style=ButtonStyle.DANGER)
-kb.button(text="ادامه",   callback_data="next", style="primary")      # رشته هم می‌شود
-kb.button(text="معمولی",  callback_data="plain")
-kb.adjust(2, 2)
-await message.answer("انتخاب کن:", reply_markup=kb.as_markup())
+buttons = [
+    [
+        Button.inline("تایید ✅", "ok", style=ButtonStyle.SUCCESS),
+        Button.inline("حذف 🗑", "del", style=ButtonStyle.DANGER),
+    ],
+    [
+        Button.inline("ادامه", "next", style="primary"),
+        Button.inline("معمولی", "plain"),
+    ],
+]
+await message.answer("انتخاب کن:", buttons=buttons)
 ```
 
 روی دکمه‌های زیر بزنید تا حس کنید (دموی شبیه‌ساز):
@@ -141,18 +144,20 @@ async def got_location(message: Message):
 
 ## ویرایش دکمه‌ها بعد از ارسال
 
-با `edit_reply_markup` فقط کیبورد را عوض کنید (مثلاً شمارنده‌ی نظرسنجی):
+متدهای `edit_text`، `edit_caption` و `edit_reply_markup` هم `buttons=` می‌گیرند؛ برای ویرایش فقط از دکمه‌های inline استفاده کنید. با `edit_reply_markup` فقط کیبورد را عوض کنید (مثلاً شمارنده‌ی نظرسنجی):
 
 ```python
+from baleropy import Button
+
 @dp.callback_query(F.data == "vote")
 async def vote(query: CallbackQuery):
     counts["yes"] += 1
-    kb = InlineKeyboardBuilder().button(text=f"👍 ({counts['yes']})", callback_data="vote")
-    await query.message.edit_reply_markup(kb.as_markup())
+    buttons = [[Button.inline(f"👍 ({counts['yes']})", "vote")]]
+    await query.message.edit_reply_markup(buttons=buttons)
     await query.answer("رأی ثبت شد")
 ```
 
-یا متن و کیبورد را هم‌زمان: `await query.message.edit_text("متن جدید", reply_markup=kb.as_markup())`.
+یا متن و کیبورد را هم‌زمان: `await query.message.edit_text("متن جدید", buttons=buttons)`.
 
 ::: tip خطای «پیام تغییری نکرده»
 اگر متن و کیبورد جدید دقیقاً با قبلی یکسان باشد، بله `400 Bad Request` می‌دهد. با `try/except BaleBadRequest` نادیده‌اش بگیرید.
@@ -161,29 +166,36 @@ async def vote(query: CallbackQuery):
 ## کپی متن با یک ضربه
 
 ```python
-kb.button(text="کپی کد تخفیف", copy_text="OFF2025")
+from baleropy import Button
+
+await message.answer(
+    "برای کپی کد بزنید:",
+    buttons=[[Button.copy_text("کپی کد تخفیف", "OFF2025")]],
+)
 ```
 
 ## مثال کامل: شمارنده‌ی رنگی
 
 ```python
+from baleropy import Button
+
 def counter_kb(n: int):
-    kb = InlineKeyboardBuilder()
-    kb.button(text="➖", callback_data=f"c:{n - 1}", style="danger")
-    kb.button(text=str(n), callback_data="noop")
-    kb.button(text="➕", callback_data=f"c:{n + 1}", style="success")
-    return kb.as_markup()
+    return [
+        [Button.inline("➖", f"c:{n - 1}", style="danger")],
+        [Button.inline(str(n), "noop")],
+        [Button.inline("➕", f"c:{n + 1}", style="success")],
+    ]
 
 
 @dp.message(Command("counter"))
 async def counter(message: Message):
-    await message.answer("شمارنده", reply_markup=counter_kb(0))
+    await message.answer("شمارنده", buttons=counter_kb(0))
 
 
 @dp.callback_query(F.data.startswith("c:"))
 async def change(query: CallbackQuery):
     n = int(query.data.split(":")[1])
-    await query.message.edit_reply_markup(counter_kb(n))
+    await query.message.edit_reply_markup(buttons=counter_kb(n))
     await query.answer()
 
 
@@ -197,6 +209,6 @@ async def noop(query: CallbackQuery):
 - inline زیر پیام (callback)، reply جای کیبورد (متن).
 - `Button.inline(...)` برای دکمه inline و `Button.text(...)` برای کیبورد reply.
 - هر فهرست داخلی در `buttons=[...]` یک ردیف است.
-- `InlineKeyboardBuilder().button(...).adjust(...).as_markup()`.
+- ردیف‌ها را با `buttons=[[Button.inline(...)], [...]]` مشخص کنید؛ برای reply از `Button.text(...)` استفاده کنید.
 - `style="success" | "danger" | "primary"` برای رنگ.
 - بعدی: [CallbackData](/guide/callback-data).

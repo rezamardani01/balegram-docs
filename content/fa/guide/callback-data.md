@@ -35,12 +35,12 @@ class ItemCb(CallbackData, prefix="item"):
 ### ساخت دکمه
 
 ```python
-from baleropy.utils import InlineKeyboardBuilder
+from baleropy import Button
 
-kb = InlineKeyboardBuilder()
-kb.button(text="🛒 خرید", callback_data=ItemCb(id=5, action="buy"))     # شیء مستقیم
-kb.button(text="ℹ️ جزئیات", callback_data=ItemCb(id=5, action="info"))
-kb.adjust(2)
+buttons = [[
+    Button.inline("🛒 خرید", ItemCb(id=5, action="buy")),       # شیء مستقیم
+    Button.inline("ℹ️ جزئیات", ItemCb(id=5, action="info")),
+]]
 ```
 
 رشته‌ی نهایی: `item:5:buy`.

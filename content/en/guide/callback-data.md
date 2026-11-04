@@ -35,12 +35,12 @@ class ItemCb(CallbackData, prefix="item"):
 ### Building a button
 
 ```python
-from baleropy.utils import InlineKeyboardBuilder
+from baleropy import Button
 
-kb = InlineKeyboardBuilder()
-kb.button(text="🛒 Buy", callback_data=ItemCb(id=5, action="buy"))      # the object directly
-kb.button(text="ℹ️ Details", callback_data=ItemCb(id=5, action="info"))
-kb.adjust(2)
+buttons = [[
+    Button.inline("🛒 Buy", ItemCb(id=5, action="buy")),        # pass the object directly
+    Button.inline("ℹ️ Details", ItemCb(id=5, action="info")),
+]]
 ```
 
 The resulting string: `item:5:buy`.

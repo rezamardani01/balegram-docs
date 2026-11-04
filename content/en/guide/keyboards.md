@@ -55,8 +55,7 @@ buttons = [
 await message.answer("Choose:", buttons=buttons)
 ```
 
-For dynamically generated buttons, `InlineKeyboardBuilder` and `ReplyKeyboardBuilder` remain available; use `adjust(1)` to put one button on each row. Builders continue to work with `reply_markup=builder.as_markup()`.
-Both approaches work with `message.answer()`, `message.reply()`, and `bot.send_message()`; do not pass `buttons` and `reply_markup` together.
+For both keyboard types, define the layout directly with nested rows; there is no need for `adjust()` or a separate builder. This works with `message.answer()`, `message.reply()`, and `bot.send_message()`. Existing builders remain supported. Do not pass `buttons` and `reply_markup` together.
 
 ::: note Limits
 At most 8 buttons per row and 100 in total. More raises `ValueError`.
@@ -74,16 +73,20 @@ Bale added colored buttons in its beta. You set the color with the `style` param
 | *(no style)* | the normal look |
 
 ```python
-from baleropy.utils import InlineKeyboardBuilder
+from baleropy import Button
 from baleropy.types import ButtonStyle
 
-kb = InlineKeyboardBuilder()
-kb.button(text="Accept ✅", callback_data="ok",   style=ButtonStyle.SUCCESS)
-kb.button(text="Delete 🗑", callback_data="del",  style=ButtonStyle.DANGER)
-kb.button(text="Next",     callback_data="next", style="primary")      # a string works too
-kb.button(text="Plain",    callback_data="plain")
-kb.adjust(2, 2)
-await message.answer("Choose:", reply_markup=kb.as_markup())
+buttons = [
+    [
+        Button.inline("Accept ✅", "ok", style=ButtonStyle.SUCCESS),
+        Button.inline("Delete 🗑", "del", style=ButtonStyle.DANGER),
+    ],
+    [
+        Button.inline("Next", "next", style="primary"),
+        Button.inline("Plain", "plain"),
+    ],
+]
+await message.answer("Choose:", buttons=buttons)
 ```
 
 Click the buttons below to get the feel (a simulator demo):
@@ -141,18 +144,20 @@ async def got_location(message: Message):
 
 ## Editing buttons after sending
 
-Use `edit_reply_markup` to change only the keyboard (for example a poll counter):
+`edit_text`, `edit_caption`, and `edit_reply_markup` also accept `buttons=`; use inline buttons for edits. Use `edit_reply_markup` to change only the keyboard (for example a poll counter):
 
 ```python
+from baleropy import Button
+
 @dp.callback_query(F.data == "vote")
 async def vote(query: CallbackQuery):
     counts["yes"] += 1
-    kb = InlineKeyboardBuilder().button(text=f"👍 ({counts['yes']})", callback_data="vote")
-    await query.message.edit_reply_markup(kb.as_markup())
+    buttons = [[Button.inline(f"👍 ({counts['yes']})", "vote")]]
+    await query.message.edit_reply_markup(buttons=buttons)
     await query.answer("Vote saved")
 ```
 
-Or text and keyboard together: `await query.message.edit_text("New text", reply_markup=kb.as_markup())`.
+Or edit the text and keyboard together: `await query.message.edit_text("New text", buttons=buttons)`.
 
 ::: tip The "message not modified" error
 If the new text and keyboard are exactly the same as before, Bale answers `400 Bad Request`. Ignore it with `try/except BaleBadRequest`.
@@ -161,29 +166,36 @@ If the new text and keyboard are exactly the same as before, Bale answers `400 B
 ## Copy text with one tap
 
 ```python
-kb.button(text="Copy discount code", copy_text="OFF2025")
+from baleropy import Button
+
+await message.answer(
+    "Tap to copy the code:",
+    buttons=[[Button.copy_text("Copy discount code", "OFF2025")]],
+)
 ```
 
 ## Full example: a colored counter
 
 ```python
+from baleropy import Button
+
 def counter_kb(n: int):
-    kb = InlineKeyboardBuilder()
-    kb.button(text="➖", callback_data=f"c:{n - 1}", style="danger")
-    kb.button(text=str(n), callback_data="noop")
-    kb.button(text="➕", callback_data=f"c:{n + 1}", style="success")
-    return kb.as_markup()
+    return [
+        [Button.inline("➖", f"c:{n - 1}", style="danger")],
+        [Button.inline(str(n), "noop")],
+        [Button.inline("➕", f"c:{n + 1}", style="success")],
+    ]
 
 
 @dp.message(Command("counter"))
 async def counter(message: Message):
-    await message.answer("Counter", reply_markup=counter_kb(0))
+    await message.answer("Counter", buttons=counter_kb(0))
 
 
 @dp.callback_query(F.data.startswith("c:"))
 async def change(query: CallbackQuery):
     n = int(query.data.split(":")[1])
-    await query.message.edit_reply_markup(counter_kb(n))
+    await query.message.edit_reply_markup(buttons=counter_kb(n))
     await query.answer()
 
 
@@ -197,6 +209,6 @@ async def noop(query: CallbackQuery):
 - Inline under the message (callback), reply in place of the keyboard (text).
 - Use `Button.inline(...)` for inline buttons and `Button.text(...)` for reply keyboards.
 - Each inner list in `buttons=[...]` is one row.
-- `InlineKeyboardBuilder().button(...).adjust(...).as_markup()`.
+- Define rows with `buttons=[[Button.inline(...)], [...]]`; use `Button.text(...)` for reply keyboards.
 - `style="success" | "danger" | "primary"` for color.
 - Next: [CallbackData](/guide/callback-data).
