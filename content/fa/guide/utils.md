@@ -3,10 +3,10 @@ title: ابزارهای کمکی
 lead: لینک عمیق، قالب‌بندی Markdown بله، تقسیم متن بلند، نشانگر «در حال تایپ» و ساخت آلبوم.
 ---
 
-همه‌ی این‌ها در `balegram.utils` هستند:
+همه‌ی این‌ها در `baleropy.utils` هستند:
 
 ```python
-from balegram.utils import (
+from baleropy.utils import (
     bold, italic, link, split_text,
     bot_link, create_start_link, encode_payload, decode_payload,
     ChatActionSender, MediaGroupBuilder,
@@ -29,7 +29,7 @@ from balegram.utils import (
 :::
 
 ```python
-from balegram.utils import bold, italic, link
+from baleropy.utils import bold, italic, link
 
 text = f"قیمت: {bold('۱۰۰ هزار')} تومان، {italic('ارسال رایگان')}. جزئیات: {link('سایت', 'https://example.com')}"
 await message.answer(text)
@@ -40,7 +40,7 @@ await message.answer(text)
 بله هر پیام را تا **۴۰۹۶ نویسه** می‌پذیرد. برای متن‌های بلندتر:
 
 ```python
-from balegram.utils import split_text
+from baleropy.utils import split_text
 
 for part in split_text(very_long_report):            # پیش‌فرض ۴۰۹۶
     await message.answer(part)
@@ -55,7 +55,7 @@ split_text(text, limit=1000)                         # سقف دلخواه
 لینک ربات در بله: `https://ble.ir/<نام_ربات>?start=<پارامتر>`. کاربر که بزند، ربات `/start <پارامتر>` را می‌گیرد؛ مناسب برای کد دعوت، کمپین و مسیر ویژه.
 
 ```python
-from balegram.utils import create_start_link, bot_link
+from baleropy.utils import create_start_link, bot_link
 
 link = await create_start_link(bot, "ref42")            # نام ربات را از getMe می‌گیرد
 # https://ble.ir/mybot?start=ref42
@@ -88,7 +88,7 @@ async def start(message: Message, command: CommandObject):
 کار طولانی؟ تا تمام نشده، نشانگر را نگه دارید:
 
 ```python
-from balegram.utils import ChatActionSender
+from baleropy.utils import ChatActionSender
 
 @dp.message(Command("report"))
 async def report(message: Message, bot: Bot):
@@ -112,7 +112,7 @@ async def report(message: Message, bot: Bot):
 ## MediaGroupBuilder
 
 ```python
-from balegram.utils import MediaGroupBuilder
+from baleropy.utils import MediaGroupBuilder
 
 album = MediaGroupBuilder(caption="تعطیلات")
 album.add_photo(FSInputFile("1.jpg")).add_photo("file_id").add_video("video_id")

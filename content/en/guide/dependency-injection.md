@@ -1,11 +1,11 @@
 ---
 title: Dependency injection
-lead: Handlers, filters and middlewares receive only the arguments they declare; balegram supplies the rest automatically.
+lead: Handlers, filters and middlewares receive only the arguments they declare; baleropy supplies the rest automatically.
 ---
 
 ## The core rule
 
-balegram injects arguments **by name** (not by type). Any name you write in your function that exists in the "current data" is filled in:
+baleropy injects arguments **by name** (not by type). Any name you write in your function that exists in the "current data" is filled in:
 
 ```python
 @dp.message(Command("me"))

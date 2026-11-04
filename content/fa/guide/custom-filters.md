@@ -34,7 +34,7 @@ async def is_admin(message, bot, event_from_user) -> bool:
 
 ```python title="filters.py"
 from typing import Any
-from balegram.filters import Filter
+from baleropy.filters import Filter
 
 
 class MinLength(Filter):

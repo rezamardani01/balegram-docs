@@ -1,6 +1,6 @@
 ---
 title: نصب و اولین ربات
-lead: در این درس balegram را نصب می‌کنیم، توکن می‌گیریم و در کمتر از ۵ دقیقه اولین ربات را اجرا می‌کنیم.
+lead: در این درس baleropy را نصب می‌کنیم، توکن می‌گیریم و در کمتر از ۵ دقیقه اولین ربات را اجرا می‌کنیم.
 ---
 
 ## پیش‌نیازها
@@ -21,29 +21,29 @@ python -m venv .venv
 source .venv/bin/activate
 ```
 
-سپس balegram را نصب کنید:
+سپس baleropy را نصب کنید:
 
 ```bash
-pip install balegram-api
+pip install baleropy
 ```
 
 ::: note نام پکیج و نام ایمپورت فرق دارند
-نام پکیج در PyPI برابر **`balegram-api`** است، ولی داخل کد می‌نویسید `import balegram` (و `from balegram import Bot`).
+نام پکیج در PyPI برابر **`baleropy`** است، ولی داخل کد می‌نویسید `import baleropy` (و `from baleropy import Bot`).
 :::
 
 ::: tip نصب با Redis
 اگر می‌خواهید حالت FSM را در Redis ذخیره کنید، افزونه‌ی redis را هم نصب کنید:
 
 ```bash
-pip install "balegram-api[redis]"
+pip install "baleropy[redis]"
 ```
 :::
 
 نصب را بررسی کنید:
 
 ```python
-import balegram
-print(balegram.__version__)
+import baleropy
+print(baleropy.__version__)
 ```
 
 ## ۲. گرفتن توکن ربات
@@ -65,9 +65,9 @@ print(balegram.__version__)
 ```python title="bot.py"
 import asyncio
 
-from balegram import Bot, Dispatcher, F
-from balegram.filters import CommandStart
-from balegram.types import Message
+from baleropy import Bot, Dispatcher, F
+from baleropy.filters import CommandStart
+from baleropy.types import Message
 
 # توکن را از @botfather بگیرید و اینجا بگذارید
 TOKEN = "YOUR_BOT_TOKEN"
@@ -125,7 +125,7 @@ python bot.py
 
 ## اگر کار نکرد
 
-- `ModuleNotFoundError: balegram` ← نصب را روی همان پایتونی که اجرا می‌کنید انجام دهید (`python -m pip install ...`).
+- `ModuleNotFoundError: baleropy` ← نصب را روی همان پایتونی که اجرا می‌کنید انجام دهید (`python -m pip install ...`).
 - `Token has an invalid format` ← توکن باید به شکل `عدد:متن` باشد، بدون فاصله و کوتیشن اضافه.
 - `401 Unauthorized` ← توکن اشتباه است یا باطل شده.
 - ربات جواب نمی‌دهد ← اول به ربات `/start` بفرستید و مطمئن شوید برنامه هنوز در حال اجراست.

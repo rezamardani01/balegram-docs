@@ -25,9 +25,9 @@ L = {
 
 EXTRA = {
     "reference/methods-media": (
-        "همه‌ی مثال‌های این صفحه فرض می‌کنند این importها را دارید:\n\n```python\nfrom balegram.types import FSInputFile, BufferedInputFile\n```\n\n"
+        "همه‌ی مثال‌های این صفحه فرض می‌کنند این importها را دارید:\n\n```python\nfrom baleropy.types import FSInputFile, BufferedInputFile\n```\n\n"
         "آرگومان فایل سه شکل می‌پذیرد: `file_id`، لینک HTTP یا `InputFile` برای آپلود. جزئیات در درس [ارسال و دریافت فایل](/guide/files).",
-        "All examples on this page assume these imports:\n\n```python\nfrom balegram.types import FSInputFile, BufferedInputFile\n```\n\n"
+        "All examples on this page assume these imports:\n\n```python\nfrom baleropy.types import FSInputFile, BufferedInputFile\n```\n\n"
         "A file argument takes three forms: a `file_id`, an HTTP URL or an `InputFile` for uploads. Details in the lesson [Sending & receiving files](/guide/files).",
     ),
     "reference/methods-chats": (
@@ -96,11 +96,11 @@ def render_page(path: str, title: tuple[str, str], lead: tuple[str, str], keys: 
 
 def render_types(lang: str) -> str:
     i = 2 if lang == "fa" else 3
-    heads = {"fa": ("فیلد", "نوع", "توضیح", "تایپ‌ها", "همه‌ی تایپ‌ها از `balegram.types` import می‌شوند. فیلدهای اختیاری با `?` مشخص شده‌اند و می‌توانند `None` باشند. فیلدهای ناشناخته‌ی بله نادیده گرفته نمی‌شوند و حفظ می‌شوند؛ پس اضافه‌شدن فیلد جدید در API چیزی را خراب نمی‌کند.", "از `types.Update` تا `types.InputFile`"),
-             "en": ("Field", "Type", "Description", "Types", "All types are imported from `balegram.types`. Optional fields are marked with `?` and can be `None`. Unknown fields from Bale are kept, not dropped, so a new API field never breaks anything.", "")}[lang]
+    heads = {"fa": ("فیلد", "نوع", "توضیح", "تایپ‌ها", "همه‌ی تایپ‌ها از `baleropy.types` import می‌شوند. فیلدهای اختیاری با `?` مشخص شده‌اند و می‌توانند `None` باشند. فیلدهای ناشناخته‌ی بله نادیده گرفته نمی‌شوند و حفظ می‌شوند؛ پس اضافه‌شدن فیلد جدید در API چیزی را خراب نمی‌کند.", "از `types.Update` تا `types.InputFile`"),
+             "en": ("Field", "Type", "Description", "Types", "All types are imported from `baleropy.types`. Optional fields are marked with `?` and can be `None`. Unknown fields from Bale are kept, not dropped, so a new API field never breaks anything.", "")}[lang]
     title = {"fa": "تایپ‌ها", "en": "Types"}[lang]
     out = ["---", f"title: {title}", f"lead: {'همه‌ی شیءهای بله به‌صورت مدل‌های pydantic: فیلدها، نوع‌ها و میانبرها.' if lang == 'fa' else 'Every Bale object as a pydantic model: fields, types and shortcuts.'}", "---", "", heads[4], ""]
-    out += ["```python", "from balegram.types import Message, User, Chat, Update, CallbackQuery", "```", ""]
+    out += ["```python", "from baleropy.types import Message, User, Chat, Update, CallbackQuery", "```", ""]
     for name, fa, en, fields in TYPES:
         out += [f"## {name}", "", fa if lang == "fa" else en, "", f"| {heads[0]} | {heads[1]} | {heads[2]} |", "|---|---|---|"]
         for f in fields:

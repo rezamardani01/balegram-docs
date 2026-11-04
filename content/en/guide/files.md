@@ -11,12 +11,12 @@ lead: Send photos, videos, audio and files in three ways (file_id, URL, upload),
 | **URL** | an HTTP address; Bale downloads it | photo 5 MB, others 20 MB |
 | **upload** | the file itself (multipart) | photo 10 MB, others 50 MB |
 
-In balegram the file argument accepts all three: a string (file_id or URL) or an `InputFile` object (upload).
+In baleropy the file argument accepts all three: a string (file_id or URL) or an `InputFile` object (upload).
 
 ## Uploading
 
 ```python
-from balegram.types import BufferedInputFile, FSInputFile
+from baleropy.types import BufferedInputFile, FSInputFile
 
 # from disk (read when sending)
 await message.answer_document(FSInputFile("report.pdf"), caption="Monthly report")
@@ -69,7 +69,7 @@ To reply to the user's message pass `reply=True`: `await message.answer_photo(im
 ## Albums (media group)
 
 ```python
-from balegram.utils import MediaGroupBuilder
+from baleropy.utils import MediaGroupBuilder
 
 album = MediaGroupBuilder(caption="North trip 🌲")        # caption on the first photo
 album.add_photo(FSInputFile("a.jpg"))

@@ -10,7 +10,7 @@ lead: برای گفتگوهای چندمرحله‌ای (ثبت‌نام، سف�
 ## گام ۱: تعریف حالت‌ها
 
 ```python title="states.py"
-from balegram.fsm import State, StatesGroup
+from baleropy.fsm import State, StatesGroup
 
 
 class Form(StatesGroup):
@@ -24,10 +24,10 @@ class Form(StatesGroup):
 ## گام ۲: هندلرها
 
 ```python title="handlers.py"
-from balegram import F, Router
-from balegram.filters import Command
-from balegram.fsm import FSMContext
-from balegram.types import Message
+from baleropy import F, Router
+from baleropy.filters import Command
+from baleropy.fsm import FSMContext
+from baleropy.types import Message
 
 router = Router()
 
@@ -83,8 +83,8 @@ async def got_city(message: Message, state: FSMContext):
 ## فیلتر حالت
 
 ```python
-from balegram.filters import StateFilter
-from balegram.fsm import default_state, any_state
+from baleropy.filters import StateFilter
+from baleropy.fsm import default_state, any_state
 
 @router.message(Form.name)                      # یک حالت
 @router.message(StateFilter(Form.name, Form.age))   # یکی از چند حالت
@@ -96,7 +96,7 @@ from balegram.fsm import default_state, any_state
 ## لغو در هر مرحله
 
 ```python
-from balegram.filters import Command
+from baleropy.filters import Command
 
 @router.message(Command("cancel"))              # بدون فیلتر حالت: همه‌جا کار می‌کند
 async def cancel(message: Message, state: FSMContext):
@@ -128,8 +128,8 @@ class Order(StatesGroup):
 ## استراتژی ذخیره: حالت برای چه کسی؟
 
 ```python
-from balegram import Dispatcher
-from balegram.fsm import FSMStrategy
+from baleropy import Dispatcher
+from baleropy.fsm import FSMStrategy
 
 dp = Dispatcher(fsm_strategy=FSMStrategy.USER_IN_CHAT)   # پیش‌فرض
 ```
@@ -148,11 +148,11 @@ dp = Dispatcher(fsm_strategy=FSMStrategy.USER_IN_CHAT)   # پیش‌فرض
 | `RedisStorage` | ماندگار؛ برای تولید (production)؛ داده باید JSON‌پذیر باشد |
 
 ```python
-from balegram.fsm import MemoryStorage, RedisStorage
+from baleropy.fsm import MemoryStorage, RedisStorage
 
 dp = Dispatcher(storage=MemoryStorage())
 
-# Redis (pip install balegram-api[redis])
+# Redis (pip install baleropy[redis])
 storage = RedisStorage.from_url("redis://localhost:6379/0", state_ttl=3600, data_ttl=3600)
 dp = Dispatcher(storage=storage)
 ```
@@ -167,10 +167,10 @@ dp = Dispatcher(storage=storage)
 
 ```python
 import random
-from balegram import F, Router
-from balegram.filters import Command
-from balegram.fsm import FSMContext, State, StatesGroup
-from balegram.types import Message
+from baleropy import F, Router
+from baleropy.filters import Command
+from baleropy.fsm import FSMContext, State, StatesGroup
+from baleropy.types import Message
 
 router = Router()
 

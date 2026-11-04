@@ -34,7 +34,7 @@ For a filter with parameters or internal state, inherit from `Filter`:
 
 ```python title="filters.py"
 from typing import Any
-from balegram.filters import Filter
+from baleropy.filters import Filter
 
 
 class MinLength(Filter):

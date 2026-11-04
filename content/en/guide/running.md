@@ -20,7 +20,7 @@ Bale does not accept both at once. `start_polling` calls `deleteWebhook` first. 
 
 ```python
 import asyncio
-from balegram import Bot, Dispatcher
+from baleropy import Bot, Dispatcher
 
 dp = Dispatcher()
 bot = Bot("YOUR_BOT_TOKEN")
@@ -68,7 +68,7 @@ Or simpler, without asyncio:
 dp.run_polling(bot, skip_updates=True)        # Ctrl+C without a traceback
 ```
 
-On exit balegram finishes running requests, runs the `on_shutdown` callbacks and closes the session. From inside a handler you can also call `await dp.stop_polling()`.
+On exit baleropy finishes running requests, runs the `on_shutdown` callbacks and closes the session. From inside a handler you can also call `await dp.stop_polling()`.
 
 ### If the internet drops
 
@@ -91,10 +91,10 @@ async def h(message: Message, bot: Bot):          # bot = the receiving bot
 
 ```python title="webhook_bot.py"
 from aiohttp import web
-from balegram import Bot, Dispatcher
-from balegram.filters import CommandStart
-from balegram.types import Message
-from balegram.webhook import SimpleRequestHandler, setup_application
+from baleropy import Bot, Dispatcher
+from baleropy.filters import CommandStart
+from baleropy.types import Message
+from baleropy.webhook import SimpleRequestHandler, setup_application
 
 TOKEN = "YOUR_BOT_TOKEN"
 BASE_URL = "https://bot.example.com"          # your public HTTPS address
@@ -150,7 +150,7 @@ Unlike some messengers, the Bale docs have no webhook "secret token". So anyone 
 1. An **unguessable path** with `secret_path()`:
 
 ```bash
-python -c "from balegram.webhook import secret_path; print(secret_path())"
+python -c "from baleropy.webhook import secret_path; print(secret_path())"
 # /webhook/Qk3d9sA7-...
 ```
 
@@ -180,7 +180,7 @@ await bot.delete_webhook()         # (start_polling does this by itself too)
 Three lines are enough:
 
 ```python
-from balegram.types import Update
+from baleropy.types import Update
 
 @app.post("/webhook/CHANGE_ME")
 async def hook(request: Request):

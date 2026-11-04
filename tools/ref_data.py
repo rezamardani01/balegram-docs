@@ -66,7 +66,7 @@ print(copied.message_id)''',
         "fa": "وضعیت «در حال ...» را برای چت نشان می‌دهد (مثلاً «در حال تایپ»). حدود ۵ ثانیه می‌ماند.",
         "en": "Shows an \"is ...\" status in the chat (for example \"typing\"). Lasts about 5 seconds.",
         "params": [("chat_id", "int | str", 1), ("action", "ChatAction | str", 1, ("یکی از: `typing`، `upload_photo`، `record_video`، `upload_video`، `record_voice`، `upload_voice`، `choose_sticker`", "One of: `typing`, `upload_photo`, `record_video`, `upload_video`, `record_voice`, `upload_voice`, `choose_sticker`"))],
-        "ex": '''from balegram.types import ChatAction
+        "ex": '''from baleropy.types import ChatAction
 
 await bot.send_chat_action(12345, ChatAction.TYPING)''',
         "short": "await message.answer_chat_action()   # typing",
@@ -102,7 +102,7 @@ await bot.send_chat_action(12345, ChatAction.TYPING)''',
         "fa": "یک عکس می‌فرستد. سقف حجم: آپلود ۱۰ مگابایت، لینک ۵ مگابایت.",
         "en": "Sends a photo. Size cap: 10 MB upload, 5 MB by URL.",
         "params": [("chat_id", "int | str", 1), ("photo", "InputFile | str", 1), ("caption", "str", 0), ("reply_to_message_id", "int", 0), ("reply_markup", "ReplyMarkup", 0)],
-        "ex": '''from balegram.types import FSInputFile
+        "ex": '''from baleropy.types import FSInputFile
 
 await bot.send_photo(12345, FSInputFile("cat.jpg"), caption="{{گربه‌ی من 🐱|My cat 🐱}}")
 await bot.send_photo(12345, "AgACAgQAAxk...")            # file_id''',
@@ -177,7 +177,7 @@ await bot.send_document(12345, BufferedInputFile(b"hello", "hello.txt"))''',
         "en": "Sends several photos/videos/audio/files as an album.",
         "params": [("chat_id", "int | str", 1), ("media", "list[InputMedia*]", 1, ("لیست `InputMediaPhoto`، `InputMediaVideo`، `InputMediaAnimation`، `InputMediaAudio` یا `InputMediaDocument` (۲ تا ۱۰ مورد)", "A list of `InputMediaPhoto`, `InputMediaVideo`, `InputMediaAnimation`, `InputMediaAudio` or `InputMediaDocument` (2 to 10 items)")),
                    ("reply_to_message_id", "int", 0)],
-        "ex": '''from balegram.utils import MediaGroupBuilder
+        "ex": '''from baleropy.utils import MediaGroupBuilder
 
 album = MediaGroupBuilder(caption="{{سفر|Trip}}")
 album.add_photo(FSInputFile("1.jpg")).add_photo(FSInputFile("2.jpg"))
@@ -472,7 +472,7 @@ print(uploaded.file_id)''',
         "en": "Creates a new sticker set.",
         "params": [("user_id", "int", 1), ("name", "str", 1, ("نام یکتا؛ ۱ تا ۶۴ نویسه", "Unique name; 1 to 64 characters")), ("title", "str", 1, ("عنوان؛ ۱ تا ۶۴ نویسه", "Title; 1 to 64 characters")),
                    ("stickers", "list[InputSticker]", 1, ("۱ تا ۵۰ استیکر", "1 to 50 stickers"))],
-        "ex": '''from balegram.methods.misc import InputSticker
+        "ex": '''from baleropy.methods.misc import InputSticker
 
 uploaded = await bot.upload_sticker_file(12345, FSInputFile("smile.png"))
 await bot.create_new_sticker_set(
@@ -511,7 +511,7 @@ await bot.send_sticker(12345, sticker_set.stickers[0].file_id)''',
         "en": "Sends a payment invoice (Bale wallet) to the chat.",
         "params": [("chat_id", "int | str", 1), ("title", "str", 1, ("عنوان؛ ۱ تا ۳۲ نویسه", "Title; 1 to 32 characters")), ("description", "str", 1, ("توضیح؛ ۱ تا ۲۵۵ نویسه", "Description; 1 to 255 characters")),
                    ("payload", "str", 1), ("provider_token", "str", 1), ("prices", "list[LabeledPrice]", 1), ("photo_url", "str", 0, ("عکس فاکتور", "An invoice photo")), ("reply_to_message_id", "int", 0)],
-        "ex": '''from balegram.types import LabeledPrice
+        "ex": '''from baleropy.types import LabeledPrice
 
 await bot.send_invoice(
     12345, "{{قهوه ☕|Coffee ☕}}", "{{یک فنجان قهوه|A cup of coffee}}", "order-1",

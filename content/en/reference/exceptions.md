@@ -1,20 +1,20 @@
 ---
 title: Exceptions
-lead: Every balegram exception, its attributes and the matching HTTP codes.
+lead: Every baleropy exception, its attributes and the matching HTTP codes.
 ---
 
-All are imported from `balegram.exceptions`. Teaching: [Errors & rate limits](/guide/errors).
+All are imported from `baleropy.exceptions`. Teaching: [Errors & rate limits](/guide/errors).
 
 ```python
-from balegram.exceptions import BaleAPIError, BaleForbidden, BaleRetryAfter
+from baleropy.exceptions import BaleAPIError, BaleForbidden, BaleRetryAfter
 ```
 
 ## Table
 
 | Exception | Base | Code | When? |
 |---|---|---|---|
-| `BalegramError` | `Exception` | — | base of all library errors |
-| `DetailedError` | `BalegramError` | — | an error with a `message` |
+| `BaleropyError` | `Exception` | — | base of all library errors |
+| `DetailedError` | `BaleropyError` | — | an error with a `message` |
 | `BaleAPIError` | `DetailedError` | any | Bale answered `ok: false` |
 | `BaleBadRequest` | `BaleAPIError` | 400 | invalid request |
 | `BaleUnauthorized` | `BaleAPIError` | 401 | wrong/revoked token |
@@ -24,8 +24,8 @@ from balegram.exceptions import BaleAPIError, BaleForbidden, BaleRetryAfter
 | `BaleServerError` | `BaleAPIError` | 5xx | a Bale server error |
 | `BaleNetworkError` | `DetailedError` | — | network drop or timeout |
 | `ClientDecodeError` | `DetailedError` | — | the reply could not be understood/validated |
-| `SkipHandler` | `BalegramError` | — | (you) skip this handler |
-| `CancelHandler` | `BalegramError` | — | (middleware) drop the event |
+| `SkipHandler` | `BaleropyError` | — | (you) skip this handler |
+| `CancelHandler` | `BaleropyError` | — | (middleware) drop the event |
 
 ## Attributes
 
@@ -61,12 +61,12 @@ except BaleRetryAfter as e:
 
 ## Errors that come from pydantic
 
-If a method's arguments violate Bale's documented limits (for example text over 4096 characters), `pydantic.ValidationError` is raised before sending; it is not a `BalegramError`.
+If a method's arguments violate Bale's documented limits (for example text over 4096 characters), `pydantic.ValidationError` is raised before sending; it is not a `BaleropyError`.
 
 ## Suggested handling
 
 ```python
-from balegram.exceptions import BaleForbidden, BaleAPIError, BaleNetworkError
+from baleropy.exceptions import BaleForbidden, BaleAPIError, BaleNetworkError
 
 try:
     await bot.send_message(user_id, text)

@@ -20,9 +20,9 @@ from typing import Any
 
 import pytest
 
-from balegram import Bot
-from balegram.client.session.base import BaseSession
-from balegram.types import Update
+from baleropy import Bot
+from baleropy.client.session.base import BaseSession
+from baleropy.types import Update
 
 
 class FakeSession(BaseSession):
@@ -76,7 +76,7 @@ def make_update(bot: Bot, text: str, user_id: int = 100, update_id: int = 1) -> 
 ## نوشتن تست
 
 ```python title="tests/test_handlers.py"
-from balegram.dispatcher import UNHANDLED
+from baleropy.dispatcher import UNHANDLED
 from conftest import make_update
 from my_bot.bot import dp          # Dispatcher پروژه‌ی شما
 
@@ -152,7 +152,7 @@ async def test_like_button(bot, session):
 فیلتر یک شیء async است؛ مستقیم صدایش بزنید:
 
 ```python
-from balegram.filters import Command
+from baleropy.filters import Command
 
 async def test_command_filter():
     result = await Command("start")(message_obj)
@@ -161,7 +161,7 @@ async def test_command_filter():
 
 ## با سرور HTTP واقعی (پیشرفته)
 
-اگر می‌خواهید لایه‌ی شبکه را هم تست کنید، یک سرور `aiohttp` محلی بسازید و `ApiServer.from_base("http://127.0.0.1:PORT")` را به `Bot(server=...)` بدهید. مثال‌های آماده در پوشه‌ی `tests/` مخزن balegram هست.
+اگر می‌خواهید لایه‌ی شبکه را هم تست کنید، یک سرور `aiohttp` محلی بسازید و `ApiServer.from_base("http://127.0.0.1:PORT")` را به `Bot(server=...)` بدهید. مثال‌های آماده در پوشه‌ی `tests/` مخزن baleropy هست.
 
 ## خلاصه
 

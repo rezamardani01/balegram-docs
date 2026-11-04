@@ -19,7 +19,7 @@ item_id = int(item_id)                                             # تبدیل 
 ## تعریف
 
 ```python title="callbacks.py"
-from balegram.filters import CallbackData
+from baleropy.filters import CallbackData
 
 
 class ItemCb(CallbackData, prefix="item"):
@@ -35,7 +35,7 @@ class ItemCb(CallbackData, prefix="item"):
 ### ساخت دکمه
 
 ```python
-from balegram.utils import InlineKeyboardBuilder
+from baleropy.utils import InlineKeyboardBuilder
 
 kb = InlineKeyboardBuilder()
 kb.button(text="🛒 خرید", callback_data=ItemCb(id=5, action="buy"))     # شیء مستقیم
@@ -99,10 +99,10 @@ ItemCb.unpack("item:5:buy:1:")                       # شیء کامل
 ## مثال کامل: صفحه‌بندی
 
 ```python
-from balegram import Router
-from balegram.filters import CallbackData, Command
-from balegram.types import CallbackQuery, Message
-from balegram.utils import InlineKeyboardBuilder
+from baleropy import Router
+from baleropy.filters import CallbackData, Command
+from baleropy.types import CallbackQuery, Message
+from baleropy.utils import InlineKeyboardBuilder
 
 router = Router()
 ITEMS = [f"محصول {i}" for i in range(1, 24)]

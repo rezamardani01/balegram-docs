@@ -19,7 +19,7 @@ It is error-prone and repetitive. `CallbackData` solves it.
 ## Definition
 
 ```python title="callbacks.py"
-from balegram.filters import CallbackData
+from baleropy.filters import CallbackData
 
 
 class ItemCb(CallbackData, prefix="item"):
@@ -35,7 +35,7 @@ class ItemCb(CallbackData, prefix="item"):
 ### Building a button
 
 ```python
-from balegram.utils import InlineKeyboardBuilder
+from baleropy.utils import InlineKeyboardBuilder
 
 kb = InlineKeyboardBuilder()
 kb.button(text="🛒 Buy", callback_data=ItemCb(id=5, action="buy"))      # the object directly
@@ -99,10 +99,10 @@ Bale accepts `callback_data` of at most 64 bytes (UTF-8). `pack()` raises `Value
 ## Full example: pagination
 
 ```python
-from balegram import Router
-from balegram.filters import CallbackData, Command
-from balegram.types import CallbackQuery, Message
-from balegram.utils import InlineKeyboardBuilder
+from baleropy import Router
+from baleropy.filters import CallbackData, Command
+from baleropy.types import CallbackQuery, Message
+from baleropy.utils import InlineKeyboardBuilder
 
 router = Router()
 ITEMS = [f"Product {i}" for i in range(1, 24)]

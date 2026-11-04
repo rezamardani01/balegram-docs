@@ -8,7 +8,7 @@ Conceptual teaching: [Middlewares](/guide/middlewares).
 ## BaseMiddleware
 
 ```python
-from balegram.dispatcher import BaseMiddleware
+from baleropy.dispatcher import BaseMiddleware
 
 class MyMiddleware(BaseMiddleware):
     async def __call__(self, handler, event, data): ...
@@ -39,7 +39,7 @@ Any async function with this signature is a middleware too.
 LoggingMiddleware(level=logging.INFO)
 ```
 
-Logs every event with the user and processing time (logger `balegram.middleware`). Errors are logged with a traceback and re-raised.
+Logs every event with the user and processing time (logger `baleropy.middleware`). Errors are logged with a traceback and re-raised.
 
 ## ThrottlingMiddleware
 
@@ -89,7 +89,7 @@ dp.update outer           (UserContext, FSM and your middlewares)
 ## get_flag
 
 ```python
-from balegram.dispatcher import get_flag
+from baleropy.dispatcher import get_flag
 get_flag(data, "rate_limit", default=1)
 ```
 

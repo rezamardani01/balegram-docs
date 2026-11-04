@@ -1,14 +1,14 @@
 ---
 title: Errors & rate limits
-lead: Which errors can happen, how to catch them, and how balegram handles rate limiting (429) for you.
+lead: Which errors can happen, how to catch them, and how baleropy handles rate limiting (429) for you.
 ---
 
 ## The exception hierarchy
 
-All balegram errors inherit `BalegramError`:
+All baleropy errors inherit `BaleropyError`:
 
 ```text
-BalegramError
+BaleropyError
 ├── DetailedError
 │   ├── BaleAPIError            ← Bale answered "ok: false"
 │   │   ├── BaleBadRequest      (400)
@@ -28,7 +28,7 @@ BalegramError
 ## Catching errors in the handler
 
 ```python
-from balegram.exceptions import BaleForbidden, BaleBadRequest, BaleAPIError
+from baleropy.exceptions import BaleForbidden, BaleBadRequest, BaleAPIError
 
 @dp.message(Command("hi"))
 async def hi(message: Message):
@@ -47,9 +47,9 @@ async def hi(message: Message):
 Any unhandled error of a handler reaches the `error` observer:
 
 ```python
-from balegram.dispatcher import ErrorEvent
-from balegram.filters import ExceptionTypeFilter, ExceptionMessageFilter
-from balegram.exceptions import BaleForbidden, BaleAPIError
+from baleropy.dispatcher import ErrorEvent
+from baleropy.filters import ExceptionTypeFilter, ExceptionMessageFilter
+from baleropy.exceptions import BaleForbidden, BaleAPIError
 
 
 @dp.error(ExceptionTypeFilter(BaleForbidden))
@@ -82,15 +82,15 @@ When an error handler runs, its result counts as "handled" (even without `return
 
 ## Rate limiting (429)
 
-Bale rate-limits sending. When you exceed it you get `429 Too Many Requests` with `retry_after` (seconds). balegram handles this **automatically**:
+Bale rate-limits sending. When you exceed it you get `429 Too Many Requests` with `retry_after` (seconds). baleropy handles this **automatically**:
 
 1. On the first 429, **all requests of that bot** pause until `retry_after` ends (not just that one; otherwise they would all retry together).
 2. Then the request is resent.
 3. Up to 5 attempts, and only if `retry_after` is at most 60 seconds; otherwise `BaleRetryAfter` is raised.
 
 ```python
-from balegram import Bot
-from balegram.client import AiohttpSession
+from baleropy import Bot
+from baleropy.client import AiohttpSession
 
 session = AiohttpSession(
     retry_on_flood=60,        # wait up to this many seconds (0 = off)
@@ -103,7 +103,7 @@ bot = Bot("TOKEN", session=session)
 If you want control yourself:
 
 ```python
-from balegram.exceptions import BaleRetryAfter
+from baleropy.exceptions import BaleRetryAfter
 
 session = AiohttpSession(retry_on_flood=0)            # not automatic
 try:
@@ -145,7 +145,7 @@ except ValidationError:
 
 ## Logging
 
-balegram uses the standard `logging` (logger names: `balegram.dispatcher`, `balegram.middleware`, `balegram.webhook`):
+baleropy uses the standard `logging` (logger names: `baleropy.dispatcher`, `baleropy.middleware`, `baleropy.webhook`):
 
 ```python
 import logging

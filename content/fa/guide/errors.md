@@ -1,14 +1,14 @@
 ---
 title: خطاها و محدودیت نرخ
-lead: چه خطاهایی ممکن است پیش بیاید، چطور بگیریمشان، و چطور balegram خودش محدودیت نرخ (۴۲۹) را مدیریت می‌کند.
+lead: چه خطاهایی ممکن است پیش بیاید، چطور بگیریمشان، و چطور baleropy خودش محدودیت نرخ (۴۲۹) را مدیریت می‌کند.
 ---
 
 ## سلسله‌مراتب استثناها
 
-همه‌ی خطاهای balegram از `BalegramError` ارث می‌برند:
+همه‌ی خطاهای baleropy از `BaleropyError` ارث می‌برند:
 
 ```text
-BalegramError
+BaleropyError
 ├── DetailedError
 │   ├── BaleAPIError            ← بله جواب "ok: false" داد
 │   │   ├── BaleBadRequest      (400)
@@ -28,7 +28,7 @@ BalegramError
 ## گرفتن خطا در همان هندلر
 
 ```python
-from balegram.exceptions import BaleForbidden, BaleBadRequest, BaleAPIError
+from baleropy.exceptions import BaleForbidden, BaleBadRequest, BaleAPIError
 
 @dp.message(Command("hi"))
 async def hi(message: Message):
@@ -47,9 +47,9 @@ async def hi(message: Message):
 هر خطای مدیریت‌نشده‌ی یک هندلر به ناظر `error` می‌رسد:
 
 ```python
-from balegram.dispatcher import ErrorEvent
-from balegram.filters import ExceptionTypeFilter, ExceptionMessageFilter
-from balegram.exceptions import BaleForbidden, BaleAPIError
+from baleropy.dispatcher import ErrorEvent
+from baleropy.filters import ExceptionTypeFilter, ExceptionMessageFilter
+from baleropy.exceptions import BaleForbidden, BaleAPIError
 
 
 @dp.error(ExceptionTypeFilter(BaleForbidden))
@@ -82,15 +82,15 @@ async def other(event: ErrorEvent, exception: Exception):
 
 ## محدودیت نرخ (۴۲۹)
 
-بله برای ارسال پیام محدودیت نرخ دارد. وقتی از حد بگذرید `429 Too Many Requests` با `retry_after` (ثانیه) می‌دهد. balegram **خودکار** این را مدیریت می‌کند:
+بله برای ارسال پیام محدودیت نرخ دارد. وقتی از حد بگذرید `429 Too Many Requests` با `retry_after` (ثانیه) می‌دهد. baleropy **خودکار** این را مدیریت می‌کند:
 
 1. با اولین ۴۲۹، **همه‌ی درخواست‌های آن ربات** تا پایان `retry_after` متوقف می‌شوند (نه فقط همان یکی؛ وگرنه همه با هم دوباره می‌زدند).
 2. بعد درخواست دوباره ارسال می‌شود.
 3. حداکثر ۵ بار تلاش و فقط اگر `retry_after` از ۶۰ ثانیه بیشتر نباشد؛ وگرنه `BaleRetryAfter` پرتاب می‌شود.
 
 ```python
-from balegram import Bot
-from balegram.client import AiohttpSession
+from baleropy import Bot
+from baleropy.client import AiohttpSession
 
 session = AiohttpSession(
     retry_on_flood=60,        # تا چند ثانیه صبر کن (۰ = خاموش)
@@ -103,7 +103,7 @@ bot = Bot("TOKEN", session=session)
 اگر خودتان کنترل می‌خواهید:
 
 ```python
-from balegram.exceptions import BaleRetryAfter
+from baleropy.exceptions import BaleRetryAfter
 
 session = AiohttpSession(retry_on_flood=0)            # خودکار نباشد
 try:
@@ -145,7 +145,7 @@ except ValidationError:
 
 ## لاگ
 
-balegram از `logging` استاندارد استفاده می‌کند (نام لاگرها: `balegram.dispatcher`، `balegram.middleware`، `balegram.webhook`):
+baleropy از `logging` استاندارد استفاده می‌کند (نام لاگرها: `baleropy.dispatcher`، `baleropy.middleware`، `baleropy.webhook`):
 
 ```python
 import logging

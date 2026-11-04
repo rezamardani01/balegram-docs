@@ -3,10 +3,10 @@ title: Types
 lead: Every Bale object as a pydantic model: fields, types and shortcuts.
 ---
 
-All types are imported from `balegram.types`. Optional fields are marked with `?` and can be `None`. Unknown fields from Bale are kept, not dropped, so a new API field never breaks anything.
+All types are imported from `baleropy.types`. Optional fields are marked with `?` and can be `None`. Unknown fields from Bale are kept, not dropped, so a new API field never breaks anything.
 
 ```python
-from balegram.types import Message, User, Chat, Update, CallbackQuery
+from baleropy.types import Message, User, Chat, Update, CallbackQuery
 ```
 
 ## Update

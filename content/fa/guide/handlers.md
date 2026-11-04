@@ -8,8 +8,8 @@ lead: هندلر تابعی است که به یک رویداد پاسخ می‌�
 سه راه برابر برای ثبت هندلر وجود دارد:
 
 ```python
-from balegram import Dispatcher
-from balegram.types import Message
+from baleropy import Dispatcher
+from baleropy.types import Message
 
 dp = Dispatcher()
 
@@ -31,9 +31,9 @@ dp.message.register(b, F.text == "سلام")
 ## هندلر پیام
 
 ```python title="handlers.py"
-from balegram import F
-from balegram.filters import Command
-from balegram.types import Message
+from baleropy import F
+from baleropy.filters import Command
+from baleropy.types import Message
 
 
 @dp.message(Command("ping"))
@@ -66,7 +66,7 @@ async def edited(message: Message):
 وقتی کاربر دکمه‌ی inline را بزند، `callback_query` می‌آید. حتماً با `answer()` به آن پاسخ دهید، وگرنه دکمه در حالت «در انتظار» می‌ماند:
 
 ```python
-from balegram.types import CallbackQuery
+from baleropy.types import CallbackQuery
 
 @dp.callback_query(F.data == "like")
 async def like(query: CallbackQuery):
@@ -81,7 +81,7 @@ async def like(query: CallbackQuery):
 ## هندلر خطا
 
 ```python
-from balegram.dispatcher import ErrorEvent
+from baleropy.dispatcher import ErrorEvent
 
 @dp.error()
 async def on_error(event: ErrorEvent, exception: Exception):
@@ -116,7 +116,7 @@ async def me(message: Message, bot: Bot, event_from_user, state: FSMContext):
 اگر وسط هندلر فهمیدید این هندلر مناسب نیست، `SkipHandler` را پرتاب کنید تا هندلر بعدیِ مطابق اجرا شود:
 
 ```python
-from balegram.exceptions import SkipHandler
+from baleropy.exceptions import SkipHandler
 
 @dp.message(F.text)
 async def maybe(message: Message):

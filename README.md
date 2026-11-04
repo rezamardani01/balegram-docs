@@ -1,11 +1,11 @@
-# مستندات balegram / balegram docs
+# مستندات baleropy / baleropy docs
 
-سایت مستندات کامل [balegram](https://github.com/rezamardani01/balegram) — فریم‌ورک async و تایپ‌دار برای ساخت ربات در پیام‌رسان بله.
-The complete documentation site of [balegram](https://github.com/rezamardani01/balegram), an async, typed framework for Bale bots.
+سایت مستندات کامل [baleropy](https://github.com/rezamardani01/Baleropy) — فریم‌ورک async و تایپ‌دار برای ساخت ربات در پیام‌رسان بله.
+The complete documentation site of [baleropy](https://github.com/rezamardani01/Baleropy), an async, typed framework for Bale bots.
 
 - 🇮🇷 **زبان پیش‌فرض فارسی** با فونت وزیرمتن، و گزینه‌ی **English** در سربرگ / Persian by default (Vazirmatn font), English one click away
 - 📘 ۴۱ صفحه در هر زبان: آموزش درس‌به‌درس، مرجع همه‌ی ۵۳ متد، تایپ‌ها، فیلترها، میدلورها، دستور پخت (پروژه‌های کامل) و پرسش‌های پرتکرار
-- ✨ انیمیشن‌ها: دموی گفتگو، نمودار مسیر آپدیت، دکمه‌های رنگی زنده، شبیه‌ساز فیلتر، پیشرفت مطالعه، تم روشن/تاریک
+- 🎨 رابط خلوت و واکنش‌گرا با تم روشن/تاریک، جستجوی سریع و کپی مستقیم کدها
 - 🔎 جستجوی فوری (`Ctrl K`)، فهرست «در این صفحه»، دکمه‌ی کپی روی کدها
 - 🪶 بدون بیلد و بدون وابستگی: HTML + CSS + JS خالص / no framework, no build step
 

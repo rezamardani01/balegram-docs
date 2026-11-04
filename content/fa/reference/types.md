@@ -3,10 +3,10 @@ title: تایپ‌ها
 lead: همه‌ی شیءهای بله به‌صورت مدل‌های pydantic: فیلدها، نوع‌ها و میانبرها.
 ---
 
-همه‌ی تایپ‌ها از `balegram.types` import می‌شوند. فیلدهای اختیاری با `?` مشخص شده‌اند و می‌توانند `None` باشند. فیلدهای ناشناخته‌ی بله نادیده گرفته نمی‌شوند و حفظ می‌شوند؛ پس اضافه‌شدن فیلد جدید در API چیزی را خراب نمی‌کند.
+همه‌ی تایپ‌ها از `baleropy.types` import می‌شوند. فیلدهای اختیاری با `?` مشخص شده‌اند و می‌توانند `None` باشند. فیلدهای ناشناخته‌ی بله نادیده گرفته نمی‌شوند و حفظ می‌شوند؛ پس اضافه‌شدن فیلد جدید در API چیزی را خراب نمی‌کند.
 
 ```python
-from balegram.types import Message, User, Chat, Update, CallbackQuery
+from baleropy.types import Message, User, Chat, Update, CallbackQuery
 ```
 
 ## Update

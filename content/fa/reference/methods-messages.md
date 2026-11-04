@@ -150,7 +150,7 @@ await bot.send_chat_action(chat_id, action)
 #### مثال
 
 ```python
-from balegram.types import ChatAction
+from baleropy.types import ChatAction
 
 await bot.send_chat_action(12345, ChatAction.TYPING)
 ```

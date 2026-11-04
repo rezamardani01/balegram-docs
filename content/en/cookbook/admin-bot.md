@@ -26,10 +26,10 @@ Concepts: [routers and Router-level filters](/guide/routers), `IsChatAdmin` ([fi
 import asyncio
 from collections import defaultdict
 
-from balegram import Bot, Dispatcher, F, Router
-from balegram.exceptions import BaleAPIError
-from balegram.filters import ChatTypeFilter, Command, IsChatAdmin
-from balegram.types import Message
+from baleropy import Bot, Dispatcher, F, Router
+from baleropy.exceptions import BaleAPIError
+from baleropy.filters import ChatTypeFilter, Command, IsChatAdmin
+from baleropy.types import Message
 
 TOKEN = "YOUR_BOT_TOKEN"
 MAX_WARNS = 3

@@ -3,10 +3,10 @@ title: Helper utilities
 lead: Deep links, Bale's Markdown formatting, splitting long text, the "typing…" indicator and building albums.
 ---
 
-All of these live in `balegram.utils`:
+All of these live in `baleropy.utils`:
 
 ```python
-from balegram.utils import (
+from baleropy.utils import (
     bold, italic, link, split_text,
     bot_link, create_start_link, encode_payload, decode_payload,
     ChatActionSender, MediaGroupBuilder,
@@ -29,7 +29,7 @@ Per the Bale docs, a **space** is needed before the opening and after the closin
 :::
 
 ```python
-from balegram.utils import bold, italic, link
+from baleropy.utils import bold, italic, link
 
 text = f"Price: {bold('100k')} toman, {italic('free shipping')}. Details: {link('site', 'https://example.com')}"
 await message.answer(text)
@@ -40,7 +40,7 @@ await message.answer(text)
 Bale accepts up to **4096 characters** per message. For longer text:
 
 ```python
-from balegram.utils import split_text
+from baleropy.utils import split_text
 
 for part in split_text(very_long_report):            # default 4096
     await message.answer(part)
@@ -55,7 +55,7 @@ It cuts by priority: first at a newline, then a space, and only as a last resort
 A bot link in Bale: `https://ble.ir/<bot_username>?start=<parameter>`. When a user taps it the bot gets `/start <parameter>`; good for invite codes, campaigns and special flows.
 
 ```python
-from balegram.utils import create_start_link, bot_link
+from baleropy.utils import create_start_link, bot_link
 
 link = await create_start_link(bot, "ref42")            # gets the bot name from getMe
 # https://ble.ir/mybot?start=ref42
@@ -88,7 +88,7 @@ async def start(message: Message, command: CommandObject):
 A long task? Keep the indicator alive until it finishes:
 
 ```python
-from balegram.utils import ChatActionSender
+from baleropy.utils import ChatActionSender
 
 @dp.message(Command("report"))
 async def report(message: Message, bot: Bot):
@@ -112,7 +112,7 @@ For one-shot: `await message.answer_chat_action(ChatAction.TYPING)`.
 ## MediaGroupBuilder
 
 ```python
-from balegram.utils import MediaGroupBuilder
+from baleropy.utils import MediaGroupBuilder
 
 album = MediaGroupBuilder(caption="Holiday")
 album.add_photo(FSInputFile("1.jpg")).add_photo("file_id").add_video("video_id")

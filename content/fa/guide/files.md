@@ -11,12 +11,12 @@ lead: ارسال عکس، ویدیو، صدا و فایل به سه روش (file
 | **لینک (URL)** | آدرس HTTP فایل؛ بله خودش دانلود می‌کند | عکس ۵ مگابایت، بقیه ۲۰ مگابایت |
 | **آپلود** | خود فایل (multipart) | عکس ۱۰ مگابایت، بقیه ۵۰ مگابایت |
 
-در balegram آرگومان فایل هر سه را می‌پذیرد: رشته (file_id یا لینک) یا شیء `InputFile` (آپلود).
+در baleropy آرگومان فایل هر سه را می‌پذیرد: رشته (file_id یا لینک) یا شیء `InputFile` (آپلود).
 
 ## آپلود
 
 ```python
-from balegram.types import BufferedInputFile, FSInputFile
+from baleropy.types import BufferedInputFile, FSInputFile
 
 # از روی دیسک (موقع ارسال خوانده می‌شود)
 await message.answer_document(FSInputFile("report.pdf"), caption="گزارش ماهانه")
@@ -69,7 +69,7 @@ await message.answer_photo("https://example.com/cat.jpg")     # لینک
 ## آلبوم (media group)
 
 ```python
-from balegram.utils import MediaGroupBuilder
+from baleropy.utils import MediaGroupBuilder
 
 album = MediaGroupBuilder(caption="سفر شمال 🌲")        # کپشن روی اولین عکس
 album.add_photo(FSInputFile("a.jpg"))

@@ -1,9 +1,9 @@
 ---
 title: Changelog
-lead: The list of changes in every balegram release.
+lead: The list of changes in every baleropy release.
 ---
 
-Primary source: [CHANGELOG.md](https://github.com/rezamardani01/balegram/blob/main/CHANGELOG.md) in the repository.
+Primary source: [CHANGELOG.md](https://github.com/rezamardani01/Baleropy/blob/main/CHANGELOG.md) in the repository.
 
 ## 0.2.0
 

@@ -8,7 +8,7 @@ lead: BaseMiddleware، سه میدلور آماده، نقاط ثبت و مید�
 ## BaseMiddleware
 
 ```python
-from balegram.dispatcher import BaseMiddleware
+from baleropy.dispatcher import BaseMiddleware
 
 class MyMiddleware(BaseMiddleware):
     async def __call__(self, handler, event, data): ...
@@ -39,7 +39,7 @@ class MyMiddleware(BaseMiddleware):
 LoggingMiddleware(level=logging.INFO)
 ```
 
-هر رویداد را با کاربر و زمان پردازش لاگ می‌کند (لاگر `balegram.middleware`). خطاها را با Traceback لاگ و دوباره پرتاب می‌کند.
+هر رویداد را با کاربر و زمان پردازش لاگ می‌کند (لاگر `baleropy.middleware`). خطاها را با Traceback لاگ و دوباره پرتاب می‌کند.
 
 ## ThrottlingMiddleware
 
@@ -89,7 +89,7 @@ dp.update outer           (UserContext، FSM و میدلورهای شما)
 ## get_flag
 
 ```python
-from balegram.dispatcher import get_flag
+from baleropy.dispatcher import get_flag
 get_flag(data, "rate_limit", default=1)
 ```
 

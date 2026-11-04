@@ -1,4 +1,4 @@
-/* balegram docs — router, navigation, search, theme, language. */
+/* baleropy docs — router, navigation, search, theme, language. */
 (function () {
   const DOCS = window.DOCS || { nav: [], pages: { fa: {}, en: {} } };
   const $ = (s, r = document) => r.querySelector(s);
@@ -9,14 +9,14 @@
       search: "جستجو در مستندات...", searchBtn: "جستجو", menu: "منو", toc: "در این صفحه", prev: "قبلی", next: "بعدی",
       notFound: "این صفحه پیدا نشد", notFoundText: "آدرس را بررسی کنید یا از منوی کناری صفحه‌ی مورد نظر را انتخاب کنید.", home: "بازگشت به خانه",
       copy: "کپی", copied: "کپی شد ✓", noResult: "نتیجه‌ای پیدا نشد", untranslated: "این صفحه هنوز به فارسی ترجمه نشده و نسخه‌ی انگلیسی نمایش داده می‌شود.",
-      theme: "تغییر تم", top: "رفتن به بالا", footer: "ساخته‌شده با ❤️ برای جامعه‌ی توسعه‌دهندگان بله · مستندات balegram", docs: "مستندات",
+      theme: "تغییر تم", top: "رفتن به بالا", footer: "ساخته‌شده با ❤️ برای جامعه‌ی توسعه‌دهندگان بله · مستندات baleropy", docs: "مستندات",
       langName: "English", langFlag: "EN", hint: "برای جستجو", edit: "ویرایش در گیت‌هاب",
     },
     en: {
       search: "Search the docs...", searchBtn: "Search", menu: "Menu", toc: "On this page", prev: "Previous", next: "Next",
       notFound: "Page not found", notFoundText: "Check the address or pick a page from the sidebar.", home: "Back to home",
       copy: "Copy", copied: "Copied ✓", noResult: "No results", untranslated: "This page is not translated yet, showing the Persian version.",
-      theme: "Toggle theme", top: "Back to top", footer: "Built with ❤️ for the Bale developer community · balegram docs", docs: "Docs",
+      theme: "Toggle theme", top: "Back to top", footer: "Built with ❤️ for the Bale developer community · baleropy docs", docs: "Docs",
       langName: "فارسی", langFlag: "FA", hint: "to search", edit: "Edit on GitHub",
     },
   };
@@ -122,7 +122,7 @@
     $("#sidebar").style.display = "none"; $("#toc").style.display = "none";
     main.className = "main-landing";
     main.innerHTML = window.renderLanding(lang, UI[lang]);
-    document.title = lang === "fa" ? "balegram — فریم‌ورک ساخت ربات بله" : "balegram — framework for Bale bots";
+    document.title = lang === "fa" ? "baleropy — فریم‌ورک ساخت ربات بله" : "baleropy — framework for Bale bots";
     $("#toc").innerHTML = "";
     window.mountLanding && window.mountLanding(main, lang);
   }
@@ -134,7 +134,7 @@
     if (!page) {
       layout.className = "layout no-toc"; $("#toc").style.display = "none";
       main.innerHTML = `<div class="page"><h1>404</h1><p class="lead">${UI[lang].notFound}</p><p>${UI[lang].notFoundText}</p><a class="btn primary" href="#/${lang}">${UI[lang].home}</a></div>`;
-      document.title = "404 · balegram"; return;
+      document.title = "404 · baleropy"; return;
     }
     const { html, toc } = window.renderMarkdown(page.md, { lang, path: h.path });
     const idx = flat.findIndex((f) => f.path === h.path);
@@ -154,7 +154,7 @@
       tocEl.style.display = "";
       tocEl.innerHTML = `<h4>${UI[lang].toc}</h4>` + toc.map((t) => `<a class="l${t.level}" href="#/${lang}/${h.path}?s=${t.id}" data-id="${t.id}">${t.text}</a>`).join("");
     } else { layout.className = "layout no-toc"; tocEl.style.display = "none"; tocEl.innerHTML = ""; }
-    document.title = `${page.title.replace(/`/g, "")} · balegram`;
+    document.title = `${page.title.replace(/`/g, "")} · baleropy`;
     window.mountWidgets && window.mountWidgets(main, lang);
   }
 

@@ -13,10 +13,10 @@ lead: دکمه‌های inline زیر پیام، کیبورد پاسخ (reply) �
 ## دکمه‌ی inline
 
 ```python
-from balegram import F
-from balegram.filters import Command
-from balegram.types import CallbackQuery, Message
-from balegram.utils import InlineKeyboardBuilder
+from baleropy import F
+from baleropy.filters import Command
+from baleropy.types import CallbackQuery, Message
+from baleropy.utils import InlineKeyboardBuilder
 
 
 @dp.message(Command("menu"))
@@ -88,7 +88,7 @@ adjust(3, 2):          [1][2][3]
 | *(بدون style)* | ظاهر معمولی |
 
 ```python
-from balegram.types import ButtonStyle
+from baleropy.types import ButtonStyle
 
 kb = InlineKeyboardBuilder()
 kb.button(text="تایید ✅", callback_data="ok",   style=ButtonStyle.SUCCESS)
@@ -115,8 +115,8 @@ await message.answer("انتخاب کن:", reply_markup=kb.as_markup())
 ## کیبورد reply
 
 ```python
-from balegram.types import ReplyKeyboardRemove
-from balegram.utils import ReplyKeyboardBuilder
+from baleropy.types import ReplyKeyboardRemove
+from baleropy.utils import ReplyKeyboardBuilder
 
 
 @dp.message(Command("share"))

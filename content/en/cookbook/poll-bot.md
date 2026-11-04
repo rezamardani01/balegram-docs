@@ -16,10 +16,10 @@ import asyncio
 from collections import Counter
 from dataclasses import dataclass, field
 
-from balegram import Bot, Dispatcher
-from balegram.filters import CallbackData, Command, CommandObject
-from balegram.types import CallbackQuery, Message
-from balegram.utils import InlineKeyboardBuilder
+from baleropy import Bot, Dispatcher
+from baleropy.filters import CallbackData, Command, CommandObject
+from baleropy.types import CallbackQuery, Message
+from baleropy.utils import InlineKeyboardBuilder
 
 TOKEN = "YOUR_BOT_TOKEN"
 dp = Dispatcher()

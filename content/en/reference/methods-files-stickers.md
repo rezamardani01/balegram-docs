@@ -132,7 +132,7 @@ Creates a new sticker set.
 #### Example
 
 ```python
-from balegram.methods.misc import InputSticker
+from baleropy.methods.misc import InputSticker
 
 uploaded = await bot.upload_sticker_file(12345, FSInputFile("smile.png"))
 await bot.create_new_sticker_set(
