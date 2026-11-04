@@ -2,7 +2,7 @@
 
 NAV = [
     {
-        "id": "start", "icon": "🚀", "title": ("شروع کنید", "Getting started"),
+        "id": "start", "icon": "", "title": ("شروع کنید", "Getting started"),
         "items": [
             ("start/intro", "معرفی", "Introduction"),
             ("start/install", "نصب و اولین ربات", "Install & first bot"),
@@ -10,7 +10,7 @@ NAV = [
         ],
     },
     {
-        "id": "guide", "icon": "📘", "title": ("آموزش درس‌به‌درس", "Step-by-step guide"),
+        "id": "guide", "icon": "", "title": ("آموزش درس‌به‌درس", "Step-by-step guide"),
         "items": [
             ("guide/handlers", "هندلرها و رویدادها", "Handlers & events"),
             ("guide/routers", "روترها", "Routers"),
@@ -32,7 +32,7 @@ NAV = [
         ],
     },
     {
-        "id": "reference", "icon": "📚", "title": ("مرجع", "Reference"),
+        "id": "reference", "icon": "", "title": ("مرجع", "Reference"),
         "items": [
             ("reference/methods-messages", "متدها: ارسال پیام", "Methods: sending"),
             ("reference/methods-media", "متدها: رسانه", "Methods: media"),
@@ -49,7 +49,7 @@ NAV = [
         ],
     },
     {
-        "id": "cookbook", "icon": "🍳", "title": ("دستور پخت", "Cookbook"),
+        "id": "cookbook", "icon": "", "title": ("دستور پخت", "Cookbook"),
         "items": [
             ("cookbook/quiz-bot", "ربات مسابقه", "Quiz bot"),
             ("cookbook/poll-bot", "ربات نظرسنجی", "Poll bot"),
@@ -60,7 +60,7 @@ NAV = [
         ],
     },
     {
-        "id": "more", "icon": "💡", "title": ("بیشتر", "More"),
+        "id": "more", "icon": "", "title": ("بیشتر", "More"),
         "items": [
             ("more/bale-notes", "نکات و محدودیت‌های بله", "Bale notes & limits"),
             ("more/faq", "پرسش‌های پرتکرار", "FAQ & troubleshooting"),
