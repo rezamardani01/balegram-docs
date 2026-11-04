@@ -1,57 +1,80 @@
-# مستندات baleropy / baleropy docs
+<div align="center">
 
-سایت مستندات کامل [baleropy](https://github.com/rezamardani01/Baleropy) — فریم‌ورک async و تایپ‌دار برای ساخت ربات در پیام‌رسان بله.
-The complete documentation site of [baleropy](https://github.com/rezamardani01/Baleropy), an async, typed framework for Bale bots.
+# Baleropy Docs
 
-- 🇮🇷 **زبان پیش‌فرض فارسی** با فونت وزیرمتن، و گزینه‌ی **English** در سربرگ / Persian by default (Vazirmatn font), English one click away
-- 📘 ۴۱ صفحه در هر زبان: آموزش درس‌به‌درس، مرجع همه‌ی ۵۳ متد، تایپ‌ها، فیلترها، میدلورها، دستور پخت (پروژه‌های کامل) و پرسش‌های پرتکرار
-- 🎨 رابط خلوت و واکنش‌گرا با تم روشن/تاریک، جستجوی سریع و کپی مستقیم کدها
-- 🔎 جستجوی فوری (`Ctrl K`)، فهرست «در این صفحه»، دکمه‌ی کپی روی کدها
-- 🪶 بدون بیلد و بدون وابستگی: HTML + CSS + JS خالص / no framework, no build step
+**مستندات فارسی و انگلیسی Baleropy**
 
-## اجرای محلی / Run locally
+راهنمای ساخت ربات‌های بله با پایتون؛ از نصب و اولین ربات تا مرجع کامل API.
+
+[مشاهدهٔ مستندات](https://rezamardani01.github.io/baleropy-docs/) ·
+[مخزن کتابخانه](https://github.com/rezamardani01/Baleropy)
+
+![Languages](https://img.shields.io/badge/languages-Persian%20%7C%20English-087f5b)
+![Pages](https://img.shields.io/badge/docs-82%20pages-126b70)
+
+</div>
+
+---
+
+## دربارهٔ پروژه
+
+این مخزن، وب‌سایت مستندات [Baleropy](https://github.com/rezamardani01/Baleropy) است؛ کتابخانه‌ای ناهمگام و تایپ‌دار برای ساخت ربات در پیام‌رسان بله.
+
+مستندات به فارسی و انگلیسی در دسترس‌اند و راهنماهای شروع، آموزش گام‌به‌گام، مرجع API و نمونه‌پروژه‌ها را پوشش می‌دهند. خود سایت با HTML، CSS و JavaScript ساخته شده و برای اجرا به فریم‌ورک یا مرحلهٔ build فرانت‌اند نیاز ندارد.
+
+## امکانات سایت
+
+- محتوای فارسی و انگلیسی با جابه‌جایی سریع زبان
+- جستجوی مستندات با `Ctrl+K` یا `/`
+- تم روشن و تیره
+- فهرست کناری واکنش‌گرا و فهرست مطالب هر صفحه
+- بلوک‌های کد با رنگ‌بندی و دکمهٔ کپی
+- نمونه‌ها و ابزارهای تعاملی برای یادگیری مفاهیم
+
+## اجرای محلی
+
+Python 3 برای اجرای یک وب‌سرور محلی کافی است:
 
 ```bash
 python -m http.server 8000
-# http://localhost:8000
 ```
 
-## انتشار با GitHub Pages / Publish with GitHub Pages
+سپس [http://localhost:8000](http://localhost:8000) را باز کنید.
 
-Settings → Pages → *Deploy from a branch* → `main` / `(root)`. فایل `.nojekyll` از قبل هست.
+## ویرایش مستندات
 
-## ساختار / Structure
+صفحه‌های آموزشی را در `content/fa/` و `content/en/` ویرایش کنید. بیشتر صفحه‌ها در هر دو زبان نگهداری می‌شوند.
 
-```
-index.html            پوسته‌ی سایت / the site shell
-assets/css            استایل‌ها / styles
-assets/js             روتر، رندر مارک‌داون، هایلایتر، ویجت‌ها، صفحه‌ی اصلی و content.js (تولیدشده)
-content/fa | en       درس‌ها به صورت Markdown / lessons in Markdown
-tools/nav.py          فهرست منوی کناری / the sidebar tree
-tools/ref_data.py     داده‌ی مرجع متدها / structured method data
-tools/ref_types.py    داده‌ی مرجع تایپ‌ها / structured type data
-tools/gen_reference   تولید صفحه‌های مرجع / generates the reference pages
-tools/build.py        ساخت assets/js/content.js
+پس از تغییر محتوا، فایل سایت را دوباره بسازید:
+
+```bash
+python tools/build.py
 ```
 
-## نوشتن یا ویرایش صفحه / Editing
+این دستور صفحه‌های مرجع و `assets/js/content.js` را تولید یا به‌روزرسانی می‌کند. صفحه‌های مرجع API تولیدشده‌اند؛ برای تغییر آن‌ها، داده‌های `tools/ref_data.py` یا `tools/ref_types.py` را ویرایش کنید. برای افزودن صفحه به منوی سایت، مسیر آن را هم در `tools/nav.py` ثبت کنید.
 
-1. فایل‌های `content/fa/...` و `content/en/...` را ویرایش کنید (هر صفحه در هر دو زبان).
-2. اجرا کنید: `python tools/build.py`
-3. صفحه‌ی جدید را در `tools/nav.py` به منو اضافه کنید.
+## ساختار پروژه
 
-صفحه‌های `content/*/reference/methods-*.md` و `types.md` **تولیدشده** هستند؛ به‌جای آن‌ها `tools/ref_data.py` و `tools/ref_types.py` را ویرایش کنید.
-
-### افزونه‌های مارک‌داون / Markdown extras
-
-| سینتکس | نتیجه |
+| مسیر | کاربرد |
 |---|---|
-| `::: tip عنوان` … `:::` | کادر نکته (`note`، `warn`، `danger` هم هست) |
-| `::: steps` + لیست شماره‌دار | خط زمانی مرحله‌ها |
-| `::: cards` + `- 🚀 \| عنوان \| توضیح \| /مسیر` | کارت‌های لینک‌دار |
-| `::: widget flow` / `buttons` / `playground` | ویجت‌های تعاملی |
-| ` ```python title="bot.py" ` | کد با عنوان و دکمه‌ی کپی |
+| `index.html` | پوسته و نقطهٔ ورود سایت |
+| `assets/css/` | استایل‌ها و طراحی واکنش‌گرا |
+| `assets/js/` | مسیریابی، نمایش محتوا، جستجو و ابزارهای تعاملی |
+| `content/fa/` و `content/en/` | صفحه‌های مستندات |
+| `tools/nav.py` | ساختار منوی سایت |
+| `tools/ref_data.py` و `tools/ref_types.py` | داده‌های مرجع API |
+| `tools/build.py` | ساخت فایل محتوای سایت |
 
-## مجوز / License
+## قالب‌های افزودهٔ Markdown
 
-MIT
+| قالب | کاربرد |
+|---|---|
+| `::: tip عنوان` … `:::` | نمایش نکته؛ نوع‌های `note`، `warn` و `danger` هم پشتیبانی می‌شوند |
+| `::: steps` | نمایش فهرست مرحله‌ای |
+| `::: cards` | ساخت کارت‌های پیونددار |
+| `::: widget flow` | نمایش ابزار تعاملی مسیر رویداد |
+| ` ```python title="bot.py" ` | بلوک کد عنوان‌دار با امکان کپی |
+
+## انتشار
+
+سایت از طریق GitHub Pages و شاخهٔ `main` در دسترس است. برای تنظیم یا تغییر روش انتشار، بخش **Settings → Pages** مخزن را ببینید.

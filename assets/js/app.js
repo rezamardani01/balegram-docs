@@ -9,14 +9,14 @@
       search: "جستجو در مستندات...", searchBtn: "جستجو", menu: "منو", toc: "در این صفحه", prev: "قبلی", next: "بعدی",
       notFound: "این صفحه پیدا نشد", notFoundText: "آدرس را بررسی کنید یا صفحه را از منو انتخاب کنید.", home: "بازگشت به خانه",
       copy: "کپی", copied: "کپی شد ✓", noResult: "نتیجه‌ای پیدا نشد", untranslated: "این صفحه هنوز به فارسی ترجمه نشده و نسخه‌ی انگلیسی نمایش داده می‌شود.",
-      theme: "تغییر تم", top: "رفتن به بالا", footer: "ساخته‌شده با ❤️ برای جامعه‌ی توسعه‌دهندگان بله · مستندات baleropy", docs: "مستندات",
+      theme: "تغییر تم", top: "رفتن به بالا", footer: "راهنمای ساخت ربات‌های بله با Baleropy · مستندات فارسی و انگلیسی", docs: "مستندات",
       langName: "English", langFlag: "EN", hint: "برای جستجو", edit: "ویرایش در گیت‌هاب",
     },
     en: {
       search: "Search the docs...", searchBtn: "Search", menu: "Menu", toc: "On this page", prev: "Previous", next: "Next",
       notFound: "Page not found", notFoundText: "Check the address or pick a page from the sidebar.", home: "Back to home",
       copy: "Copy", copied: "Copied ✓", noResult: "No results", untranslated: "This page is not translated yet, showing the Persian version.",
-      theme: "Toggle theme", top: "Back to top", footer: "Built with ❤️ for the Bale developer community · baleropy docs", docs: "Docs",
+      theme: "Toggle theme", top: "Back to top", footer: "A practical guide to building Bale bots with Baleropy · Persian and English docs", docs: "Docs",
       langName: "فارسی", langFlag: "FA", hint: "to search", edit: "Edit on GitHub",
     },
   };
