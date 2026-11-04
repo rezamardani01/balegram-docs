@@ -31,7 +31,7 @@ def parse(text: str) -> dict[str, str]:
         for line in m.group(1).splitlines():
             if ":" in line:
                 k, v = line.split(":", 1)
-                meta[k.strip()] = v.strip()
+                meta[k.strip()] = v.strip().strip('"')
         body = m.group(2)
     return {"title": meta.get("title", ""), "lead": meta.get("lead", ""), "md": body.strip() + "\n"}
 
