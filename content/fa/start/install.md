@@ -27,8 +27,8 @@ source .venv/bin/activate
 pip install baleropy
 ```
 
-::: note نام پکیج و نام ایمپورت فرق دارند
-نام پکیج در PyPI برابر **`baleropy`** است، ولی داخل کد می‌نویسید `import baleropy` (و `from baleropy import Bot`).
+::: note نام پکیج و ایمپورت یکی است
+نام پکیج در PyPI و نام ماژول پایتون هر دو **`baleropy`** هستند؛ برای نصب `pip install baleropy` و برای استفاده `import baleropy` یا `from baleropy import Bot` را بنویسید.
 :::
 
 ::: tip نصب با Redis

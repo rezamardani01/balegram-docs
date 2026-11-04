@@ -27,8 +27,8 @@ Then install baleropy:
 pip install baleropy
 ```
 
-::: note The package name vs the import name
-The package on PyPI is called **`baleropy`**, but in your code you write `import baleropy` (and `from baleropy import Bot`).
+::: note The package and import names are the same
+Both the PyPI package and the Python module are named **`baleropy`**. Install with `pip install baleropy`, then use `import baleropy` or `from baleropy import Bot`.
 :::
 
 ::: tip Install with Redis
