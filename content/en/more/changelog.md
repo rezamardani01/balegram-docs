@@ -5,6 +5,14 @@ lead: The list of changes in every baleropy release.
 
 Primary source: [CHANGELOG.md](https://github.com/rezamardani01/Baleropy/blob/main/CHANGELOG.md) in the repository.
 
+## 0.3.3
+
+- Publish the release from GitHub Actions with PyPI Trusted Publishing for verifiable provenance.
+
+## 0.3.2
+
+- The colored inline-button example defines its layout directly with nested rows and no longer needs `adjust()`.
+
 ## 0.2.0
 
 **New**

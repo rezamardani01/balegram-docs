@@ -5,6 +5,14 @@ lead: فهرست تغییرات هر نسخه‌ی baleropy.
 
 منبع اصلی: [CHANGELOG.md](https://github.com/rezamardani01/Baleropy/blob/main/CHANGELOG.md) در مخزن.
 
+## 0.3.3
+
+- انتشار نسخه از طریق GitHub Actions و PyPI Trusted Publishing برای ثبت منشأ قابل‌تأیید.
+
+## 0.3.2
+
+- چیدمان نمونه‌ی دکمه‌های رنگی inline مستقیماً با ردیف‌های تو‌در‌تو مشخص می‌شود و به `adjust()` نیاز ندارد.
+
 ## 0.2.0
 
 **جدید**
