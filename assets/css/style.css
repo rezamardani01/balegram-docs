@@ -435,3 +435,19 @@ html[dir="ltr"] .pager { --ax: 6px; }
   .header, .sidebar, .toc, .to-top, #progress, .pager { display: none !important; }
   .layout { display: block; } .code { box-shadow: none; }
 }
+
+/* ── mobile fixes ─────────────────────────────────────────────────────────────── */
+.hero-in > *, .feat > *, .try > *, .stats > * { min-width: 0; }
+.install { max-width: 100%; white-space: nowrap; }
+@media (max-width: 700px) {
+  .lang-btn #lang-name, .header a.icon-btn[aria-label="GitHub"] { display: none; }
+  .header { gap: 6px; }
+  .hero { padding: 40px 16px 70px; }
+  .hero h1 { font-size: 36px; }
+  .hero p.sub { font-size: 17px; }
+  .cta .btn { padding: 11px 18px; font-size: 15px; }
+  .install { font-size: 12px; overflow-x: auto; }
+  .section { padding-inline: 16px; }
+  .phone-screen { height: 420px; }
+  .flow-wrap { padding-inline: 10px; }
+}
