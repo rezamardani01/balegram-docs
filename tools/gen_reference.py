@@ -6,6 +6,7 @@ import re
 from pathlib import Path
 
 from ref_data import METHODS, PAGES, SHARED
+from ref_types import TYPES
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -93,6 +94,21 @@ def render_page(path: str, title: tuple[str, str], lead: tuple[str, str], keys: 
     return "\n".join(out)
 
 
+def render_types(lang: str) -> str:
+    i = 2 if lang == "fa" else 3
+    heads = {"fa": ("فیلد", "نوع", "توضیح", "تایپ‌ها", "همه‌ی تایپ‌ها از `balegram.types` import می‌شوند. فیلدهای اختیاری با `?` مشخص شده‌اند و می‌توانند `None` باشند. فیلدهای ناشناخته‌ی بله نادیده گرفته نمی‌شوند و حفظ می‌شوند؛ پس اضافه‌شدن فیلد جدید در API چیزی را خراب نمی‌کند.", "از `types.Update` تا `types.InputFile`"),
+             "en": ("Field", "Type", "Description", "Types", "All types are imported from `balegram.types`. Optional fields are marked with `?` and can be `None`. Unknown fields from Bale are kept, not dropped, so a new API field never breaks anything.", "")}[lang]
+    title = {"fa": "تایپ‌ها", "en": "Types"}[lang]
+    out = ["---", f"title: {title}", f"lead: {'همه‌ی شیءهای بله به‌صورت مدل‌های pydantic: فیلدها، نوع‌ها و میانبرها.' if lang == 'fa' else 'Every Bale object as a pydantic model: fields, types and shortcuts.'}", "---", "", heads[4], ""]
+    out += ["```python", "from balegram.types import Message, User, Chat, Update, CallbackQuery", "```", ""]
+    for name, fa, en, fields in TYPES:
+        out += [f"## {name}", "", fa if lang == "fa" else en, "", f"| {heads[0]} | {heads[1]} | {heads[2]} |", "|---|---|---|"]
+        for f in fields:
+            out.append(f"| `{f[0]}` | `{esc_cell(f[1])}` | {f[i].replace('|', chr(92) + '|')} |")
+        out.append("")
+    return "\n".join(out)
+
+
 def main() -> int:
     count = 0
     for path, title, lead, keys in PAGES:
@@ -101,6 +117,9 @@ def main() -> int:
             file.parent.mkdir(parents=True, exist_ok=True)
             file.write_text(render_page(path, title, lead, keys, lang), encoding="utf-8")
             count += 1
+    for lang in ("fa", "en"):
+        (ROOT / "content" / lang / "reference" / "types.md").write_text(render_types(lang), encoding="utf-8")
+        count += 1
     methods = {k for _, _, _, ks in PAGES for k in ks}
     missing = set(METHODS) - methods
     if missing:
