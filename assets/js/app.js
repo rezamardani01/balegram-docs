@@ -174,7 +174,7 @@
   let revealIO = null;
   function observeReveal() {
     revealIO && revealIO.disconnect();
-    revealIO = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); revealIO.unobserve(e.target); } }), { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    revealIO = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); revealIO.unobserve(e.target); } }), { threshold: 0.01, rootMargin: "0px 0px -30px 0px" });
     $$(".reveal").forEach((el, i) => { el.style.setProperty("--d", `${(i % 6) * 0.07}s`); revealIO.observe(el); });
   }
 
