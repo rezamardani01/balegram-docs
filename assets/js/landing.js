@@ -92,7 +92,7 @@ asyncio.run(dp.start_polling(Bot("YOUR_BOT_TOKEN")))`;
             <a class="btn" href="${h("/reference/methods-messages")}">${t.ref}</a>
             <a class="btn" href="https://github.com/rezamardani01/balegram" target="_blank" rel="noopener">★ ${t.ghText}</a>
           </div>
-          <div class="install" data-install title="${ui.copy}"><span class="p">$</span><span>pip install git+https://github.com/rezamardani01/balegram.git</span></div>
+          <div class="install" data-install title="${ui.copy}"><span class="p">$</span><span>pip install balegram-api</span></div>
         </div>
         <div class="phone"><div class="phone-screen">
           <div class="chat-head"><span class="av">🤖</span><div>${t.chat.name}<small>${t.chat.online}</small></div></div>
@@ -130,7 +130,7 @@ asyncio.run(dp.start_polling(Bot("YOUR_BOT_TOKEN")))`;
     window.mountWidgets(root, lang);
     const t = T[lang].chat, body = root.querySelector("#chat-body");
     const inst = root.querySelector("[data-install]");
-    if (inst) inst.onclick = () => { navigator.clipboard && navigator.clipboard.writeText("pip install git+https://github.com/rezamardani01/balegram.git"); inst.style.transform = "scale(0.96)"; setTimeout(() => (inst.style.transform = ""), 180); };
+    if (inst) inst.onclick = () => { navigator.clipboard && navigator.clipboard.writeText("pip install balegram-api"); inst.style.transform = "scale(0.96)"; setTimeout(() => (inst.style.transform = ""), 180); };
 
     // counters
     const io = new IntersectionObserver((es) => es.forEach((e) => {

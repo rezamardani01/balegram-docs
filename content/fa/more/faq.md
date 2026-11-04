@@ -37,7 +37,7 @@ lead: مشکلات رایج و راه‌حل‌شان؛ به‌علاوه‌ی �
 با نسخه‌های قدیمی کتابخانه روی `sendChatAction` رخ می‌داد (بله `chat_id` عددی را نمی‌پذیرفت). کتابخانه را به‌روز کنید:
 
 ```bash
-pip install --upgrade --force-reinstall --no-deps git+https://github.com/rezamardani01/balegram.git
+pip install --upgrade balegram-api
 ```
 
 ## خطای `400 message is not modified`
