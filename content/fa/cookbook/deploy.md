@@ -106,11 +106,11 @@ docker compose logs -f bot
 ## فایل requirements.txt
 
 ```text
-balegram-api
+baleropy
 redis>=5
 ```
 
-برای تکرارپذیری، یک **نسخه‌ی مشخص** پین کنید: `balegram-api==0.2.0`.
+برای تکرارپذیری، یک **نسخه‌ی مشخص** پین کنید: `baleropy==0.2.0`.
 
 ## Webhook پشت nginx
 

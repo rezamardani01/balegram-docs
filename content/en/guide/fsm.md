@@ -10,7 +10,7 @@ When the bot asks "What's your name?" and the user writes "Reza", how does the b
 ## Step 1: define the states
 
 ```python title="states.py"
-from balegram.fsm import State, StatesGroup
+from baleropy.fsm import State, StatesGroup
 
 
 class Form(StatesGroup):
@@ -24,10 +24,10 @@ The full name of each state is `Form:name`, `Form:age`, and so on.
 ## Step 2: the handlers
 
 ```python title="handlers.py"
-from balegram import F, Router
-from balegram.filters import Command
-from balegram.fsm import FSMContext
-from balegram.types import Message
+from baleropy import F, Router
+from baleropy.filters import Command
+from baleropy.fsm import FSMContext
+from baleropy.types import Message
 
 router = Router()
 
@@ -83,8 +83,8 @@ A `State` is used directly as a filter: `@router.message(Form.name)`.
 ## State filters
 
 ```python
-from balegram.filters import StateFilter
-from balegram.fsm import default_state, any_state
+from baleropy.filters import StateFilter
+from baleropy.fsm import default_state, any_state
 
 @router.message(Form.name)                      # one state
 @router.message(StateFilter(Form.name, Form.age))   # one of several
@@ -96,7 +96,7 @@ from balegram.fsm import default_state, any_state
 ## Cancel at any step
 
 ```python
-from balegram.filters import Command
+from baleropy.filters import Command
 
 @router.message(Command("cancel"))              # no state filter: works everywhere
 async def cancel(message: Message, state: FSMContext):
@@ -128,8 +128,8 @@ class Order(StatesGroup):
 ## Storage strategy: state for whom?
 
 ```python
-from balegram import Dispatcher
-from balegram.fsm import FSMStrategy
+from baleropy import Dispatcher
+from baleropy.fsm import FSMStrategy
 
 dp = Dispatcher(fsm_strategy=FSMStrategy.USER_IN_CHAT)   # the default
 ```
@@ -148,11 +148,11 @@ dp = Dispatcher(fsm_strategy=FSMStrategy.USER_IN_CHAT)   # the default
 | `RedisStorage` | persistent; for production; data must be JSON-serializable |
 
 ```python
-from balegram.fsm import MemoryStorage, RedisStorage
+from baleropy.fsm import MemoryStorage, RedisStorage
 
 dp = Dispatcher(storage=MemoryStorage())
 
-# Redis (pip install balegram-api[redis])
+# Redis (pip install baleropy[redis])
 storage = RedisStorage.from_url("redis://localhost:6379/0", state_ttl=3600, data_ttl=3600)
 dp = Dispatcher(storage=storage)
 ```
@@ -167,10 +167,10 @@ Inherit `BaseStorage` and implement five coroutines: `set_state`, `get_state`, `
 
 ```python
 import random
-from balegram import F, Router
-from balegram.filters import Command
-from balegram.fsm import FSMContext, State, StatesGroup
-from balegram.types import Message
+from baleropy import F, Router
+from baleropy.filters import Command
+from baleropy.fsm import FSMContext, State, StatesGroup
+from baleropy.types import Message
 
 router = Router()
 

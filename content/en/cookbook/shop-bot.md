@@ -25,11 +25,11 @@ The code works with the test token `WALLET-TEST-1111111111111111`; no real money
 import asyncio
 import uuid
 
-from balegram import Bot, Dispatcher, F
-from balegram.filters import CallbackData, Command
-from balegram.fsm import FSMContext
-from balegram.types import CallbackQuery, LabeledPrice, Message, PreCheckoutQuery
-from balegram.utils import InlineKeyboardBuilder
+from baleropy import Bot, Dispatcher, F
+from baleropy.filters import CallbackData, Command
+from baleropy.fsm import FSMContext
+from baleropy.types import CallbackQuery, LabeledPrice, Message, PreCheckoutQuery
+from baleropy.utils import InlineKeyboardBuilder
 
 TOKEN = "YOUR_BOT_TOKEN"
 PROVIDER_TOKEN = "WALLET-TEST-1111111111111111"

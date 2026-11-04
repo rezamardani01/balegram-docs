@@ -1,13 +1,13 @@
 ---
-title: معرفی balegram
-lead: balegram یک فریم‌ورک ناهمگام (async) و کاملاً تایپ‌دار برای ساخت ربات در پیام‌رسان بله است.
+title: معرفی baleropy
+lead: baleropy یک فریم‌ورک ناهمگام (async) و کاملاً تایپ‌دار برای ساخت ربات در پیام‌رسان بله است.
 ---
 
-## balegram چیست؟
+## baleropy چیست؟
 
-**balegram** کتابخانه‌ای به زبان پایتون است که به شما اجازه می‌دهد با [Bale Bot API](https://docs.bale.ai) ربات بسازید. ساختار آن از [aiogram](https://github.com/aiogram/aiogram) الهام گرفته؛ پس اگر قبلاً با aiogram کار کرده باشید، بیشتر چیزها برایتان آشناست. اگر هم نکرده‌اید، نگران نباشید: همین مستندات از صفر به شما یاد می‌دهد.
+**baleropy** کتابخانه‌ای به زبان پایتون است که به شما اجازه می‌دهد با [Bale Bot API](https://docs.bale.ai) ربات بسازید. ساختار آن از [aiogram](https://github.com/aiogram/aiogram) الهام گرفته؛ پس اگر قبلاً با aiogram کار کرده باشید، بیشتر چیزها برایتان آشناست. اگر هم نکرده‌اید، نگران نباشید: همین مستندات از صفر به شما یاد می‌دهد.
 
-::: tip چرا balegram؟
+::: tip چرا baleropy؟
 - هر چیزی که برای یک ربات جدی لازم است همراهش است: **روتر، میدلور، فیلتر، FSM، دکمه رنگی**.
 - همه‌ی متدهای Bot API بله پوشش داده شده‌اند (۵۲ متد) و همه‌ی تایپ‌ها با **pydantic** اعتبارسنجی می‌شوند.
 - کدتان خوانا می‌ماند: به‌جای یک فایل ۲۰۰۰ خطی، ربات را به ماژول‌های کوچک (روتر) تقسیم می‌کنید.
@@ -17,9 +17,9 @@ lead: balegram یک فریم‌ورک ناهمگام (async) و کاملاً ت�
 
 ```python title="bot.py"
 import asyncio
-from balegram import Bot, Dispatcher, F
-from balegram.filters import CommandStart
-from balegram.types import Message
+from baleropy import Bot, Dispatcher, F
+from baleropy.filters import CommandStart
+from baleropy.types import Message
 
 TOKEN = "YOUR_BOT_TOKEN"
 dp = Dispatcher()

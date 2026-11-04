@@ -3,7 +3,7 @@ title: مرجع فیلترها
 lead: همه‌ی فیلترهای آماده با امضا، پارامترها، دادهای که به هندلر می‌دهند و مثال.
 ---
 
-همه از `balegram.filters` import می‌شوند. آموزش مفهومی در درس‌های [فیلترها](/guide/filters)، [F](/guide/magic-filter) و [فیلتر کاستوم](/guide/custom-filters).
+همه از `baleropy.filters` import می‌شوند. آموزش مفهومی در درس‌های [فیلترها](/guide/filters)، [F](/guide/magic-filter) و [فیلتر کاستوم](/guide/custom-filters).
 
 ## Filter (کلاس پایه)
 

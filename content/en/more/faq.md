@@ -27,7 +27,7 @@ The bot may not write: the user blocked it, never pressed `/start`, or the bot i
 
 ## The `429 Too Many Requests` error
 
-You hit the rate limit. balegram waits automatically; if you see it a lot:
+You hit the rate limit. baleropy waits automatically; if you see it a lot:
 - set `skip_updates=True` (skip the old queue).
 - add `ThrottlingMiddleware`.
 - do bulk sending with the [Business API](/guide/business).
@@ -37,7 +37,7 @@ You hit the rate limit. balegram waits automatically; if you see it a lot:
 It happened on `sendChatAction` with old library versions (Bale rejected a numeric `chat_id`). Update the library:
 
 ```bash
-pip install --upgrade balegram-api
+pip install --upgrade baleropy
 ```
 
 ## The `400 message is not modified` error
@@ -45,7 +45,7 @@ pip install --upgrade balegram-api
 The new text and keyboard equal the old ones. Check something changed before editing, or catch it:
 
 ```python
-from balegram.exceptions import BaleBadRequest
+from baleropy.exceptions import BaleBadRequest
 try:
     await message.edit_text(text, reply_markup=kb)
 except BaleBadRequest:
@@ -101,14 +101,14 @@ Make the bot an admin of the channel and give `chat_id` as `@channel_username` o
 
 If you know aiogram, almost everything is familiar:
 
-| aiogram | balegram |
+| aiogram | baleropy |
 |---|---|
 | `Dispatcher()`, `Router()` | the same |
 | `@router.message(F.text)` | the same |
 | `Command("start")`, `CommandStart()` | the same |
-| `FSMContext`, `StatesGroup`, `State` | the same; from `balegram.fsm` |
-| `CallbackData` with `prefix` | the same; from `balegram.filters` |
-| `InlineKeyboardBuilder` | the same; from `balegram.utils`; colored with `style=` |
+| `FSMContext`, `StatesGroup`, `State` | the same; from `baleropy.fsm` |
+| `CallbackData` with `prefix` | the same; from `baleropy.filters` |
+| `InlineKeyboardBuilder` | the same; from `baleropy.utils`; colored with `style=` |
 | `BaseMiddleware` | the same; `dp.update/message.outer_middleware` |
 | `await bot.send_message(...)` | the same |
 | `Bot(token, default=DefaultBotProperties(parse_mode=...))` | `Bot(token)`; Bale has no `parse_mode` |
@@ -116,10 +116,10 @@ If you know aiogram, almost everything is familiar:
 | `message.answer(...)` | the same |
 | `allowed_updates` | does not exist |
 | webhook with `secret_token` | does not exist; `secret_path()` |
-| `aiogram.utils.keyboard`, `deep_linking` | `balegram.utils` (`create_start_link` ...) |
+| `aiogram.utils.keyboard`, `deep_linking` | `baleropy.utils` (`create_start_link` ...) |
 
-**Key differences:** the module names (`balegram.*`), no `parse_mode`, no built-in Scenes or i18n, and Bale-specific features (colored buttons, Business API, `IsMember`).
+**Key differences:** the module names (`baleropy.*`), no `parse_mode`, no built-in Scenes or i18n, and Bale-specific features (colored buttons, Business API, `IsMember`).
 
 ## Still stuck?
 
-Open an [issue on GitHub](https://github.com/rezamardani01/balegram/issues) and include: the Python and balegram versions, a short code sample and the **full error text**. Never include your token.
+Open an [issue on GitHub](https://github.com/rezamardani01/Baleropy/issues) and include: the Python and baleropy versions, a short code sample and the **full error text**. Never include your token.

@@ -26,10 +26,10 @@ lead: خوش‌آمدگویی، بن و آزادسازی، پین، حذف لی�
 import asyncio
 from collections import defaultdict
 
-from balegram import Bot, Dispatcher, F, Router
-from balegram.exceptions import BaleAPIError
-from balegram.filters import ChatTypeFilter, Command, IsChatAdmin
-from balegram.types import Message
+from baleropy import Bot, Dispatcher, F, Router
+from baleropy.exceptions import BaleAPIError
+from baleropy.filters import ChatTypeFilter, Command, IsChatAdmin
+from baleropy.types import Message
 
 TOKEN = "YOUR_BOT_TOKEN"
 MAX_WARNS = 3

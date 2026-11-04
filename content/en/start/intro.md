@@ -1,13 +1,13 @@
 ---
-title: Introducing balegram
-lead: balegram is an asynchronous, fully typed framework for building bots in the Bale messenger.
+title: Introducing baleropy
+lead: baleropy is an asynchronous, fully typed framework for building bots in the Bale messenger.
 ---
 
-## What is balegram?
+## What is baleropy?
 
-**balegram** is a Python library that lets you build bots with the [Bale Bot API](https://docs.bale.ai). Its structure is inspired by [aiogram](https://github.com/aiogram/aiogram), so if you have used aiogram most things will feel familiar. If you have not, no problem: these docs teach you from scratch.
+**baleropy** is a Python library that lets you build bots with the [Bale Bot API](https://docs.bale.ai). Its structure is inspired by [aiogram](https://github.com/aiogram/aiogram), so if you have used aiogram most things will feel familiar. If you have not, no problem: these docs teach you from scratch.
 
-::: tip Why balegram?
+::: tip Why baleropy?
 - Everything a serious bot needs ships with it: **routers, middlewares, filters, FSM, colored buttons**.
 - Every Bot API method of Bale is covered (52 methods) and all types are validated with **pydantic**.
 - Your code stays readable: instead of one 2000-line file you split the bot into small modules (routers).
@@ -17,9 +17,9 @@ lead: balegram is an asynchronous, fully typed framework for building bots in th
 
 ```python title="bot.py"
 import asyncio
-from balegram import Bot, Dispatcher, F
-from balegram.filters import CommandStart
-from balegram.types import Message
+from baleropy import Bot, Dispatcher, F
+from baleropy.filters import CommandStart
+from baleropy.types import Message
 
 TOKEN = "YOUR_BOT_TOKEN"
 dp = Dispatcher()

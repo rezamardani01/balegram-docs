@@ -8,7 +8,7 @@ lead: With F you write any condition on a message like an ordinary Python expres
 `F` means "field". Instead of `lambda m: m.text == "hello"` you write `F.text == "hello"`. Each dot goes to an attribute of the message and each operator builds a condition:
 
 ```python
-from balegram import F
+from baleropy import F
 
 @dp.message(F.text == "hello")                       # text is exactly "hello"
 @dp.message(F.text.startswith("/"))                  # starts with /
@@ -110,7 +110,7 @@ For more complex buttons [CallbackData](/guide/callback-data) is cleaner.
 If a middleware put a value into `data` (for example `is_admin`), use `MagicData` to test it:
 
 ```python
-from balegram.filters import MagicData
+from baleropy.filters import MagicData
 
 @dp.message(MagicData(F.is_admin))
 async def only_admins(message: Message): ...

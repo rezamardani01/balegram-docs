@@ -32,8 +32,8 @@ WALLET-TEST-1111111111111111
 ## ارسال فاکتور
 
 ```python
-from balegram.filters import Command
-from balegram.types import LabeledPrice, Message
+from baleropy.filters import Command
+from baleropy.types import LabeledPrice, Message
 
 PROVIDER_TOKEN = "WALLET-TEST-1111111111111111"
 
@@ -77,7 +77,7 @@ await message.answer(f"برای پرداخت اینجا بزنید:\n{link}")
 ## تایید پیش از پرداخت (۱۰ ثانیه!)
 
 ```python
-from balegram.types import PreCheckoutQuery
+from baleropy.types import PreCheckoutQuery
 
 
 @dp.pre_checkout_query()
@@ -125,9 +125,9 @@ async def tx(message: Message, command: CommandObject, bot: Bot):
 
 ```python
 import asyncio
-from balegram import Bot, Dispatcher, F
-from balegram.filters import Command
-from balegram.types import LabeledPrice, Message, PreCheckoutQuery
+from baleropy import Bot, Dispatcher, F
+from baleropy.filters import Command
+from baleropy.types import LabeledPrice, Message, PreCheckoutQuery
 
 TOKEN = "YOUR_BOT_TOKEN"
 PROVIDER_TOKEN = "WALLET-TEST-1111111111111111"

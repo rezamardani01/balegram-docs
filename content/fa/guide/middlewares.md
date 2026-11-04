@@ -9,7 +9,7 @@ lead: میدلور کدی است که دور هندلر می‌پیچد: قبل 
 
 ```python title="middlewares.py"
 import time
-from balegram.dispatcher import BaseMiddleware
+from baleropy.dispatcher import BaseMiddleware
 
 
 class TimingMiddleware(BaseMiddleware):
@@ -92,7 +92,7 @@ async def me(message: Message, db):               # db همین‌جا می‌ر
 `handler` را صدا نزنید یا `CancelHandler` پرتاب کنید:
 
 ```python
-from balegram.exceptions import CancelHandler
+from baleropy.exceptions import CancelHandler
 
 class BanMiddleware(BaseMiddleware):
     def __init__(self, banned: set[int]):
@@ -114,7 +114,7 @@ class BanMiddleware(BaseMiddleware):
 | `CallbackAnswerMiddleware(text, show_alert)` | پاسخ خودکار به `callback_query` اگر هندلر پاسخ نداده باشد |
 
 ```python
-from balegram.dispatcher.middlewares import (
+from baleropy.dispatcher.middlewares import (
     LoggingMiddleware, ThrottlingMiddleware, CallbackAnswerMiddleware,
 )
 
@@ -135,7 +135,7 @@ dp.callback_query.outer_middleware(CallbackAnswerMiddleware())
 می‌توانید هنگام ثبت هندلر برچسب (flag) بگذارید و در میدلور بخوانید:
 
 ```python
-from balegram.dispatcher import get_flag
+from baleropy.dispatcher import get_flag
 
 @dp.message(Command("buy"), rate_limit=5)        # هر کلمه‌ی کلیدی اضافه = یک flag
 async def buy(message: Message): ...

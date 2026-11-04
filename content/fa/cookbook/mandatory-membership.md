@@ -18,10 +18,10 @@ lead: استفاده از ربات را مشروط به عضویت در کانا
 ```python title="members_only.py"
 import asyncio
 
-from balegram import Bot, Dispatcher, F, Router
-from balegram.filters import CommandStart, IsMember
-from balegram.types import CallbackQuery, Message
-from balegram.utils import InlineKeyboardBuilder
+from baleropy import Bot, Dispatcher, F, Router
+from baleropy.filters import CommandStart, IsMember
+from baleropy.types import CallbackQuery, Message
+from baleropy.utils import InlineKeyboardBuilder
 
 TOKEN = "YOUR_BOT_TOKEN"
 CHANNELS = ["@my_channel"]                      # یا شناسه‌ی عددی
@@ -83,8 +83,8 @@ if __name__ == "__main__":
 اگر نمی‌خواهید روی هر هندلر فیلتر بگذارید، یک میدلور inner بنویسید:
 
 ```python
-from balegram.dispatcher import BaseMiddleware
-from balegram.exceptions import BaleAPIError
+from baleropy.dispatcher import BaseMiddleware
+from baleropy.exceptions import BaleAPIError
 
 
 class MembershipMiddleware(BaseMiddleware):

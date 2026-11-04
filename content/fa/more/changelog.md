@@ -1,9 +1,9 @@
 ---
 title: تغییرات نسخه‌ها
-lead: فهرست تغییرات هر نسخه‌ی balegram.
+lead: فهرست تغییرات هر نسخه‌ی baleropy.
 ---
 
-منبع اصلی: [CHANGELOG.md](https://github.com/rezamardani01/balegram/blob/main/CHANGELOG.md) در مخزن.
+منبع اصلی: [CHANGELOG.md](https://github.com/rezamardani01/Baleropy/blob/main/CHANGELOG.md) در مخزن.
 
 ## 0.2.0
 

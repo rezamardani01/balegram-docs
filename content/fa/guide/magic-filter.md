@@ -8,7 +8,7 @@ lead: با F هر شرطی روی پیام را مثل یک عبارت معمو�
 `F` یعنی «فیلد». به‌جای نوشتن `lambda m: m.text == "سلام"` می‌نویسید `F.text == "سلام"`. هر نقطه به یک ویژگی پیام می‌رود و هر عملگر یک شرط می‌سازد:
 
 ```python
-from balegram import F
+from baleropy import F
 
 @dp.message(F.text == "سلام")                        # متن دقیقاً «سلام»
 @dp.message(F.text.startswith("/"))                  # با / شروع شود
@@ -110,7 +110,7 @@ async def page(query: CallbackQuery):
 اگر یک میدلور مقداری در `data` گذاشته باشد (مثلاً `is_admin`)، با `MagicData` روی آن شرط بگذارید:
 
 ```python
-from balegram.filters import MagicData
+from baleropy.filters import MagicData
 
 @dp.message(MagicData(F.is_admin))
 async def only_admins(message: Message): ...

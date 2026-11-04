@@ -41,7 +41,7 @@ Sends a payment invoice (Bale wallet) to the chat.
 #### Example
 
 ```python
-from balegram.types import LabeledPrice
+from baleropy.types import LabeledPrice
 
 await bot.send_invoice(
     12345, "Coffee ☕", "A cup of coffee", "order-1",

@@ -5,7 +5,7 @@ lead: Before the details, learn the big picture: Bot, Dispatcher, Router, handle
 
 ## async in one minute
 
-balegram is **asynchronous (async)**. While the bot waits for the network (for example, sending a message) Python can do other work, so one bot can serve thousands of users at once. You only need two rules:
+baleropy is **asynchronous (async)**. While the bot waits for the network (for example, sending a message) Python can do other work, so one bot can serve thousands of users at once. You only need two rules:
 
 1. Functions that talk to the network are `async def`.
 2. Wherever you need the result of an async call, put `await` in front.
@@ -57,7 +57,7 @@ Every event has an "observer" on the Router that you use as a decorator:
 
 ## "The first matching handler wins"
 
-For each event balegram checks handlers in registration order. The first one whose **filters all pass** runs and the rest are ignored. Play with it (you can change the message type too):
+For each event baleropy checks handlers in registration order. The first one whose **filters all pass** runs and the rest are ignored. Play with it (you can change the message type too):
 
 ::: widget playground
 :::

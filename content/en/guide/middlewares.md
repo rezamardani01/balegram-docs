@@ -9,7 +9,7 @@ Suppose you want to log the processing time of **all** messages, or load users f
 
 ```python title="middlewares.py"
 import time
-from balegram.dispatcher import BaseMiddleware
+from baleropy.dispatcher import BaseMiddleware
 
 
 class TimingMiddleware(BaseMiddleware):
@@ -92,7 +92,7 @@ async def me(message: Message, db):               # db arrives here
 Do not call `handler`, or raise `CancelHandler`:
 
 ```python
-from balegram.exceptions import CancelHandler
+from baleropy.exceptions import CancelHandler
 
 class BanMiddleware(BaseMiddleware):
     def __init__(self, banned: set[int]):
@@ -114,7 +114,7 @@ class BanMiddleware(BaseMiddleware):
 | `CallbackAnswerMiddleware(text, show_alert)` | Auto-answers a `callback_query` if the handler did not |
 
 ```python
-from balegram.dispatcher.middlewares import (
+from baleropy.dispatcher.middlewares import (
     LoggingMiddleware, ThrottlingMiddleware, CallbackAnswerMiddleware,
 )
 
@@ -135,7 +135,7 @@ dp.callback_query.outer_middleware(CallbackAnswerMiddleware())
 You can put labels (flags) on a handler when registering and read them in a middleware:
 
 ```python
-from balegram.dispatcher import get_flag
+from baleropy.dispatcher import get_flag
 
 @dp.message(Command("buy"), rate_limit=5)        # every extra keyword = a flag
 async def buy(message: Message): ...

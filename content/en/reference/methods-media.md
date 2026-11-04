@@ -6,7 +6,7 @@ lead: Sending photos, audio, files, video, GIFs, voice, stickers and albums.
 All examples on this page assume these imports:
 
 ```python
-from balegram.types import FSInputFile, BufferedInputFile
+from baleropy.types import FSInputFile, BufferedInputFile
 ```
 
 A file argument takes three forms: a `file_id`, an HTTP URL or an `InputFile` for uploads. Details in the lesson [Sending & receiving files](/guide/files).
@@ -49,7 +49,7 @@ Sends a photo. Size cap: 10 MB upload, 5 MB by URL.
 #### Example
 
 ```python
-from balegram.types import FSInputFile
+from baleropy.types import FSInputFile
 
 await bot.send_photo(12345, FSInputFile("cat.jpg"), caption="My cat 🐱")
 await bot.send_photo(12345, "AgACAgQAAxk...")            # file_id
@@ -316,7 +316,7 @@ Sends several photos/videos/audio/files as an album.
 #### Example
 
 ```python
-from balegram.utils import MediaGroupBuilder
+from baleropy.utils import MediaGroupBuilder
 
 album = MediaGroupBuilder(caption="Trip")
 album.add_photo(FSInputFile("1.jpg")).add_photo(FSInputFile("2.jpg"))

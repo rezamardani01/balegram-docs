@@ -20,9 +20,9 @@ from typing import Any
 
 import pytest
 
-from balegram import Bot
-from balegram.client.session.base import BaseSession
-from balegram.types import Update
+from baleropy import Bot
+from baleropy.client.session.base import BaseSession
+from baleropy.types import Update
 
 
 class FakeSession(BaseSession):
@@ -76,7 +76,7 @@ Without it `message.answer()` does not know which bot to send with and raises `n
 ## Writing tests
 
 ```python title="tests/test_handlers.py"
-from balegram.dispatcher import UNHANDLED
+from baleropy.dispatcher import UNHANDLED
 from conftest import make_update
 from my_bot.bot import dp          # your project's Dispatcher
 
@@ -152,7 +152,7 @@ An id starting with `1` counts as an "old client" and `query.answer()` is skippe
 A filter is an async object; call it directly:
 
 ```python
-from balegram.filters import Command
+from baleropy.filters import Command
 
 async def test_command_filter():
     result = await Command("start")(message_obj)
@@ -161,7 +161,7 @@ async def test_command_filter():
 
 ## With a real HTTP server (advanced)
 
-To test the network layer too, start a local `aiohttp` server and pass `ApiServer.from_base("http://127.0.0.1:PORT")` to `Bot(server=...)`. Ready examples live in the `tests/` folder of the balegram repository.
+To test the network layer too, start a local `aiohttp` server and pass `ApiServer.from_base("http://127.0.0.1:PORT")` to `Bot(server=...)`. Ready examples live in the `tests/` folder of the baleropy repository.
 
 ## Summary
 

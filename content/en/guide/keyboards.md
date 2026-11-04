@@ -13,10 +13,10 @@ lead: Inline buttons under a message, reply keyboards and green, red and blue co
 ## An inline button
 
 ```python
-from balegram import F
-from balegram.filters import Command
-from balegram.types import CallbackQuery, Message
-from balegram.utils import InlineKeyboardBuilder
+from baleropy import F
+from baleropy.filters import Command
+from baleropy.types import CallbackQuery, Message
+from baleropy.utils import InlineKeyboardBuilder
 
 
 @dp.message(Command("menu"))
@@ -88,7 +88,7 @@ Bale added colored buttons in its beta. You set the color with the `style` param
 | *(no style)* | the normal look |
 
 ```python
-from balegram.types import ButtonStyle
+from baleropy.types import ButtonStyle
 
 kb = InlineKeyboardBuilder()
 kb.button(text="Accept ✅", callback_data="ok",   style=ButtonStyle.SUCCESS)
@@ -115,8 +115,8 @@ Green for confirmation and positive actions, red for deletion and dangerous acti
 ## Reply keyboards
 
 ```python
-from balegram.types import ReplyKeyboardRemove
-from balegram.utils import ReplyKeyboardBuilder
+from baleropy.types import ReplyKeyboardRemove
+from baleropy.utils import ReplyKeyboardBuilder
 
 
 @dp.message(Command("share"))

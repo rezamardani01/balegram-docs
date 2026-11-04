@@ -20,7 +20,7 @@ lead: دو روش دریافت آپدیت از بله، تنظیم‌هایشا�
 
 ```python
 import asyncio
-from balegram import Bot, Dispatcher
+from baleropy import Bot, Dispatcher
 
 dp = Dispatcher()
 bot = Bot("YOUR_BOT_TOKEN")
@@ -68,7 +68,7 @@ if __name__ == "__main__":
 dp.run_polling(bot, skip_updates=True)        # Ctrl+C بدون Traceback
 ```
 
-موقع خروج balegram: درخواست‌های در حال اجرا را تمام می‌کند، `on_shutdown`ها را اجرا می‌کند و سشن را می‌بندد. از داخل یک هندلر هم می‌توانید `await dp.stop_polling()` را صدا بزنید.
+موقع خروج baleropy: درخواست‌های در حال اجرا را تمام می‌کند، `on_shutdown`ها را اجرا می‌کند و سشن را می‌بندد. از داخل یک هندلر هم می‌توانید `await dp.stop_polling()` را صدا بزنید.
 
 ### اگر اینترنت قطع شد
 
@@ -91,10 +91,10 @@ async def h(message: Message, bot: Bot):          # bot = ربات دریافت�
 
 ```python title="webhook_bot.py"
 from aiohttp import web
-from balegram import Bot, Dispatcher
-from balegram.filters import CommandStart
-from balegram.types import Message
-from balegram.webhook import SimpleRequestHandler, setup_application
+from baleropy import Bot, Dispatcher
+from baleropy.filters import CommandStart
+from baleropy.types import Message
+from baleropy.webhook import SimpleRequestHandler, setup_application
 
 TOKEN = "YOUR_BOT_TOKEN"
 BASE_URL = "https://bot.example.com"          # آدرس عمومی HTTPS شما
@@ -150,7 +150,7 @@ server {
 1. **مسیر غیرقابل حدس** با `secret_path()`:
 
 ```bash
-python -c "from balegram.webhook import secret_path; print(secret_path())"
+python -c "from baleropy.webhook import secret_path; print(secret_path())"
 # /webhook/Qk3d9sA7-...
 ```
 
@@ -180,7 +180,7 @@ await bot.delete_webhook()         # (start_polling خودش هم این را ا
 سه خط کافی است:
 
 ```python
-from balegram.types import Update
+from baleropy.types import Update
 
 @app.post("/webhook/CHANGE_ME")
 async def hook(request: Request):

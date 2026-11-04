@@ -14,8 +14,8 @@ You can give a handler one or more filters. The handler runs only when **all fil
 | `dict` | accept **and** pass the dict's values to the handler as arguments |
 
 ```python
-from balegram import F
-from balegram.filters import Command, ChatTypeFilter
+from baleropy import F
+from baleropy.filters import Command, ChatTypeFilter
 
 @dp.message(Command("start"), ChatTypeFilter("private"))   # both must pass
 async def start_in_private(message): ...
@@ -39,7 +39,7 @@ async def start_in_private(message): ...
 ## Combining with & , | and ~
 
 ```python
-from balegram.filters import Command, ChatTypeFilter, IsChatAdmin
+from baleropy.filters import Command, ChatTypeFilter, IsChatAdmin
 
 # AND with & (same as giving two separate filters)
 @dp.message(Command("ban") & IsChatAdmin())
@@ -60,7 +60,7 @@ from balegram.filters import Command, ChatTypeFilter, IsChatAdmin
 When a filter returns a `dict`, its keys reach the handler as arguments. `Command` does exactly that:
 
 ```python
-from balegram.filters import Command, CommandObject
+from baleropy.filters import Command, CommandObject
 
 @dp.message(Command("repeat"))
 async def repeat(message: Message, command: CommandObject):
@@ -98,7 +98,7 @@ In groups a user may type `/start@mybot`. By default `Command` checks that the m
 When the link `https://ble.ir/<bot>?start=ref42` is opened, the bot receives `/start ref42`:
 
 ```python
-from balegram.filters import CommandStart, CommandObject
+from baleropy.filters import CommandStart, CommandObject
 
 @dp.message(CommandStart(deep_link=True))          # only with a parameter
 async def with_ref(message: Message, command: CommandObject):
@@ -114,7 +114,7 @@ For complex parameters set `encoded=True` so the value is base64-decoded (and bu
 ## Chat type and admin filters
 
 ```python
-from balegram.filters import ChatTypeFilter, IsChatAdmin, IsMember
+from baleropy.filters import ChatTypeFilter, IsChatAdmin, IsMember
 
 @dp.message(Command("panel"), ChatTypeFilter("private"))
 async def panel(message: Message): ...

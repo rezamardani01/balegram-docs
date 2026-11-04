@@ -41,7 +41,7 @@ await bot.send_invoice(chat_id, title, description, payload, provider_token, pri
 #### مثال
 
 ```python
-from balegram.types import LabeledPrice
+from baleropy.types import LabeledPrice
 
 await bot.send_invoice(
     12345, "قهوه ☕", "یک فنجان قهوه", "order-1",

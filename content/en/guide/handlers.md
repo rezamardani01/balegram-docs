@@ -8,8 +8,8 @@ lead: A handler is a function that answers an event. Learn how to register it, w
 There are three equivalent ways:
 
 ```python
-from balegram import Dispatcher
-from balegram.types import Message
+from baleropy import Dispatcher
+from baleropy.types import Message
 
 dp = Dispatcher()
 
@@ -31,9 +31,9 @@ All observers (`message`, `edited_message`, `callback_query`, `pre_checkout_quer
 ## Message handlers
 
 ```python title="handlers.py"
-from balegram import F
-from balegram.filters import Command
-from balegram.types import Message
+from baleropy import F
+from baleropy.filters import Command
+from baleropy.types import Message
 
 
 @dp.message(Command("ping"))
@@ -66,7 +66,7 @@ async def edited(message: Message):
 When a user presses an inline button, a `callback_query` arrives. Always call `answer()` on it, otherwise the button stays in a "waiting" state:
 
 ```python
-from balegram.types import CallbackQuery
+from baleropy.types import CallbackQuery
 
 @dp.callback_query(F.data == "like")
 async def like(query: CallbackQuery):
@@ -81,7 +81,7 @@ Very old Bale clients do not support `answerCallbackQuery` (their callback id st
 ## Error handlers
 
 ```python
-from balegram.dispatcher import ErrorEvent
+from baleropy.dispatcher import ErrorEvent
 
 @dp.error()
 async def on_error(event: ErrorEvent, exception: Exception):
@@ -116,7 +116,7 @@ Yes; a plain function (without `async`) runs in a separate thread so the bot doe
 If halfway through you realize this handler is not the right one, raise `SkipHandler` and the next matching handler runs:
 
 ```python
-from balegram.exceptions import SkipHandler
+from baleropy.exceptions import SkipHandler
 
 @dp.message(F.text)
 async def maybe(message: Message):

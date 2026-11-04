@@ -14,8 +14,8 @@ lead: فیلتر شرطِ اجرای هندلر است. فیلترهای آما�
 | `dict` | قبول **و** مقدارهای dict به‌عنوان آرگومان به هندلر داده می‌شود |
 
 ```python
-from balegram import F
-from balegram.filters import Command, ChatTypeFilter
+from baleropy import F
+from baleropy.filters import Command, ChatTypeFilter
 
 @dp.message(Command("start"), ChatTypeFilter("private"))   # هر دو باید درست باشند
 async def start_in_private(message): ...
@@ -39,7 +39,7 @@ async def start_in_private(message): ...
 ## ترکیب با & ، | و ~
 
 ```python
-from balegram.filters import Command, ChatTypeFilter, IsChatAdmin
+from baleropy.filters import Command, ChatTypeFilter, IsChatAdmin
 
 # AND با عملگر & (معادل دادن دو فیلتر جدا)
 @dp.message(Command("ban") & IsChatAdmin())
@@ -60,7 +60,7 @@ from balegram.filters import Command, ChatTypeFilter, IsChatAdmin
 وقتی یک فیلتر `dict` برمی‌گرداند، کلیدهای آن مثل آرگومان به هندلر می‌رسند. `Command` همین کار را می‌کند:
 
 ```python
-from balegram.filters import Command, CommandObject
+from baleropy.filters import Command, CommandObject
 
 @dp.message(Command("repeat"))
 async def repeat(message: Message, command: CommandObject):
@@ -98,7 +98,7 @@ Command("x", magic=F.args)             # فقط وقتی آرگومان دارد
 لینک `https://ble.ir/<ربات>?start=ref42` وقتی باز شود، ربات `/start ref42` را دریافت می‌کند:
 
 ```python
-from balegram.filters import CommandStart, CommandObject
+from baleropy.filters import CommandStart, CommandObject
 
 @dp.message(CommandStart(deep_link=True))          # فقط وقتی پارامتر دارد
 async def with_ref(message: Message, command: CommandObject):
@@ -114,7 +114,7 @@ async def plain(message: Message):
 ## فیلتر نوع چت و ادمین
 
 ```python
-from balegram.filters import ChatTypeFilter, IsChatAdmin, IsMember
+from baleropy.filters import ChatTypeFilter, IsChatAdmin, IsMember
 
 @dp.message(Command("panel"), ChatTypeFilter("private"))
 async def panel(message: Message): ...

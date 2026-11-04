@@ -6,7 +6,7 @@ lead: ارسال عکس، صدا، فایل، ویدیو، گیف، ویس، ا�
 همه‌ی مثال‌های این صفحه فرض می‌کنند این importها را دارید:
 
 ```python
-from balegram.types import FSInputFile, BufferedInputFile
+from baleropy.types import FSInputFile, BufferedInputFile
 ```
 
 آرگومان فایل سه شکل می‌پذیرد: `file_id`، لینک HTTP یا `InputFile` برای آپلود. جزئیات در درس [ارسال و دریافت فایل](/guide/files).
@@ -49,7 +49,7 @@ await bot.send_photo(chat_id, photo, caption=None, reply_to_message_id=None, rep
 #### مثال
 
 ```python
-from balegram.types import FSInputFile
+from baleropy.types import FSInputFile
 
 await bot.send_photo(12345, FSInputFile("cat.jpg"), caption="گربه‌ی من 🐱")
 await bot.send_photo(12345, "AgACAgQAAxk...")            # file_id
@@ -316,7 +316,7 @@ await bot.send_media_group(chat_id, media, reply_to_message_id=None)
 #### مثال
 
 ```python
-from balegram.utils import MediaGroupBuilder
+from baleropy.utils import MediaGroupBuilder
 
 album = MediaGroupBuilder(caption="سفر")
 album.add_photo(FSInputFile("1.jpg")).add_photo(FSInputFile("2.jpg"))

@@ -27,7 +27,7 @@ lead: مشکلات رایج و راه‌حل‌شان؛ به‌علاوه‌ی �
 
 ## خطای `429 Too Many Requests`
 
-به سقف نرخ رسیده‌اید. balegram خودکار صبر می‌کند؛ اگر زیاد می‌بینید:
+به سقف نرخ رسیده‌اید. baleropy خودکار صبر می‌کند؛ اگر زیاد می‌بینید:
 - `skip_updates=True` بگذارید (صف قدیمی را رد کند).
 - `ThrottlingMiddleware` اضافه کنید.
 - ارسال انبوه را با [Business API](/guide/business) انجام دهید.
@@ -37,7 +37,7 @@ lead: مشکلات رایج و راه‌حل‌شان؛ به‌علاوه‌ی �
 با نسخه‌های قدیمی کتابخانه روی `sendChatAction` رخ می‌داد (بله `chat_id` عددی را نمی‌پذیرفت). کتابخانه را به‌روز کنید:
 
 ```bash
-pip install --upgrade balegram-api
+pip install --upgrade baleropy
 ```
 
 ## خطای `400 message is not modified`
@@ -45,7 +45,7 @@ pip install --upgrade balegram-api
 متن و کیبورد جدید با قبلی یکی است. بررسی کنید قبل از ویرایش چیزی عوض شده، یا بگیرید:
 
 ```python
-from balegram.exceptions import BaleBadRequest
+from baleropy.exceptions import BaleBadRequest
 try:
     await message.edit_text(text, reply_markup=kb)
 except BaleBadRequest:
@@ -101,14 +101,14 @@ async def myid(message: Message):
 
 اگر aiogram بلدید، تقریباً همه‌چیز آشناست:
 
-| aiogram | balegram |
+| aiogram | baleropy |
 |---|---|
 | `Dispatcher()`، `Router()` | همان |
 | `@router.message(F.text)` | همان |
 | `Command("start")`، `CommandStart()` | همان |
-| `FSMContext`، `StatesGroup`، `State` | همان؛ از `balegram.fsm` |
-| `CallbackData` با `prefix` | همان؛ از `balegram.filters` |
-| `InlineKeyboardBuilder` | همان؛ از `balegram.utils`؛ با `style=` رنگی |
+| `FSMContext`، `StatesGroup`، `State` | همان؛ از `baleropy.fsm` |
+| `CallbackData` با `prefix` | همان؛ از `baleropy.filters` |
+| `InlineKeyboardBuilder` | همان؛ از `baleropy.utils`؛ با `style=` رنگی |
 | `BaseMiddleware` | همان؛ `dp.update/message.outer_middleware` |
 | `await bot.send_message(...)` | همان |
 | `Bot(token, default=DefaultBotProperties(parse_mode=...))` | `Bot(token)`؛ بله `parse_mode` ندارد |
@@ -116,10 +116,10 @@ async def myid(message: Message):
 | `message.answer(...)` | همان |
 | `allowed_updates` | وجود ندارد |
 | وب‌هوک با `secret_token` | وجود ندارد؛ `secret_path()` |
-| `aiogram.utils.keyboard`, `deep_linking` | `balegram.utils` (`create_start_link` ...) |
+| `aiogram.utils.keyboard`, `deep_linking` | `baleropy.utils` (`create_start_link` ...) |
 
-**تفاوت‌های مهم:** نام ماژول‌ها (`balegram.*`)، نبودن `parse_mode`، نبودن Scenes و i18n داخلی، و امکانات مخصوص بله (دکمه رنگی، Business API، `IsMember`).
+**تفاوت‌های مهم:** نام ماژول‌ها (`baleropy.*`)، نبودن `parse_mode`، نبودن Scenes و i18n داخلی، و امکانات مخصوص بله (دکمه رنگی، Business API، `IsMember`).
 
 ## هنوز مشکل دارید؟
 
-[یک Issue در گیت‌هاب](https://github.com/rezamardani01/balegram/issues) باز کنید و این‌ها را بنویسید: نسخه‌ی پایتون و balegram، کد کوتاه، و **متن کامل خطا**. توکن را هرگز ننویسید.
+[یک Issue در گیت‌هاب](https://github.com/rezamardani01/Baleropy/issues) باز کنید و این‌ها را بنویسید: نسخه‌ی پایتون و baleropy، کد کوتاه، و **متن کامل خطا**. توکن را هرگز ننویسید.

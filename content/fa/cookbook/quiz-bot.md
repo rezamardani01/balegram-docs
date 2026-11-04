@@ -16,11 +16,11 @@ lead: یک مسابقه‌ی چندسؤالی با دکمه‌های رنگی، 
 ```python title="quiz_bot.py"
 import asyncio
 
-from balegram import Bot, Dispatcher, F
-from balegram.filters import CallbackData, Command, StateFilter
-from balegram.fsm import FSMContext, State, StatesGroup
-from balegram.types import CallbackQuery, Message
-from balegram.utils import InlineKeyboardBuilder
+from baleropy import Bot, Dispatcher, F
+from baleropy.filters import CallbackData, Command, StateFilter
+from baleropy.fsm import FSMContext, State, StatesGroup
+from baleropy.types import CallbackQuery, Message
+from baleropy.utils import InlineKeyboardBuilder
 
 TOKEN = "YOUR_BOT_TOKEN"
 

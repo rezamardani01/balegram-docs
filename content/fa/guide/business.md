@@ -1,6 +1,6 @@
 ---
 title: Business API
-lead: برای ارسال انبوه پیام و اعلان به کاربران قبلی، بله یک API جدا با سهمیه‌ی بالاتر دارد. balegram با یک خط از آن پشتیبانی می‌کند.
+lead: برای ارسال انبوه پیام و اعلان به کاربران قبلی، بله یک API جدا با سهمیه‌ی بالاتر دارد. baleropy با یک خط از آن پشتیبانی می‌کند.
 ---
 
 ## چرا Business API؟
@@ -14,7 +14,7 @@ lead: برای ارسال انبوه پیام و اعلان به کاربران 
 ## استفاده
 
 ```python
-from balegram import Bot
+from baleropy import Bot
 
 bot = Bot.business("YOUR_BOT_TOKEN")        # آدرس: tapi.bale.ai/business/bot<TOKEN>/...
 
@@ -45,8 +45,8 @@ await bot.send_message(user_chat_id, "سلام! تخفیف ویژه‌ی امش�
 
 ```python
 import asyncio
-from balegram import Bot
-from balegram.exceptions import BaleForbidden, BaleAPIError
+from baleropy import Bot
+from baleropy.exceptions import BaleForbidden, BaleAPIError
 
 async def broadcast(token: str, user_ids: list[int], text: str):
     ok = blocked = failed = 0
@@ -59,12 +59,12 @@ async def broadcast(token: str, user_ids: list[int], text: str):
                 blocked += 1                 # کاربر ربات را بلاک کرده؛ از لیست حذفش کنید
             except BaleAPIError:
                 failed += 1
-            await asyncio.sleep(0.05)        # فشار نیاور؛ ۴۲۹ را هم balegram مدیریت می‌کند
+            await asyncio.sleep(0.05)        # فشار نیاور؛ ۴۲۹ را هم baleropy مدیریت می‌کند
     return ok, blocked, failed
 ```
 
 ::: tip ۴۲۹ را خودکار مدیریت می‌کند
-اگر باز هم به سقف رسیدید، balegram [خودکار صبر می‌کند](/guide/errors) و دوباره می‌فرستد.
+اگر باز هم به سقف رسیدید، baleropy [خودکار صبر می‌کند](/guide/errors) و دوباره می‌فرستد.
 :::
 
 ## ترکیب ربات عادی و Business

@@ -1,6 +1,6 @@
 ---
 title: Business API
-lead: For bulk messaging and notifications to past users, Bale has a separate API with a higher quota. balegram supports it with one line.
+lead: For bulk messaging and notifications to past users, Bale has a separate API with a higher quota. baleropy supports it with one line.
 ---
 
 ## Why the Business API?
@@ -14,7 +14,7 @@ First charge your business account in Bale's business panel. The cost of each me
 ## Usage
 
 ```python
-from balegram import Bot
+from baleropy import Bot
 
 bot = Bot.business("YOUR_BOT_TOKEN")        # address: tapi.bale.ai/business/bot<TOKEN>/...
 
@@ -45,8 +45,8 @@ Everything else is like a regular bot: authentication, request format and respon
 
 ```python
 import asyncio
-from balegram import Bot
-from balegram.exceptions import BaleForbidden, BaleAPIError
+from baleropy import Bot
+from baleropy.exceptions import BaleForbidden, BaleAPIError
 
 async def broadcast(token: str, user_ids: list[int], text: str):
     ok = blocked = failed = 0
@@ -59,12 +59,12 @@ async def broadcast(token: str, user_ids: list[int], text: str):
                 blocked += 1                 # the user blocked the bot; remove them from the list
             except BaleAPIError:
                 failed += 1
-            await asyncio.sleep(0.05)        # no pressure; balegram also handles 429
+            await asyncio.sleep(0.05)        # no pressure; baleropy also handles 429
     return ok, blocked, failed
 ```
 
 ::: tip 429 is handled automatically
-If you still hit a limit, balegram [waits automatically](/guide/errors) and resends.
+If you still hit a limit, baleropy [waits automatically](/guide/errors) and resends.
 :::
 
 ## Combining a regular bot and Business

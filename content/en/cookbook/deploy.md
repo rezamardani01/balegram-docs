@@ -106,11 +106,11 @@ And in code: `RedisStorage.from_url("redis://redis:6379/0")`.
 ## The requirements.txt file
 
 ```text
-balegram-api
+baleropy
 redis>=5
 ```
 
-For reproducibility pin a specific **version**: `balegram-api==0.2.0`.
+For reproducibility pin a specific **version**: `baleropy==0.2.0`.
 
 ## Webhook behind nginx
 

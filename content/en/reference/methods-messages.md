@@ -150,7 +150,7 @@ Shows an "is ..." status in the chat (for example "typing"). Lasts about 5 secon
 #### Example
 
 ```python
-from balegram.types import ChatAction
+from baleropy.types import ChatAction
 
 await bot.send_chat_action(12345, ChatAction.TYPING)
 ```

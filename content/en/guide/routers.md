@@ -10,9 +10,9 @@ As a bot grows, keeping every handler in one file becomes painful. A `Router` le
 ## Create and attach
 
 ```python title="handlers/shop.py"
-from balegram import F, Router
-from balegram.filters import Command
-from balegram.types import Message
+from baleropy import F, Router
+from baleropy.filters import Command
+from baleropy.types import Message
 
 router = Router(name="shop")
 
@@ -23,9 +23,9 @@ async def buy(message: Message):
 ```
 
 ```python title="handlers/admin.py"
-from balegram import Router
-from balegram.filters import Command
-from balegram.types import Message
+from baleropy import Router
+from baleropy.filters import Command
+from baleropy.types import Message
 
 router = Router(name="admin")
 
@@ -36,7 +36,7 @@ async def stats(message: Message):
 ```
 
 ```python title="bot.py"
-from balegram import Bot, Dispatcher
+from baleropy import Bot, Dispatcher
 from handlers import shop, admin
 
 dp = Dispatcher()
@@ -66,7 +66,7 @@ cart = Router(name="cart")
 shop.router.include_router(cart)       # cart inside shop
 ```
 
-balegram prevents structural mistakes: a Router cannot be attached twice and cycles (a router inside itself) are forbidden:
+baleropy prevents structural mistakes: a Router cannot be attached twice and cycles (a router inside itself) are forbidden:
 
 ```python
 dp.include_router(shop.router)
@@ -79,7 +79,7 @@ shop.router.include_router(dp)         # RuntimeError: circular
 If every handler of a Router shares a condition, add the filter once:
 
 ```python
-from balegram.filters import ChatTypeFilter
+from baleropy.filters import ChatTypeFilter
 
 admin = Router(name="admin")
 admin.message.filter(ChatTypeFilter("group", "supergroup"))   # groups only
@@ -119,9 +119,9 @@ They run when the bot starts and stops. Shutdown runs in reverse order (the last
 
 ```python title="bot.py"
 import asyncio
-from balegram import Bot, Dispatcher, Router, F
-from balegram.filters import Command, CommandStart
-from balegram.types import Message
+from baleropy import Bot, Dispatcher, Router, F
+from baleropy.filters import Command, CommandStart
+from baleropy.types import Message
 
 TOKEN = "YOUR_BOT_TOKEN"
 

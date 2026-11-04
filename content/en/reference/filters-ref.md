@@ -3,7 +3,7 @@ title: Filters reference
 lead: Every built-in filter with its signature, parameters, the data it gives the handler and an example.
 ---
 
-All are imported from `balegram.filters`. Conceptual teaching is in the lessons [Filters](/guide/filters), [F](/guide/magic-filter) and [Custom filters](/guide/custom-filters).
+All are imported from `baleropy.filters`. Conceptual teaching is in the lessons [Filters](/guide/filters), [F](/guide/magic-filter) and [Custom filters](/guide/custom-filters).
 
 ## Filter (base class)
 

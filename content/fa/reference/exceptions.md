@@ -1,20 +1,20 @@
 ---
 title: استثناها
-lead: همه‌ی استثناهای balegram، ویژگی‌هایشان و کدهای HTTP متناظر.
+lead: همه‌ی استثناهای baleropy، ویژگی‌هایشان و کدهای HTTP متناظر.
 ---
 
-همه از `balegram.exceptions` import می‌شوند. آموزش: [خطاها و محدودیت نرخ](/guide/errors).
+همه از `baleropy.exceptions` import می‌شوند. آموزش: [خطاها و محدودیت نرخ](/guide/errors).
 
 ```python
-from balegram.exceptions import BaleAPIError, BaleForbidden, BaleRetryAfter
+from baleropy.exceptions import BaleAPIError, BaleForbidden, BaleRetryAfter
 ```
 
 ## جدول
 
 | استثنا | پایه | کد | چه زمانی؟ |
 |---|---|---|---|
-| `BalegramError` | `Exception` | — | پایه‌ی همه‌ی خطاهای کتابخانه |
-| `DetailedError` | `BalegramError` | — | خطای دارای `message` |
+| `BaleropyError` | `Exception` | — | پایه‌ی همه‌ی خطاهای کتابخانه |
+| `DetailedError` | `BaleropyError` | — | خطای دارای `message` |
 | `BaleAPIError` | `DetailedError` | هر کد | بله `ok: false` داد |
 | `BaleBadRequest` | `BaleAPIError` | 400 | درخواست نامعتبر |
 | `BaleUnauthorized` | `BaleAPIError` | 401 | توکن اشتباه/باطل |
@@ -24,8 +24,8 @@ from balegram.exceptions import BaleAPIError, BaleForbidden, BaleRetryAfter
 | `BaleServerError` | `BaleAPIError` | 5xx | خطای سرور بله |
 | `BaleNetworkError` | `DetailedError` | — | قطعی شبکه یا timeout |
 | `ClientDecodeError` | `DetailedError` | — | پاسخ قابل فهم/اعتبارسنجی نبود |
-| `SkipHandler` | `BalegramError` | — | (شما) هندلر را رد کن |
-| `CancelHandler` | `BalegramError` | — | (میدلور) رویداد را حذف کن |
+| `SkipHandler` | `BaleropyError` | — | (شما) هندلر را رد کن |
+| `CancelHandler` | `BaleropyError` | — | (میدلور) رویداد را حذف کن |
 
 ## ویژگی‌ها
 
@@ -61,12 +61,12 @@ except BaleRetryAfter as e:
 
 ## خطاهایی که از pydantic می‌آیند
 
-اگر آرگومان‌های یک متد با محدودیت‌های مستند بله نخواند (مثلاً متن بیش از ۴۰۹۶ نویسه)، پیش از ارسال `pydantic.ValidationError` می‌دهد؛ این `BalegramError` نیست.
+اگر آرگومان‌های یک متد با محدودیت‌های مستند بله نخواند (مثلاً متن بیش از ۴۰۹۶ نویسه)، پیش از ارسال `pydantic.ValidationError` می‌دهد؛ این `BaleropyError` نیست.
 
 ## مدیریت پیشنهادی
 
 ```python
-from balegram.exceptions import BaleForbidden, BaleAPIError, BaleNetworkError
+from baleropy.exceptions import BaleForbidden, BaleAPIError, BaleNetworkError
 
 try:
     await bot.send_message(user_id, text)

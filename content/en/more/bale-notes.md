@@ -30,7 +30,7 @@ Method names are case-insensitive; both GET and POST work. Parameters can be JSO
 | sticker set name and title | 1 to 64 characters |
 | stickers per set (on creation) | 1 to 50 |
 | `getUpdates limit` | 1 to 100 |
-| buttons per row / total (balegram) | 8 / 100 |
+| buttons per row / total (baleropy) | 8 / 100 |
 
 ### File size
 
@@ -71,10 +71,10 @@ Bale is "similar to" Telegram's Bot API but **not the same**:
 ## Important behaviors
 
 ### Old clients and `answerCallbackQuery`
-This method was added to Bale clients in Khordad 1404 (mid-2025). If the callback id starts with **`1`** it is an old client and answering is not supported. balegram's `query.answer()` skips it automatically.
+This method was added to Bale clients in Khordad 1404 (mid-2025). If the callback id starts with **`1`** it is an old client and answering is not supported. baleropy's `query.answer()` skips it automatically.
 
 ### 🧪 Send `chat_id` as a string
-In real testing, `sendChatAction` with a **numeric** `chat_id` in JSON gave `400 chat id is empty` but worked with a string. Since 0.2 balegram always sends `chat_id` as a string; if you make raw requests yourself, do the same.
+In real testing, `sendChatAction` with a **numeric** `chat_id` in JSON gave `400 chat id is empty` but worked with a string. Since 0.2 baleropy always sends `chat_id` as a string; if you make raw requests yourself, do the same.
 
 ### 🧪 Group methods on a private chat
 `getChatMember`, `getChatAdministrators` and `getChatMembersCount` return `400 unsupported peer type` on a private chat. `getChat` works on a private chat.
@@ -83,12 +83,12 @@ In real testing, `sendChatAction` with a **numeric** `chat_id` in JSON gave `400
 When the bot may not write: the user blocked it, never pressed `/start`, or is restricted in a group. For bulk sending, catch this error and remove the user from the list.
 
 ### 🧪 429 and `retry_after`
-A 429 reply has `parameters.retry_after` (seconds). balegram waits and retries automatically.
+A 429 reply has `parameters.retry_after` (seconds). baleropy waits and retries automatically.
 
 ### Inconsistencies in the docs themselves
-- The `reply_markup` field of `Message` is wrongly typed as `InlineKeyboardButton`; balegram accepts both shapes.
+- The `reply_markup` field of `Message` is wrongly typed as `InlineKeyboardButton`; baleropy accepts both shapes.
 - `sendPhoto` has a `from_chat_id` parameter in the docs that seems copied from `forwardMessage`; it is not used.
-- `InputSticker` is referenced but not defined; balegram's `sticker` + `emoji_list` shape is a guess.
+- `InputSticker` is referenced but not defined; baleropy's `sticker` + `emoji_list` shape is a guess.
 - `Transaction` names (`userID`, `createdAt`) are camelCase.
 
 ## Practical advice

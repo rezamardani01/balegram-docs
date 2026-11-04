@@ -1,6 +1,6 @@
 ---
 title: Install & first bot
-lead: In this lesson we install balegram, get a token and run your first bot in under 5 minutes.
+lead: In this lesson we install baleropy, get a token and run your first bot in under 5 minutes.
 ---
 
 ## Requirements
@@ -21,29 +21,29 @@ python -m venv .venv
 source .venv/bin/activate
 ```
 
-Then install balegram:
+Then install baleropy:
 
 ```bash
-pip install balegram-api
+pip install baleropy
 ```
 
 ::: note The package name vs the import name
-The package on PyPI is called **`balegram-api`**, but in your code you write `import balegram` (and `from balegram import Bot`).
+The package on PyPI is called **`baleropy`**, but in your code you write `import baleropy` (and `from baleropy import Bot`).
 :::
 
 ::: tip Install with Redis
 To keep the FSM state in Redis, install the redis extra as well:
 
 ```bash
-pip install "balegram-api[redis]"
+pip install "baleropy[redis]"
 ```
 :::
 
 Check the installation:
 
 ```python
-import balegram
-print(balegram.__version__)
+import baleropy
+print(baleropy.__version__)
 ```
 
 ## 2. Get a bot token
@@ -65,9 +65,9 @@ Create a file named `bot.py`:
 ```python title="bot.py"
 import asyncio
 
-from balegram import Bot, Dispatcher, F
-from balegram.filters import CommandStart
-from balegram.types import Message
+from baleropy import Bot, Dispatcher, F
+from baleropy.filters import CommandStart
+from baleropy.types import Message
 
 # Get a token from @botfather and paste it here
 TOKEN = "YOUR_BOT_TOKEN"
@@ -125,7 +125,7 @@ Handlers are checked in registration order and **the first one whose filters pas
 
 ## If it does not work
 
-- `ModuleNotFoundError: balegram` ← install into the same Python you run with (`python -m pip install ...`).
+- `ModuleNotFoundError: baleropy` ← install into the same Python you run with (`python -m pip install ...`).
 - `Token has an invalid format` ← the token must look like `number:text`, with no spaces or extra quotes.
 - `401 Unauthorized` ← the token is wrong or revoked.
 - The bot does not answer ← send `/start` first and make sure the program is still running.
