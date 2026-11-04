@@ -37,7 +37,7 @@ You hit the rate limit. balegram waits automatically; if you see it a lot:
 It happened on `sendChatAction` with old library versions (Bale rejected a numeric `chat_id`). Update the library:
 
 ```bash
-pip install --upgrade --force-reinstall --no-deps git+https://github.com/rezamardani01/balegram.git
+pip install --upgrade balegram-api
 ```
 
 ## The `400 message is not modified` error

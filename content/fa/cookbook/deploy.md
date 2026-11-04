@@ -106,11 +106,11 @@ docker compose logs -f bot
 ## فایل requirements.txt
 
 ```text
-balegram @ git+https://github.com/rezamardani01/balegram.git
+balegram-api
 redis>=5
 ```
 
-برای تکرارپذیری، یک **کامیت یا تگ** مشخص پین کنید: `...balegram.git@v0.2.0`.
+برای تکرارپذیری، یک **نسخه‌ی مشخص** پین کنید: `balegram-api==0.2.0`.
 
 ## Webhook پشت nginx
 

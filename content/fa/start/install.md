@@ -24,14 +24,18 @@ source .venv/bin/activate
 سپس balegram را نصب کنید:
 
 ```bash
-pip install git+https://github.com/rezamardani01/balegram.git
+pip install balegram-api
 ```
+
+::: note نام پکیج و نام ایمپورت فرق دارند
+نام پکیج در PyPI برابر **`balegram-api`** است، ولی داخل کد می‌نویسید `import balegram` (و `from balegram import Bot`).
+:::
 
 ::: tip نصب با Redis
 اگر می‌خواهید حالت FSM را در Redis ذخیره کنید، افزونه‌ی redis را هم نصب کنید:
 
 ```bash
-pip install "balegram[redis] @ git+https://github.com/rezamardani01/balegram.git"
+pip install "balegram-api[redis]"
 ```
 :::
 

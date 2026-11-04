@@ -152,7 +152,7 @@ from balegram.fsm import MemoryStorage, RedisStorage
 
 dp = Dispatcher(storage=MemoryStorage())
 
-# Redis (pip install balegram[redis])
+# Redis (pip install balegram-api[redis])
 storage = RedisStorage.from_url("redis://localhost:6379/0", state_ttl=3600, data_ttl=3600)
 dp = Dispatcher(storage=storage)
 ```

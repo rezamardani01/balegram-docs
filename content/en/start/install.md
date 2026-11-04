@@ -24,14 +24,18 @@ source .venv/bin/activate
 Then install balegram:
 
 ```bash
-pip install git+https://github.com/rezamardani01/balegram.git
+pip install balegram-api
 ```
+
+::: note The package name vs the import name
+The package on PyPI is called **`balegram-api`**, but in your code you write `import balegram` (and `from balegram import Bot`).
+:::
 
 ::: tip Install with Redis
 To keep the FSM state in Redis, install the redis extra as well:
 
 ```bash
-pip install "balegram[redis] @ git+https://github.com/rezamardani01/balegram.git"
+pip install "balegram-api[redis]"
 ```
 :::
 
