@@ -37,15 +37,25 @@
 
   function flow(el, lang) {
     const t = L[lang];
-    el.innerHTML = `<div class="flow-wrap"><div class="flow">${t.flow.map((n, i) =>
-      `${i ? '<div class="link"></div>' : ""}<div class="node" data-i="${i}"><span class="e">${n[0]}</span><b>${n[1]}</b><small>${n[2]}</small></div>`).join("")}</div>` +
+    const rows = [];
+    for (let start = 0; start < t.flow.length; start += 3) {
+      const end = Math.min(start + 3, t.flow.length);
+      const row = [];
+      for (let i = start; i < end; i++) {
+        row.push(`<div class="node" data-i="${i}"><span class="e">${t.flow[i][0]}</span><b>${t.flow[i][1]}</b><small>${t.flow[i][2]}</small></div>`);
+        if (i < end - 1) row.push(`<div class="link" data-i="${i}"></div>`);
+      }
+      rows.push(`<div class="flow-row${start === 3 ? " reverse" : ""}${end - start < 3 ? " short" : ""}">${row.join("")}</div>`);
+      if (end < t.flow.length) rows.push(`<div class="flow-turn ${start === 0 ? "right" : "left"}"><div class="link" data-i="${end - 1}"></div></div>`);
+    }
+    el.innerHTML = `<div class="flow-wrap"><div class="flow">${rows.join("")}</div>` +
       `<div class="flow-info"></div><div class="flow-ctl"><button class="btn primary" data-play>${t.play}</button></div></div>`;
     const nodes = [...el.querySelectorAll(".node")], links = [...el.querySelectorAll(".link")], info = el.querySelector(".flow-info");
     let cur = 0, timer = null;
     const show = (i) => {
       cur = i;
-      nodes.forEach((n, k) => n.classList.toggle("on", k === i));
-      links.forEach((l, k) => l.classList.toggle("on", k < i));
+      nodes.forEach((n) => n.classList.toggle("on", +n.dataset.i === i));
+      links.forEach((l) => l.classList.toggle("on", +l.dataset.i < i));
       info.innerHTML = `<b>${i + 1}. ${t.flow[i][1]}</b> — ${t.flow[i][3]}`;
     };
     const btn = el.querySelector("[data-play]");

@@ -374,17 +374,27 @@ html[dir="ltr"] .pager { --ax: 6px; }
 .try .code { margin: 0; }
 
 /* animated flow diagram */
-.flow-wrap { margin: 28px 0; padding: 26px 18px 20px; border-radius: 20px; background: var(--bg-elev); border: 1px solid var(--line); box-shadow: var(--shadow); overflow-x: auto; direction: ltr; }
-.flow { display: flex; align-items: stretch; justify-content: center; gap: 0; min-width: 780px; }
-.node { position: relative; flex: 1; text-align: center; padding: 14px 6px; border-radius: 14px; border: 1px solid var(--line); background: var(--bg-soft); cursor: pointer; transition: all 0.35s; font-size: 13px; line-height: 1.5; min-width: 92px; }
+.flow-wrap { margin: 28px 0; padding: 26px 18px 20px; border-radius: 20px; background: var(--bg-elev); border: 1px solid var(--line); box-shadow: var(--shadow); overflow: hidden; direction: ltr; }
+.flow { min-width: 0; }
+.flow-row { display: flex; align-items: stretch; gap: 0; direction: ltr; }
+.node { position: relative; flex: 1; min-width: 0; overflow-wrap: anywhere; text-align: center; padding: 14px 6px; border-radius: 14px; border: 1px solid var(--line); background: var(--bg-soft); cursor: pointer; transition: all 0.35s; font-size: 13px; line-height: 1.5; }
 .node .e { font-size: 24px; display: block; margin-block-end: 4px; transition: transform 0.4s cubic-bezier(.3,1.8,.5,1); }
 .node b { display: block; font-size: 13px; font-family: var(--mono); }
 .node small { color: var(--fg-mute); font-size: 11.5px; font-family: var(--font); }
 .node.on { background: var(--brand-soft); border-color: var(--brand); transform: translateY(-8px); box-shadow: 0 16px 34px var(--brand-soft); }
 .node.on .e { transform: scale(1.3) rotate(-6deg); }
-.link { flex: 0 0 34px; align-self: center; height: 3px; margin-inline: 2px; background: repeating-linear-gradient(90deg, var(--fg-mute) 0 6px, transparent 6px 12px); background-size: 24px 3px; animation: dash 0.9s linear infinite; opacity: 0.55; border-radius: 3px; }
+.flow-row.reverse { flex-direction: row-reverse; }
+.flow-row.short { width: calc(66.667% - 8px); }
+.flow-row.short .node { flex: 1; }
+.link { flex: 0 0 24px; align-self: center; height: 3px; background: repeating-linear-gradient(90deg, var(--fg-mute) 0 6px, transparent 6px 12px); background-size: 24px 3px; animation: dash 0.9s linear infinite; opacity: 0.55; border-radius: 3px; }
 .link.on { opacity: 1; background: repeating-linear-gradient(90deg, var(--brand) 0 6px, transparent 6px 12px); }
+.flow-turn { position: relative; height: 28px; }
+.flow-turn .link { position: absolute; inset-block: 0; width: 3px; height: auto; background: repeating-linear-gradient(180deg, var(--fg-mute) 0 6px, transparent 6px 12px); background-size: 3px 24px; animation-name: dash-vertical; }
+.flow-turn.right .link { inset-inline-end: calc(16.667% - 8px); }
+.flow-turn.left .link { inset-inline-end: calc(83.333% + 8px); }
+.flow-turn .link.on { background: repeating-linear-gradient(180deg, var(--brand) 0 6px, transparent 6px 12px); }
 @keyframes dash { to { background-position: 24px 0; } }
+@keyframes dash-vertical { to { background-position: 0 24px; } }
 .flow-info { margin-block-start: 18px; min-height: 76px; padding: 14px 18px; border-radius: 14px; background: var(--bg-soft); direction: inherit; transition: all 0.3s; }
 .flow-info b { color: var(--brand); }
 .flow-ctl { display: flex; gap: 10px; margin-block-start: 14px; direction: inherit; }
