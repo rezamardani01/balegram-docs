@@ -86,8 +86,8 @@
       { f: "F.text", test: (m) => m.type === "text", fn: "echo" },
     ];
     el.innerHTML = `<div class="quiz-demo"><p style="margin-top:0">${t.pgHint}</p>` +
-      `<div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px"><input class="pg-input" style="flex:1;min-width:200px" value="hi there" spellcheck="false">` +
-      `<select class="pg-input" style="width:auto;font-family:inherit"><option value="text">${t.pgText}</option><option value="photo">${t.pgPhoto}</option></select></div>` +
+      `<div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px"><input class="pg-input" style="flex:1;min-width:0" value="hi there" spellcheck="false">` +
+      `<select class="pg-input" style="width:auto;max-width:100%;font-family:inherit"><option value="text">${t.pgText}</option><option value="photo">${t.pgPhoto}</option></select></div>` +
       `<div class="pg-out"></div></div>`;
     const input = el.querySelector("input"), sel = el.querySelector("select"), out = el.querySelector(".pg-out");
     const run = () => {

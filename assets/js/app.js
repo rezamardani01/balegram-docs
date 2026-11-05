@@ -9,14 +9,14 @@
       search: "جستجو در مستندات...", searchBtn: "جستجو", menu: "منو", toc: "در این صفحه", prev: "قبلی", next: "بعدی",
       notFound: "این صفحه پیدا نشد", notFoundText: "آدرس را بررسی کنید یا صفحه را از منو انتخاب کنید.", home: "بازگشت به خانه",
       copy: "کپی", copied: "کپی شد ✓", noResult: "نتیجه‌ای پیدا نشد", untranslated: "این صفحه هنوز به فارسی ترجمه نشده و نسخه‌ی انگلیسی نمایش داده می‌شود.",
-      theme: "تغییر تم", top: "رفتن به بالا", footer: "راهنمای ساخت ربات‌های بله با Baleropy · مستندات فارسی و انگلیسی", docs: "مستندات",
+      theme: "تغییر تم", top: "رفتن به بالا", menu: "منو", closeMenu: "بستن منو", navigation: "راهنمای مستندات", footer: "راهنمای ساخت ربات‌های بله با Baleropy · مستندات فارسی و انگلیسی", docs: "مستندات",
       langName: "English", langFlag: "EN", hint: "برای جستجو", edit: "ویرایش در گیت‌هاب",
     },
     en: {
       search: "Search the docs...", searchBtn: "Search", menu: "Menu", toc: "On this page", prev: "Previous", next: "Next",
       notFound: "Page not found", notFoundText: "Check the address or pick a page from the sidebar.", home: "Back to home",
       copy: "Copy", copied: "Copied ✓", noResult: "No results", untranslated: "This page is not translated yet, showing the Persian version.",
-      theme: "Toggle theme", top: "Back to top", footer: "A practical guide to building Bale bots with Baleropy · Persian and English docs", docs: "Docs",
+      theme: "Toggle theme", top: "Back to top", menu: "Menu", closeMenu: "Close menu", navigation: "Documentation navigation", footer: "A practical guide to building Bale bots with Baleropy · Persian and English docs", docs: "Docs",
       langName: "فارسی", langFlag: "FA", hint: "to search", edit: "Edit on GitHub",
     },
   };
@@ -55,6 +55,8 @@
     $("#lang-name").textContent = t.langName;
     $("#search-input").placeholder = t.search;
     $("#menu-btn").setAttribute("aria-label", t.menu);
+    $("#sidebar").setAttribute("aria-label", t.navigation);
+    $("#sidebar-backdrop").setAttribute("aria-label", t.closeMenu);
     $("#theme-btn").setAttribute("aria-label", t.theme);
     $("#to-top").setAttribute("aria-label", t.top);
     $("#brand-tag").textContent = t.docs;
@@ -100,14 +102,27 @@
     }
   }
 
+  function setMenuOpen(open, restoreFocus = true) {
+    const sidebar = $("#sidebar");
+    const button = $("#menu-btn");
+    if (open && !matchMedia("(max-width: 900px)").matches) return;
+    if (open && !current.path) sidebar.style.display = "";
+    document.body.classList.toggle("nav-open", open);
+    button.setAttribute("aria-expanded", String(open));
+    if (!open && !current.path) sidebar.style.display = "none";
+    if (open) {
+      const active = $(".nav-link.active", sidebar) || $(".nav-link", sidebar);
+      active && active.focus({ preventScroll: true });
+    } else if (restoreFocus) button.focus({ preventScroll: true });
+  }
+
   // ── page rendering ─────────────────────────────────────────────────────────────
   function render() {
     const h = parseHash();
     if (h.lang && h.lang !== lang) { setLang(h.lang); buildNav(); }
     if (!h.lang) { history.replaceState(null, "", `#/${lang}${h.path ? "/" + h.path : ""}`); }
     current = { path: h.path, s: h.s };
-    document.body.classList.remove("nav-open");
-    $("#menu-btn").setAttribute("aria-expanded", "false");
+    setMenuOpen(false, false);
     const layout = $("#layout"), main = $("#main");
 
     const old = $(".page", main);
@@ -123,7 +138,7 @@
     $("#sidebar").style.display = "none"; $("#toc").style.display = "none";
     main.className = "main-landing";
     main.innerHTML = window.renderLanding(lang, UI[lang]);
-    document.title = lang === "fa" ? "baleropy — فریم‌ورک ساخت ربات بله" : "baleropy — framework for Bale bots";
+    document.title = lang === "fa" ? "Baleropy — فریم‌ورک ساخت ربات بله" : "Baleropy — framework for Bale bots";
     $("#toc").innerHTML = "";
     window.mountLanding && window.mountLanding(main, lang);
   }
@@ -135,7 +150,7 @@
     if (!page) {
       layout.className = "layout no-toc"; $("#toc").style.display = "none";
       main.innerHTML = `<div class="page"><h1>404</h1><p class="lead">${UI[lang].notFound}</p><p>${UI[lang].notFoundText}</p><a class="btn primary" href="#/${lang}">${UI[lang].home}</a></div>`;
-      document.title = "404 · baleropy"; return;
+      document.title = "404 · Baleropy"; return;
     }
     const { html, toc } = window.renderMarkdown(page.md, { lang, path: h.path });
     const idx = flat.findIndex((f) => f.path === h.path);
@@ -155,7 +170,7 @@
       tocEl.style.display = "";
       tocEl.innerHTML = `<h4>${UI[lang].toc}</h4>` + toc.map((t) => `<a class="l${t.level}" href="#/${lang}/${h.path}?s=${t.id}" data-id="${t.id}">${t.text}</a>`).join("");
     } else { layout.className = "layout no-toc"; tocEl.style.display = "none"; tocEl.innerHTML = ""; }
-    document.title = `${page.title.replace(/`/g, "")} · baleropy`;
+    document.title = `${page.title.replace(/`/g, "")} · Baleropy`;
     window.mountWidgets && window.mountWidgets(main, lang);
   }
 
@@ -236,7 +251,11 @@
   }
 
   let selIdx = 0;
-  function openSearch() { $("#search-modal").classList.add("open"); const i = $("#search-input"); i.value = ""; i.focus(); showResults(""); }
+  function openSearch() {
+    if (document.body.classList.contains("nav-open")) setMenuOpen(false, false);
+    $("#search-modal").classList.add("open");
+    const i = $("#search-input"); i.value = ""; i.focus(); showResults("");
+  }
   function closeSearch() { $("#search-modal").classList.remove("open"); }
   function showResults(q) {
     const box = $("#results"), res = search(q);
@@ -267,16 +286,14 @@
       go(current.path, next);
     };
     $("#menu-btn").onclick = () => {
-      const sidebar = $("#sidebar");
-      sidebar.style.display = "";
-      const isOpen = document.body.classList.toggle("nav-open");
-      $("#menu-btn").setAttribute("aria-expanded", String(isOpen));
+      setMenuOpen(!document.body.classList.contains("nav-open"));
     };
-    document.addEventListener("click", (e) => {
-      if (!document.body.classList.contains("nav-open")) return;
-      if (e.target.closest("#sidebar, #menu-btn")) return;
-      document.body.classList.remove("nav-open");
-      $("#menu-btn").setAttribute("aria-expanded", "false");
+    $("#sidebar-backdrop").onclick = () => setMenuOpen(false);
+    $("#sidebar").addEventListener("click", (e) => {
+      if (e.target.closest(".nav-link")) setMenuOpen(false, false);
+    });
+    matchMedia("(max-width: 900px)").addEventListener("change", (e) => {
+      if (!e.matches && document.body.classList.contains("nav-open")) setMenuOpen(false, false);
     });
     $("#search-btn").onclick = openSearch;
     $("#search-modal").addEventListener("click", (e) => { if (e.target.id === "search-modal") closeSearch(); });
@@ -293,7 +310,10 @@
     document.addEventListener("keydown", (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") { e.preventDefault(); openSearch(); }
       else if (e.key === "/" && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) { e.preventDefault(); openSearch(); }
-      else if (e.key === "Escape") closeSearch();
+      else if (e.key === "Escape") {
+        closeSearch();
+        if (document.body.classList.contains("nav-open")) setMenuOpen(false);
+      }
     });
 
     document.addEventListener("click", (e) => {
