@@ -16,7 +16,6 @@ lead: baleropy یک فریم‌ورک ناهمگام (async) و کاملاً ت�
 ## یک نگاه سریع
 
 ```python title="bot.py"
-import asyncio
 from baleropy import Bot, Dispatcher, F
 from baleropy.filters import CommandStart
 from baleropy.types import Message
@@ -32,10 +31,10 @@ async def start(message: Message):
 async def echo(message: Message):
     await message.reply(message.text)
 
-asyncio.run(dp.start_polling(Bot(TOKEN)))
+dp.run_polling(Bot(TOKEN), skip_updates=True)
 ```
 
-هندلرها را با دکوراتور ثبت کنید و با `start_polling` ربات را اجرا کنید. در درس بعد، همین نمونه را مرحله‌به‌مرحله می‌سازیم.
+هندلرها را با دکوراتور ثبت کنید و با `run_polling` ربات را اجرا کنید. این روش با `Ctrl+C` ربات را تمیز می‌بندد. در درس بعد، همین نمونه را مرحله‌به‌مرحله می‌سازیم.
 
 ## این مستندات چطور مرتب شده؟
 

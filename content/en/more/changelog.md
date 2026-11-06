@@ -5,6 +5,11 @@ lead: The list of changes in every baleropy release.
 
 Primary source: [CHANGELOG.md](https://github.com/rezamardani01/Baleropy/blob/main/CHANGELOG.md) in the repository.
 
+## 0.3.4
+
+- Stop polling cleanly on Ctrl+C and wait for cancelled tasks to finish cleanup.
+- Simplify script startup with `Dispatcher.run_polling()`; no manual `KeyboardInterrupt` handler is needed.
+
 ## 0.3.3
 
 - Publish the release from GitHub Actions with PyPI Trusted Publishing for verifiable provenance.

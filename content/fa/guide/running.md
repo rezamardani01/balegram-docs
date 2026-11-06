@@ -19,14 +19,15 @@ lead: دو روش دریافت آپدیت از بله، تنظیم‌هایشا�
 ## Polling
 
 ```python
-import asyncio
 from baleropy import Bot, Dispatcher
 
 dp = Dispatcher()
 bot = Bot("YOUR_BOT_TOKEN")
 
-asyncio.run(dp.start_polling(bot))
+dp.run_polling(bot)
 ```
+
+`run_polling()` اجرا را برای اسکریپت‌های ساده مدیریت می‌کند؛ با `Ctrl+C` polling را متوقف می‌کند، کارهای در حال لغو را جمع می‌کند، hookهای خاموشی را اجرا می‌کند و سشن ربات را می‌بندد.
 
 ### پارامترهای start_polling
 
@@ -48,27 +49,26 @@ asyncio.run(dp.start_polling(bot))
 
 ### توقف تمیز
 
+برای یک فایل معمولی پایتون، از `run_polling()` استفاده کنید؛ نیازی به گرفتن دستی `KeyboardInterrupt` نیست:
+
 ```python
+if __name__ == "__main__":
+    dp.run_polling(bot, skip_updates=True)
+```
+
+اگر حلقه‌ی asyncio را خودتان مدیریت می‌کنید، `start_polling()` را await کنید. هنگام لغو task، dispatcher درخواست long-poll را لغو و منتظر پایان پاک‌سازی آن می‌ماند:
+
+```python
+import asyncio
+
 async def main():
-    try:
-        await dp.start_polling(bot, skip_updates=True)
-    except KeyboardInterrupt:
-        pass
+    await dp.start_polling(bot, skip_updates=True)
 
 if __name__ == "__main__":
-    try:
-        asyncio.run(main())
-    except KeyboardInterrupt:
-        pass
+    asyncio.run(main())
 ```
 
-یا ساده‌تر، بدون asyncio:
-
-```python
-dp.run_polling(bot, skip_updates=True)        # Ctrl+C بدون Traceback
-```
-
-موقع خروج baleropy: درخواست‌های در حال اجرا را تمام می‌کند، `on_shutdown`ها را اجرا می‌کند و سشن را می‌بندد. از داخل یک هندلر هم می‌توانید `await dp.stop_polling()` را صدا بزنید.
+موقع خروج، `on_shutdown`ها اجرا و سشن ربات بسته می‌شود. از داخل یک هندلر هم می‌توانید `await dp.stop_polling()` را صدا بزنید.
 
 ### اگر اینترنت قطع شد
 

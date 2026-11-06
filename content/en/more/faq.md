@@ -70,7 +70,7 @@ You did not answer the `callback_query`. Add `await query.answer()` or enable `C
 
 ## I see a traceback on Ctrl+C
 
-That is normal `asyncio.run` behavior. Use `dp.run_polling(bot)` or wrap `asyncio.run` in `try/except KeyboardInterrupt`. ([Running](/guide/running))
+In version 0.3.4 and newer, use `dp.run_polling(bot)` in scripts; it handles shutdown and cleanup without a manual `KeyboardInterrupt` handler. If you call `asyncio.run` and `start_polling` directly, make sure the library is up to date. ([Running](/guide/running))
 
 ## The webhook gets no updates
 

@@ -16,7 +16,6 @@ lead: baleropy is an asynchronous, fully typed framework for building bots in th
 ## A quick look
 
 ```python title="bot.py"
-import asyncio
 from baleropy import Bot, Dispatcher, F
 from baleropy.filters import CommandStart
 from baleropy.types import Message
@@ -32,10 +31,10 @@ async def start(message: Message):
 async def echo(message: Message):
     await message.reply(message.text)
 
-asyncio.run(dp.start_polling(Bot(TOKEN)))
+dp.run_polling(Bot(TOKEN), skip_updates=True)
 ```
 
-That's it! You register handlers with decorators and `start_polling` runs the bot. We build it step by step in the next lesson.
+That's it! Register handlers with decorators and run the bot with `run_polling`. It shuts down cleanly on Ctrl+C. We build it step by step in the next lesson.
 
 ## How these docs are organized
 

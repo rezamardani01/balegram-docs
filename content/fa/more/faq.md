@@ -70,7 +70,7 @@ except BaleBadRequest:
 
 ## با Ctrl+C یک Traceback می‌بینم
 
-رفتار عادی `asyncio.run` است. از `dp.run_polling(bot)` استفاده کنید یا `asyncio.run` را در `try/except KeyboardInterrupt` بگذارید. ([اجرا](/guide/running))
+در نسخه‌ی ۰.۳.۴ و جدیدتر، برای اجرای اسکریپت از `dp.run_polling(bot)` استفاده کنید؛ این روش توقف و پاک‌سازی را مدیریت می‌کند و نیازی به گرفتن دستی `KeyboardInterrupt` نیست. اگر `asyncio.run` و `start_polling` را مستقیم استفاده می‌کنید، مطمئن شوید نسخه‌ی کتابخانه به‌روز است. ([اجرا](/guide/running))
 
 ## وب‌هوک آپدیت نمی‌گیرد
 

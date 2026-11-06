@@ -63,8 +63,6 @@ Anyone who has the token can control your bot. Never publish it on GitHub or in 
 Create a file named `bot.py`:
 
 ```python title="bot.py"
-import asyncio
-
 from baleropy import Bot, Dispatcher, F
 from baleropy.filters import CommandStart
 from baleropy.types import Message
@@ -86,16 +84,8 @@ async def echo(message: Message):
     await message.reply(message.text)
 
 
-async def main():
-    bot = Bot(TOKEN)
-    await dp.start_polling(bot, skip_updates=True)
-
-
 if __name__ == "__main__":
-    try:
-        asyncio.run(main())
-    except KeyboardInterrupt:
-        pass  # Ctrl+C stops the bot without a traceback
+    dp.run_polling(Bot(TOKEN), skip_updates=True)
 ```
 
 Run it:
@@ -103,6 +93,8 @@ Run it:
 ```bash
 python bot.py
 ```
+
+Press Ctrl+C to stop the bot cleanly; you do not need to catch `KeyboardInterrupt` in your code.
 
 Now send `/start` to your bot in Bale and you get a greeting. Send any other text and it echoes it back.
 

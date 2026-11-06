@@ -63,8 +63,6 @@ print(baleropy.__version__)
 یک فایل به نام `bot.py` بسازید:
 
 ```python title="bot.py"
-import asyncio
-
 from baleropy import Bot, Dispatcher, F
 from baleropy.filters import CommandStart
 from baleropy.types import Message
@@ -86,16 +84,8 @@ async def echo(message: Message):
     await message.reply(message.text)
 
 
-async def main():
-    bot = Bot(TOKEN)
-    await dp.start_polling(bot, skip_updates=True)
-
-
 if __name__ == "__main__":
-    try:
-        asyncio.run(main())
-    except KeyboardInterrupt:
-        pass  # با Ctrl+C ربات بدون خطا متوقف می‌شود
+    dp.run_polling(Bot(TOKEN), skip_updates=True)
 ```
 
 اجرا کنید:
@@ -103,6 +93,8 @@ if __name__ == "__main__":
 ```bash
 python bot.py
 ```
+
+با `Ctrl+C` ربات به‌صورت تمیز متوقف می‌شود؛ لازم نیست `KeyboardInterrupt` را در کد بگیرید.
 
 حالا در بله دستور `/start` را برای ربات بفرستید تا پیام خوش‌آمد را ببینید. ربات هم هر متن دیگری را برایتان برمی‌گرداند.
 

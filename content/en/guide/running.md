@@ -19,14 +19,15 @@ Bale does not accept both at once. `start_polling` calls `deleteWebhook` first. 
 ## Polling
 
 ```python
-import asyncio
 from baleropy import Bot, Dispatcher
 
 dp = Dispatcher()
 bot = Bot("YOUR_BOT_TOKEN")
 
-asyncio.run(dp.start_polling(bot))
+dp.run_polling(bot)
 ```
+
+`run_polling()` manages the runner for simple scripts: Ctrl+C stops polling, waits for cancelled tasks to clean up, runs shutdown hooks and closes the bot session.
 
 ### start_polling parameters
 
@@ -48,27 +49,26 @@ When the bot was off for hours, all accumulated messages arrive at once and the 
 
 ### Graceful stop
 
+For a regular Python script, use `run_polling()`; you do not need to catch `KeyboardInterrupt` yourself:
+
 ```python
+if __name__ == "__main__":
+    dp.run_polling(bot, skip_updates=True)
+```
+
+If you manage the asyncio event loop yourself, await `start_polling()`. When the task is cancelled, the dispatcher cancels the long-poll request and waits for its cleanup:
+
+```python
+import asyncio
+
 async def main():
-    try:
-        await dp.start_polling(bot, skip_updates=True)
-    except KeyboardInterrupt:
-        pass
+    await dp.start_polling(bot, skip_updates=True)
 
 if __name__ == "__main__":
-    try:
-        asyncio.run(main())
-    except KeyboardInterrupt:
-        pass
+    asyncio.run(main())
 ```
 
-Or simpler, without asyncio:
-
-```python
-dp.run_polling(bot, skip_updates=True)        # Ctrl+C without a traceback
-```
-
-On exit baleropy finishes running requests, runs the `on_shutdown` callbacks and closes the session. From inside a handler you can also call `await dp.stop_polling()`.
+On exit, baleropy runs `on_shutdown` callbacks and closes the bot session. From inside a handler you can also call `await dp.stop_polling()`.
 
 ### If the internet drops
 

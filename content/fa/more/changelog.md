@@ -5,6 +5,11 @@ lead: فهرست تغییرات هر نسخه‌ی baleropy.
 
 منبع اصلی: [CHANGELOG.md](https://github.com/rezamardani01/Baleropy/blob/main/CHANGELOG.md) در مخزن.
 
+## 0.3.4
+
+- توقف تمیز polling با `Ctrl+C`؛ taskهای در حال لغو کامل جمع می‌شوند.
+- ساده‌تر شدن اجرای اسکریپت‌ها با `Dispatcher.run_polling()`؛ دیگر نیازی به گرفتن دستی `KeyboardInterrupt` نیست.
+
 ## 0.3.3
 
 - انتشار نسخه از طریق GitHub Actions و PyPI Trusted Publishing برای ثبت منشأ قابل‌تأیید.
